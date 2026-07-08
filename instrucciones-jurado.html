@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrucciones para el jurado</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm;
+    }
+
+    :root {
+      --ink: #1f2f39;
+      --muted: #5d6d76;
+      --line: #d7e1e5;
+      --bg: #f5f7f8;
+      --panel: #ffffff;
+      --tiendas: #2a5c82;
+      --tiendas-soft: #e8f1f8;
+      --indalo: #b9662f;
+      --indalo-soft: #f8ede4;
+      --doc: #0f6f78;
+      --doc-soft: #e7f5f6;
+      --shadow: 0 18px 36px rgba(31, 47, 57, 0.08);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(15, 111, 120, 0.08), transparent 22%),
+        radial-gradient(circle at top right, rgba(185, 102, 47, 0.08), transparent 22%),
+        var(--bg);
+      line-height: 1.55;
+    }
+
+    .guide {
+      width: min(1080px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.2rem 0 1.8rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      padding: 1.5rem 1.6rem;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #123f58, #0f6f78 58%, #b9662f);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -2.5rem;
+      bottom: -2.5rem;
+      width: 12rem;
+      height: 12rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.55rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.86;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.35rem;
+      line-height: 1.02;
+    }
+
+    .hero p {
+      max-width: 52rem;
+      margin: 0.95rem 0 0;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.94);
+    }
+
+    .hero-grid,
+    .card-grid,
+    .route-grid,
+    .projects {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.45fr 1fr;
+      align-items: end;
+      margin-top: 1.15rem;
+    }
+
+    .mini-card,
+    .section,
+    .project,
+    .route-card {
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card {
+      padding: 1rem 1rem 0.95rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(6px);
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.96rem;
+    }
+
+    .mini-card p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .section {
+      margin-top: 1rem;
+      padding: 1.25rem 1.3rem;
+      border: 1px solid var(--line);
+    }
+
+    .section h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.35rem;
+    }
+
+    .section > p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .route-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-top: 1rem;
+    }
+
+    .projects {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 1rem;
+    }
+
+    .project,
+    .route-card {
+      padding: 1rem;
+      border: 1px solid var(--line);
+    }
+
+    .project--tiendas {
+      background: linear-gradient(180deg, var(--tiendas-soft), #ffffff);
+    }
+
+    .project--indalo {
+      background: linear-gradient(180deg, var(--indalo-soft), #ffffff);
+    }
+
+    .route-card--doc {
+      background: linear-gradient(180deg, var(--doc-soft), #ffffff);
+    }
+
+    .route-card--tiendas {
+      background: linear-gradient(180deg, var(--tiendas-soft), #ffffff);
+    }
+
+    .route-card--indalo {
+      background: linear-gradient(180deg, var(--indalo-soft), #ffffff);
+    }
+
+    .route-card--award {
+      background: linear-gradient(180deg, #fff4db, #ffffff);
+    }
+
+    .route-card--back {
+      background: linear-gradient(180deg, #edf3f5, #ffffff);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.28rem 0.62rem;
+      border-radius: 999px;
+      font-size: 0.77rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .chip--doc { background: var(--doc-soft); color: var(--doc); }
+    .chip--tiendas { background: var(--tiendas-soft); color: var(--tiendas); }
+    .chip--indalo { background: var(--indalo-soft); color: var(--indalo); }
+    .chip--award { background: #fff0c6; color: #8f6700; }
+
+    .project h3,
+    .route-card h3,
+    .info-card h3 {
+      margin: 0.65rem 0 0.45rem;
+      font-size: 1.05rem;
+    }
+
+    .project p,
+    .route-card p,
+    .info-card p,
+    li {
+      margin: 0;
+      color: #33434c;
+      font-size: 0.93rem;
+    }
+
+    .info-card {
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f8fbfc);
+    }
+
+    .info-card code,
+    .tree code {
+      padding: 0.12rem 0.34rem;
+      border-radius: 7px;
+      background: #eef3f6;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.88em;
+    }
+
+    .tree {
+      margin-top: 1rem;
+      padding: 1rem 1.05rem;
+      border-radius: var(--radius-md);
+      background: #10232c;
+      color: #f3f8fa;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      white-space: pre-wrap;
+    }
+
+    .steps {
+      margin: 1rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    .steps li + li,
+    .list li + li {
+      margin-top: 0.48rem;
+    }
+
+    .list {
+      margin: 0.8rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .warning {
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      border-left: 5px solid #d07b29;
+      border-radius: 14px;
+      background: #fff4e7;
+      color: #6e4a18;
+      font-size: 0.92rem;
+    }
+
+    .page-break {
+      break-before: page;
+      page-break-before: always;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .card-grid,
+      .route-grid,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="guide">
+    <section class="hero">
+      <p class="eyebrow">Guía de uso · versión para carpeta local</p>
+      <h1>Instrucciones para el jurado</h1>
+      <p>
+        Este documento explica cómo abrir la web del concurso desde una carpeta del ordenador,
+        cómo moverse entre sus páginas y qué recorrido conviene seguir para revisar todos los
+        materiales previstos. La versión presentada está anonimizada y no muestra nombres
+        personales ni datos identificativos.
+      </p>
+      <div class="hero-grid">
+        <div class="mini-card">
+          <strong>Apertura recomendada</strong>
+          <p>Abrir la carpeta completa y hacer doble clic en <code>index.html</code>.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Importante</strong>
+          <p>No mover archivos sueltos fuera de su carpeta: la web necesita mantener su estructura interna.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. Antes de empezar</h2>
+      <p>La web está preparada para funcionar sin servidor, directamente desde el Explorador de archivos.</p>
+      <div class="card-grid">
+        <article class="info-card">
+          <h3>Apertura desde carpeta</h3>
+          <p>Abra la carpeta del sitio y haga doble clic en <code>index.html</code>. También puede arrastrar ese archivo a una ventana del navegador.</p>
+        </article>
+        <article class="info-card">
+          <h3>Navegadores recomendados</h3>
+          <p>Funciona correctamente en Edge, Chrome o Firefox actuales. No es necesario instalar extensiones ni arrancar ningún servidor local.</p>
+        </article>
+        <article class="info-card">
+          <h3>Qué no conviene hacer</h3>
+          <p>No abra páginas internas aisladas después de separar archivos o subcarpetas. Mantenga junta la carpeta completa para conservar enlaces, estilos y recursos.</p>
+        </article>
+      </div>
+
+      <div class="tree">sitio_concurso/
+├── instrucciones-jurado.pdf
+├── instrucciones-jurado.html
+├── index.html
+├── buenas-practicas.html
+├── assets/
+├── tiendas/
+└── indalo/</div>
+
+      <div class="warning">
+        Si se entrega la web en una memoria USB o carpeta comprimida, conviene descomprimirla entera antes de abrir <code>index.html</code>.
+      </div>
+    </section>
+
+    <section class="section page-break">
+      <h2>2. Mapa general del portal</h2>
+      <p>La portada actúa como punto de entrada común. Desde ahí se accede a todo el contenido.</p>
+
+      <div class="route-grid">
+        <article class="route-card route-card--doc">
+          <span class="chip chip--doc">1 · Portada</span>
+          <h3><code>index.html</code></h3>
+          <p>Es la puerta de entrada. Desde aquí se elige proyecto y se accede también al PDF de instrucciones.</p>
+        </article>
+        <article class="route-card route-card--tiendas">
+          <span class="chip chip--tiendas">2 · Proyecto</span>
+          <h3>Tiendas de Barrio</h3>
+          <p>Abre la primera situación de aprendizaje y su estructura completa: propuesta, fases, evaluación y resultados.</p>
+        </article>
+        <article class="route-card route-card--indalo">
+          <span class="chip chip--indalo">3 · Proyecto</span>
+          <h3>La Tierra del Indalo</h3>
+          <p>Abre la segunda situación de aprendizaje, con teoría, laboratorio interactivo, ejercicios y evaluación.</p>
+        </article>
+        <article class="route-card route-card--award">
+          <span class="chip chip--award">4 · Complemento</span>
+          <h3>Buena práctica</h3>
+          <p>Reúne la explicación del reconocimiento recibido y contextualiza conjuntamente ambos proyectos.</p>
+        </article>
+        <article class="route-card route-card--back">
+          <span class="chip">5 · Vuelta</span>
+          <h3>Regreso al portal</h3>
+          <p>Dentro de cada proyecto, el enlace <strong>Proyectos</strong> devuelve a la portada general para cambiar de recorrido.</p>
+        </article>
+      </div>
+
+      <ul class="list">
+        <li>En la portada aparecen primero <strong>Tiendas de Barrio</strong> y después <strong>La Tierra del Indalo</strong>.</li>
+        <li>La cabecera superior incorpora el selector de idioma y enlaces comunes de navegación.</li>
+        <li>El contenido principal está preparado para recorrerlo tanto en pantalla grande como en ventana estrecha.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>3. Navegación común dentro de la web</h2>
+      <p>Todas las páginas comparten unas reglas sencillas de navegación.</p>
+
+      <div class="card-grid">
+        <article class="info-card">
+          <h3>Título del proyecto</h3>
+          <p>El nombre que aparece arriba a la izquierda lleva a la portada interna del proyecto en el que se está navegando.</p>
+        </article>
+        <article class="info-card">
+          <h3>Enlace “Proyectos”</h3>
+          <p>Sirve para volver a la portada general y saltar del primer proyecto al segundo sin cerrar pestañas ni retroceder manualmente.</p>
+        </article>
+        <article class="info-card">
+          <h3>Menú superior</h3>
+          <p>Muestra los grandes bloques del proyecto. En ventana estrecha aparece condensado en un botón de menú.</p>
+        </article>
+        <article class="info-card">
+          <h3>Páginas internas</h3>
+          <p>Las páginas comparten migas de pan, enlaces anterior/siguiente y un mismo estilo visual para mantener el hilo del recorrido.</p>
+        </article>
+        <article class="info-card">
+          <h3>Idioma</h3>
+          <p>El botón de idioma conserva la elección entre páginas. La traducción automática necesita conexión a internet; en español funciona sin conexión.</p>
+        </article>
+        <article class="info-card">
+          <h3>Privacidad</h3>
+          <p>La versión del concurso sustituye o describe los recursos sensibles sin mostrar datos personales ni nombres identificativos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section page-break">
+      <h2>4. Qué revisar en cada proyecto</h2>
+      <p>Ambos recorridos tienen objetivos distintos. Esta guía resume qué encontrará el jurado en cada uno.</p>
+
+      <div class="projects">
+        <article class="project project--tiendas">
+          <span class="chip chip--tiendas">Proyecto 1</span>
+          <h3>Tiendas de Barrio</h3>
+          <p>Está organizado para mostrar una situación de aprendizaje por fases, centrada en comercio local, porcentajes, decimales, educación financiera y estadística.</p>
+          <ul class="list">
+            <li><strong>Inicio</strong>: portada y acceso al recorrido.</li>
+            <li><strong>La propuesta</strong>: descripción general, marco teórico, concreción curricular y aportaciones desde otras materias.</li>
+            <li><strong>Diseño por fases</strong>: entrenamiento, simulación, análisis y comunicación.</li>
+            <li><strong>Evaluación</strong>: sistema e instrumentos.</li>
+            <li><strong>Resultados</strong>: conclusiones y anexos.</li>
+          </ul>
+        </article>
+
+        <article class="project project--indalo">
+          <span class="chip chip--indalo">Proyecto 2</span>
+          <h3>La Tierra del Indalo</h3>
+          <p>Se presenta como una web más amplia, con itinerario narrativo, teoría, actividades interactivas, ejercicios y evaluación.</p>
+          <ul class="list">
+            <li><strong>Presentación y contexto</strong>: inicio, misión, hoja de ruta y marco social.</li>
+            <li><strong>Teoría</strong>: manuales, resúmenes, flashcards y cazador de errores.</li>
+            <li><strong>Laboratorio</strong>: juegos y actividades interactivas por bloques.</li>
+            <li><strong>Ejercicios</strong>: práctica resuelta, guiada y propuesta.</li>
+            <li><strong>Evaluación</strong>: tests y simulación de examen.</li>
+            <li><strong>Material docente</strong>: síntesis pedagógica y aportaciones desde otras materias.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>5. Recorrido recomendado para la valoración</h2>
+      <p>Este orden permite ver toda la propuesta sin perderse ni repetir pasos innecesarios.</p>
+      <ol class="steps">
+        <li>Abrir <code>index.html</code> y comprobar la portada general del portal.</li>
+        <li>Entrar en <strong>Tiendas de Barrio</strong> y revisar su portada, propuesta, fases, evaluación y resultados.</li>
+        <li>Usar el enlace <strong>Proyectos</strong> para volver al portal general.</li>
+        <li>Entrar en <strong>La Tierra del Indalo</strong> y revisar su portada, contexto, teoría, laboratorio, ejercicios, evaluación y material docente.</li>
+        <li>Abrir la página de <strong>Buena Práctica Educativa</strong> para ver la valoración conjunta de ambas experiencias.</li>
+        <li>Si se desea, volver a la portada y repetir cualquier tramo concreto desde el menú superior o desde el mapa rápido de cada proyecto.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>6. Observaciones técnicas útiles</h2>
+      <p>Estas indicaciones ayudan a evitar incidencias durante la revisión.</p>
+      <div class="card-grid">
+        <article class="info-card">
+          <h3>Uso desde carpeta</h3>
+          <p>La navegación general, los estilos, las imágenes y las páginas internas funcionan al abrirse directamente desde archivos locales.</p>
+        </article>
+        <article class="info-card">
+          <h3>Actividades interactivas</h3>
+          <p>Los tests y la simulación de examen pueden recorrerse sin envío externo de datos. Los resultados, si se guardan, quedan solo en el navegador local.</p>
+        </article>
+        <article class="info-card">
+          <h3>Conexión a internet</h3>
+          <p>Solo es necesaria para la traducción automática. El contenido base en español puede revisarse sin depender de conexión.</p>
+        </article>
+      </div>
+
+      <div class="warning">
+        Si una persona abre una página HTML suelta fuera de la carpeta original y observa enlaces rotos o estilos incompletos, basta con cerrar esa pestaña y volver a abrir <code>index.html</code> desde la carpeta raíz del sitio.
+      </div>
+    </section>
+
+    <p class="footer-note">Documento de apoyo al jurado · versión pensada para revisión local desde carpeta</p>
+  </main>
+</body>
+</html>

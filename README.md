@@ -8,6 +8,7 @@ Web publicada:
 
 Incluye:
 
+- `instrucciones-jurado.pdf`: guía de apertura y navegación para el jurado.
 - `index.html`: portada general del portal.
 - `buenas-practicas.html`: página del reconocimiento como Buena Práctica Educativa.
 - `tiendas/`: proyecto `Tiendas de Barrio`.
