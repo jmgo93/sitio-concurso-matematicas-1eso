@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: La Balanza Algebraica 2.0</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --primary: #2980b9;     /* Positivos */
+            --secondary: #2c3e50;
+            --accent: #e67e22;      /* Cajas X */
+            --negative: #e74c3c;    /* Negativos */
+            --bg: #f4f6f7;
+            --success: #27ae60;
+            --error: #c0392b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        h1 { color: var(--primary); margin-bottom: 5px; }
+        .subtitle { color: #7f8c8d; margin-top: 0; }
+
+        /* LEYENDA */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px dashed #bdc3c7;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ZONA VISUAL (BALANZA) */
+        .balance-zone {
+            height: 300px;
+            position: relative;
+            background: #eaf2f8;
+            border-radius: 8px;
+            border: 1px solid #d6eaf8;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .beam {
+            width: 60%;
+            height: 8px;
+            background: #2c3e50;
+            position: absolute;
+            top: 100px;
+            left: 20%;
+            transition: transform 0.5s ease-in-out;
+            border-radius: 4px;
+        }
+
+        .fulcrum {
+            width: 0; 
+            height: 0; 
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 150px solid #7f8c8d;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* PLATILLOS */
+        .pan {
+            width: 120px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+        }
+        .pan-left { left: 0; }
+        .pan-right { right: 0; }
+
+        .pan-cable {
+            width: 2px;
+            height: 100%;
+            background: #2c3e50;
+            margin: 0 auto;
+        }
+
+        .pan-base {
+            width: 140px;
+            height: 20px;
+            background: #34495e;
+            border-radius: 0 0 50px 50px;
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* OBJETOS (PESAS Y CAJAS) */
+        .items-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            display: flex;
+            flex-wrap: wrap-reverse;
+            justify-content: center;
+            gap: 2px;
+            padding-bottom: 10px;
+        }
+
+        .box-x {
+            width: 35px; height: 35px;
+            background: var(--accent);
+            border: 2px solid #d35400;
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        /* Pesas enteras (1 y -1) */
+        .weight-full {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.7rem;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        .weight-pos { background: var(--primary); border: 1px solid #1a5276; }
+        .weight-neg { background: var(--negative); border: 1px solid #922b21; }
+
+        /* Pesas decimales (0.5 y -0.5) */
+        .weight-half {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.5rem;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+
+        /* ECUACIÓN */
+        .equation-display {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            background: #fff;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* CONTROLES */
+        .control-panel {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            align-items: center;
+        }
+
+        select, input {
+            padding: 10px;
+            font-size: 1.1rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 6px;
+        }
+
+        input { width: 90px; text-align: center; }
+
+        button {
+            padding: 10px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.2s;
+            color: white;
+        }
+
+        .btn-apply { background-color: var(--primary); }
+        .btn-apply:hover { background-color: #1f618d; transform: scale(1.05); }
+        .btn-reset { background-color: #7f8c8d; margin-top: 10px; }
+
+        #feedback { margin-top: 15px; font-weight: bold; min-height: 1.5em; }
+        .msg-success { color: var(--success); }
+        .msg-error { color: var(--error); }
+        .msg-info { color: var(--primary); }
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <header>
+            <h1>⚖️ La Balanza Algebraica 2.0</h1>
+            <p class="subtitle">Objetivo: Deja la caja 'x' sola. ¡Ahora con números negativos y decimales (0.5)!</p>
+        </header>
+
+        <div class="legend">
+            <div class="legend-item"><div class="box-x" style="width:25px; height:25px; font-size:0.9rem;">x</div> Incógnita</div>
+            <div class="legend-item"><div class="weight-full weight-pos">1</div> Unidad (+1)</div>
+            <div class="legend-item"><div class="weight-full weight-neg">-1</div> Unidad (-1)</div>
+            <div class="legend-item"><div class="weight-half weight-pos">.5</div> Medio (+0.5)</div>
+            <div class="legend-item"><div class="weight-half weight-neg">-.5</div> Medio (-0.5)</div>
+        </div>
+
+        <div class="balance-zone">
+            <div class="beam" id="beam">
+                <div class="pan pan-left">
+                    <div class="pan-cable"></div>
+                    <div class="pan-base"></div> 
+                    <div class="items-container" id="container-left"></div>
+                </div>
+                <div class="pan pan-right">
+                    <div class="pan-cable"></div>
+                    <div class="pan-base"></div>
+                    <div class="items-container" id="container-right"></div>
+                </div>
+            </div>
+            <div class="fulcrum"></div>
+        </div>
+
+        <div id="equation-text" class="equation-display">
+            </div>
+
+        <div class="control-panel">
+            <p style="margin-bottom: 10px; font-weight: bold;">Elige una operación para aplicar a AMBOS platillos:</p>
+            
+            <div class="controls-row">
+                <div class="action-group">
+                    <select id="op-select">
+                        <option value="sub">➖ Restar</option>
+                        <option value="add">➕ Sumar</option>
+                        <option value="div">➗ Dividir</option>
+                        <option value="mul">✖️ Multiplicar</option>
+                    </select>
+                    <input type="number" id="op-value" placeholder="Valor" step="0.5">
+                </div>
+                <button class="btn-apply" onclick="applyOperation()">Aplicar Operación</button>
+            </div>
+
+            <div id="feedback"></div>
+            
+            <button class="btn-reset" onclick="initGame()">🔄 Nueva Ecuación</button>
+        </div>
+    </div>
+
+    <script>
+        // ESTADO DEL JUEGO
+        let gameState = {
+            a: 0, // Coeficiente x (Left)
+            b: 0, // Constante (Left)
+            c: 0, // Constante (Right) - Solución total
+            solved: false
+        };
+
+        // INICIALIZACIÓN
+        function initGame() {
+            // Permitimos fracciones simples terminadas en .5
+            const xVal = (Math.floor(Math.random() * 9) - 4) / 2; // Solución entre -2 y 2 en pasos de 0.5
+            const a = Math.floor(Math.random() * 3) + 1;    // Coeficientes 1, 2, 3
+            
+            // Constante b entre -4 y 4, en pasos de 0.5
+            let b = (Math.floor(Math.random() * 17) - 8) / 2; 
+            
+            // Evitar que la ecuación esté resuelta de inicio
+            if (a === 1 && b === 0) b = 2;
+
+            gameState.a = a;
+            gameState.b = b;
+            gameState.c = (a * (xVal === 0 ? 1 : xVal)) + b; // Protegemos xVal=0 para que el juego tenga sentido
+            gameState.solved = false;
+
+            document.getElementById('op-value').value = '';
+            updateUI("¡Nueva ecuación! Aísla la x.", "info");
+        }
+
+        // RENDERIZADO UI
+        function updateUI(msg = "", msgType = "info") {
+            // 1. Actualizar Texto Ecuación (Manejando negativos correctamente)
+            let eqStr = "";
+            
+            if (gameState.a === 1) eqStr += "x";
+            else if (gameState.a === -1) eqStr += "-x";
+            else if (gameState.a !== 0) eqStr += `${gameState.a}x`;
+            
+            if (gameState.b > 0) {
+                if (gameState.a !== 0) eqStr += ` + ${gameState.b}`;
+                else eqStr += `${gameState.b}`;
+            } else if (gameState.b < 0) {
+                if (gameState.a !== 0) eqStr += ` - ${Math.abs(gameState.b)}`;
+                else eqStr += `-${Math.abs(gameState.b)}`;
+            } else if (gameState.b === 0 && gameState.a === 0) {
+                eqStr += "0";
+            }
+
+            eqStr += ` = ${gameState.c}`;
+
+            const eqDiv = document.getElementById('equation-text');
+            eqDiv.innerHTML = `$$ ${eqStr} $$`;
+            if(window.MathJax) MathJax.typesetPromise([eqDiv]);
+
+            // 2. Actualizar Visuales (Cajas y Pesas)
+            renderItems('container-left', gameState.a, gameState.b);
+            renderItems('container-right', 0, gameState.c);
+
+            // 3. Feedback
+            const fb = document.getElementById('feedback');
+            fb.innerText = msg;
+            fb.className = `msg-${msgType}`;
+
+            // 4. Chequeo de Victoria
+            if (gameState.a === 1 && gameState.b === 0) {
+                fb.innerHTML = `🎉 ¡Felicidades! Has resuelto la ecuación: x = ${gameState.c}`;
+                fb.className = "msg-success";
+                gameState.solved = true;
+                playWinAnimation();
+            }
+        }
+
+        function renderItems(containerId, numX, numUnits) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; 
+
+            // Cajas X (Si a es negativo, en una balanza real es complejo, pero por si acaso lo manejamos visualmente)
+            const absX = Math.abs(numX);
+            for(let i=0; i<absX; i++) {
+                let box = document.createElement('div');
+                box.className = 'box-x';
+                // Si la x se vuelve negativa, le ponemos un signo menos visualmente
+                box.innerText = numX < 0 ? '-x' : 'x'; 
+                container.appendChild(box);
+            }
+
+            // Pesas (Unidades enteras y medias)
+            const absUnits = Math.abs(numUnits);
+            const fullUnits = Math.floor(absUnits);
+            const hasHalf = (absUnits - fullUnits) >= 0.5;
+            const isNegative = numUnits < 0;
+
+            // Dibujar enteros
+            for(let i=0; i<fullUnits; i++) {
+                let weight = document.createElement('div');
+                weight.className = `weight-full ${isNegative ? 'weight-neg' : 'weight-pos'}`;
+                weight.innerText = isNegative ? '-1' : '1';
+                container.appendChild(weight);
+            }
+
+            // Dibujar fracción (0.5)
+            if (hasHalf) {
+                let halfWeight = document.createElement('div');
+                halfWeight.className = `weight-half ${isNegative ? 'weight-neg' : 'weight-pos'}`;
+                halfWeight.innerText = isNegative ? '-.5' : '.5';
+                container.appendChild(halfWeight);
+            }
+        }
+
+        // LÓGICA DE OPERACIONES
+        function applyOperation() {
+            if (gameState.solved) return;
+
+            const op = document.getElementById('op-select').value;
+            const valInput = document.getElementById('op-value');
+            const val = parseFloat(valInput.value);
+
+            // Validar que el valor introducido es numérico
+            if (isNaN(val) || val === 0) {
+                updateUI("Introduce un número válido distinto de 0.", "error");
+                return;
+            }
+
+            let actionValid = false;
+            let hint = "";
+
+            if (op === 'sub') {
+                gameState.b -= val;
+                gameState.c -= val;
+                actionValid = true;
+            } 
+            else if (op === 'add') {
+                gameState.b += val;
+                gameState.c += val;
+                actionValid = true;
+            }
+            else if (op === 'div') {
+                // Permitimos dividir siempre que el divisor no sea 0
+                gameState.a /= val;
+                gameState.b /= val;
+                gameState.c /= val;
+                actionValid = true;
+                
+                // Pista si se generan demasiados decimales (ej. dividen entre un numero no múltiplo)
+                if (gameState.a % 0.5 !== 0 || gameState.b % 0.5 !== 0) {
+                     hint = "Has dividido, pero ahora tienes números muy fragmentados. ¡Cuidado!";
+                }
+            }
+            else if (op === 'mul') {
+                gameState.a *= val;
+                gameState.b *= val;
+                gameState.c *= val;
+                actionValid = true;
+            }
+
+            if (actionValid) {
+                let msg = "Operación aplicada correctamente.";
+                if (hint) msg = hint;
+                updateUI(msg, hint ? "error" : "info");
+                valInput.value = ""; 
+            }
+        }
+
+        function playWinAnimation() {
+            const beam = document.getElementById('beam');
+            beam.style.transform = "rotate(2deg)";
+            setTimeout(() => { beam.style.transform = "rotate(-2deg)"; }, 200);
+            setTimeout(() => { beam.style.transform = "rotate(0deg)"; }, 400);
+        }
+
+        window.onload = initGame;
+    </script>
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

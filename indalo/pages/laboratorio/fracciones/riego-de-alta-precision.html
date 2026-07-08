@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Instalador de Riego (Nivel Experto)</title>
+
+    <script>
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --bg-color: #f4f6f7;
+            --primary: #2c3e50;
+            --pipe-color: #34495e;
+            --water-color: #3498db;
+            --success: #27ae60;
+            --error: #c0392b;
+            --accent: #e67e22;
+            --panel-gray: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        h1 { margin: 0; font-size: 1.8rem; color: var(--water-color); }
+
+        /* SECCIÓN DE DATOS */
+        .specs-box {
+            background: #eaf2f8;
+            border-left: 5px solid var(--water-color);
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .spec-item { text-align: center; }
+        .spec-label { font-size: 0.8rem; text-transform: uppercase; font-weight: bold; color: #7f8c8d; }
+        .spec-val { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+
+        /* PASOS DE RESOLUCIÓN */
+        .step-box {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid var(--panel-gray);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .step-box.active { border-color: var(--water-color); box-shadow: 0 0 10px rgba(52, 152, 219, 0.1); }
+        .step-box.done { border-color: var(--success); background: #e8f8f5; }
+        .step-box.locked { opacity: 0.5; pointer-events: none; background: #f9f9f9; }
+
+        .step-title { font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; font-size: 1rem; color: var(--primary); }
+        .step-desc { margin: 5px 0 15px 0; font-size: 0.95rem; color: #666; }
+
+        /* Inputs Matemáticos */
+        .fraction-input {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+        input[type="number"] {
+            background: white;
+            border: 2px solid var(--panel-gray);
+            color: var(--primary);
+            width: 60px;
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .frac-bar { width: 100%; height: 2px; background: var(--primary); margin: 2px 0; }
+        
+        button.btn-action {
+            background: var(--water-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s;
+            font-size: 1rem;
+        }
+        button.btn-action:hover { transform: scale(1.05); background: #2980b9; }
+        button.btn-new { background: var(--accent); }
+
+        /* ÁREA VISUAL (WORKBENCH) */
+        .workbench {
+            position: relative;
+            height: 180px;
+            background: #fafafa;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            margin-top: 30px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+
+        .ruler-bg {
+            position: absolute;
+            bottom: 0; left: 20px;
+            width: calc(100% - 40px);
+            height: 20px;
+            border-top: 1px solid #999;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem; color: #999;
+        }
+
+        /* LA MANGUERA Y EL AGUA */
+        .hose {
+            height: 30px;
+            background: var(--pipe-color);
+            border-radius: 15px;
+            position: relative;
+            transition: width 0.5s;
+            z-index: 1;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px);
+        }
+
+        .water-flow {
+            height: 100%;
+            width: 0%;
+            background: var(--water-color);
+            border-radius: 15px;
+            transition: width 0.5s linear;
+        }
+
+        /* LOS GOTEROS (Estilo original) */
+        .dripper {
+            width: 20px; height: 25px;
+            background: black;
+            position: absolute;
+            top: 50%; 
+            transform: translate(-50%, -50%); 
+            border-radius: 2px;
+            z-index: 2;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .dripper::after {
+            content: "💧";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            animation: drip 1s infinite;
+            opacity: 0;
+        }
+        .dripper.active { opacity: 1; border: 2px solid white; }
+        .dripper.active::after { opacity: 1; }
+        
+        /* Gotero fallido (rojo y sin gota) */
+        .dripper.failed {
+            background: var(--error);
+            opacity: 0.6;
+        }
+        .dripper.failed::after { content: "❌"; animation: none; bottom: -22px; color: var(--error); opacity: 1;}
+
+        @keyframes drip {
+            0% { transform: translate(-50%, -10px); opacity: 1; }
+            100% { transform: translate(-50%, 10px); opacity: 0; }
+        }
+
+        /* FEEDBACK */
+        .feedback-msg { font-weight: bold; margin-left: 15px; display: inline-block; }
+        .text-success { color: var(--success); }
+        .text-error { color: var(--error); }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        
+        <header>
+            <div>
+                <h1>💧 Riego de Alta Precisión</h1>
+                <span style="color:#7f8c8d; font-size:0.9rem;">Cálculo con fracciones complejas</span>
+            </div>
+            <button class="btn-action btn-new" onclick="newProject()">🔄 Nuevo Reto</button>
+        </header>
+
+        <div class="specs-box">
+            <div class="spec-item">
+                <div class="spec-label">Longitud Total (L)</div>
+                <div class="spec-val" id="disp-total">$$ \frac{?}{?} $$</div>
+            </div>
+            <div style="font-size:2rem;">÷</div>
+            <div class="spec-item">
+                <div class="spec-label">Distancia Goteros (d)</div>
+                <div class="spec-val" id="disp-dist">$$ \frac{?}{?} $$</div>
+            </div>
+        </div>
+
+        <div id="step-1" class="step-box active">
+            <span class="step-title">PASO 1: División de Fracciones</span>
+            <p class="step-desc">
+                Calcula $( L \div d )$ multiplicando en cruz. Escribe la fracción resultante (impropia).
+            </p>
+            
+            <div style="display:flex; align-items:center; flex-wrap:wrap; gap:10px;">
+                <span>Resultado Exacto: </span>
+                <div class="fraction-input">
+                    <input type="number" id="in-n" placeholder="N">
+                    <div class="frac-bar"></div>
+                    <input type="number" id="in-d" placeholder="D">
+                </div>
+                <button class="btn-action" onclick="checkMath()">Validar</button>
+                <div id="fb-math" class="feedback-msg"></div>
+            </div>
+        </div>
+
+        <div id="step-2" class="step-box locked">
+            <span class="step-title">PASO 2: Instalación Real</span>
+            <p class="step-desc">
+                La fracción anterior es un número decimal. ¿Cuántos goteros <strong>enteros</strong> caben realmente?
+            </p>
+            
+            <div style="display:flex; align-items:center; flex-wrap:wrap; gap:10px;">
+                <span>Instalar: </span>
+                <input type="number" id="in-int" style="width:70px;" placeholder="0">
+                <span> goteros.</span>
+                <button class="btn-action" onclick="runSimulation()" style="background:var(--success);">🛠️ Simular</button>
+                <div id="fb-real" class="feedback-msg"></div>
+            </div>
+        </div>
+
+        <div class="workbench">
+            <div class="hose" id="visual-hose" style="width: 90%;">
+                <div class="water-flow" id="visual-water"></div>
+                </div>
+            <div class="ruler-bg">
+                <span>Inicio</span>
+                <span>Manguera Total</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ESTADO
+        let state = {
+            nTotal: 0, dTotal: 0,
+            nDist: 0, dDist: 0,
+            mathN: 0, mathD: 0, 
+            realInt: 0,
+            simulationRunning: false
+        };
+
+        // INICIO
+        function newProject() {
+            resetSteps();
+            clearSimulation();
+            
+            // GENERADOR DE NÚMEROS COMPLEJOS (No unitarios)
+            
+            // 1. Longitud Total (L)
+            // Queremos fracciones que no sean triviales (ej: 5/3, 7/4)
+            const dT = Math.floor(Math.random() * 4) + 3; // Denominador 3 a 6
+            const nT = Math.floor(Math.random() * 6) + 4; // Numerador 4 a 9 (puede ser > dT)
+            state.nTotal = nT; 
+            state.dTotal = dT;
+
+            // 2. Distancia Goteros (d)
+            // ¡AQUÍ ESTÁ EL CAMBIO! Numerador aleatorio > 1
+            const dD = Math.floor(Math.random() * 5) + 4; // Denominador grande (4 a 8) para que sea pequeña
+            let nD = Math.floor(Math.random() * (dD - 2)) + 2; // Numerador entre 2 y (dD-1)
+            
+            // Asegurar que sea fracción propia y no unitaria
+            if (nD < 2) nD = 2;
+            if (nD >= dD) nD = dD - 1;
+
+            state.nDist = nD; 
+            state.dDist = dD;
+
+            // Calcular Resultados
+            // Operación: (nT/dT) / (nD/dD)
+            state.mathN = state.nTotal * state.dDist;
+            state.mathD = state.dTotal * state.nDist;
+            
+            const decimal = state.mathN / state.mathD;
+            state.realInt = Math.floor(decimal);
+
+            // Filtros de calidad (Reintentar si sale feo)
+            // Queremos:
+            // - Entre 2 y 8 goteros (para que quepan en pantalla)
+            // - Que NO sea exacto (decimal % 1 != 0) para obligar a pensar
+            // - Que la distancia sea menor que el total
+            if (state.realInt < 2 || state.realInt > 8 || decimal % 1 < 0.01) {
+                return newProject(); // Recursión hasta encontrar uno bueno
+            }
+
+            // Renderizar
+            updateMath('disp-total', state.nTotal, state.dTotal);
+            updateMath('disp-dist', state.nDist, state.dDist);
+        }
+
+        function resetSteps() {
+            document.getElementById('step-1').classList.add('active');
+            document.getElementById('step-1').classList.remove('done');
+            document.getElementById('step-2').classList.add('locked');
+            document.getElementById('step-2').classList.remove('active');
+            
+            document.getElementById('in-n').value = '';
+            document.getElementById('in-d').value = '';
+            document.getElementById('in-int').value = '';
+            document.getElementById('fb-math').innerText = '';
+            document.getElementById('fb-real').innerText = '';
+            state.simulationRunning = false;
+        }
+
+        function clearSimulation() {
+            const hose = document.getElementById('visual-hose');
+            hose.innerHTML = '<div class="water-flow" id="visual-water"></div>';
+            document.getElementById('visual-water').style.width = '0%';
+        }
+
+        function updateMath(id, n, d) {
+            const el = document.getElementById(id);
+            el.innerHTML = `$$ \\frac{${n}}{${d}} $$`;
+            if(window.MathJax) MathJax.typesetPromise([el]);
+        }
+
+        // VALIDAR PASO 1 (Cálculo)
+        function checkMath() {
+            const uN = parseInt(document.getElementById('in-n').value);
+            const uD = parseInt(document.getElementById('in-d').value);
+            const fb = document.getElementById('fb-math');
+
+            if (!uN || !uD) { fb.innerText = "Introduce la fracción."; return; }
+
+            // Comprobar fracciones equivalentes (producto cruzado)
+            if (uN * state.mathD === uD * state.mathN) {
+                fb.innerText = "✅ Cálculo correcto.";
+                fb.className = "feedback-msg text-success";
+                
+                // Desbloquear paso 2
+                document.getElementById('step-1').classList.remove('active');
+                document.getElementById('step-1').classList.add('done');
+                document.getElementById('step-2').classList.remove('locked');
+                document.getElementById('step-2').classList.add('active');
+
+            } else {
+                fb.innerText = "❌ Incorrecto. Revisa el producto cruzado.";
+                fb.className = "feedback-msg text-error";
+            }
+        }
+
+        // VALIDAR PASO 2 Y SIMULAR
+        function runSimulation() {
+            if(state.simulationRunning) return;
+            
+            const uInt = parseInt(document.getElementById('in-int').value);
+            if (isNaN(uInt)) return;
+            
+            state.simulationRunning = true;
+            clearSimulation();
+            const hose = document.getElementById('visual-hose');
+            const fb = document.getElementById('fb-real');
+            fb.innerText = "Simulando..."; fb.className = "feedback-msg";
+
+            // LOGICA VISUAL
+            const totalVal = state.nTotal / state.dTotal;
+            const distVal = state.nDist / state.dDist;
+            const ratio = distVal / totalVal; // Qué % del total ocupa un gotero
+            
+            let count = 0;
+            const interval = setInterval(() => {
+                count++;
+                
+                const posPct = (count * ratio * 100);
+
+                // Si hemos puesto más de los que caben REALMENTE
+                if (count > state.realInt) {
+                    
+                    // Gotero fallido (rojo con X)
+                    createDripper(hose, posPct, false);
+                    document.getElementById('visual-water').style.width = posPct + '%'; // El agua intenta llegar
+
+                    clearInterval(interval);
+                    state.simulationRunning = false;
+                    
+                    // Feedback final
+                    if (uInt === state.realInt) {
+                        fb.innerHTML = `🎉 ¡EXACTO! Resultado: $$ \\frac{${state.mathN}}{${state.mathD}} \\approx ${state.realInt} \\text{ goteros} $$`;
+                        fb.className = "feedback-msg text-success";
+                        if(window.MathJax) MathJax.typesetPromise([fb]);
+                    } else {
+                        fb.innerText = `⚠️ Fallo. Matemáticamente son ${(state.mathN/state.mathD).toFixed(2)}, solo caben ${state.realInt} enteros.`;
+                        fb.className = "feedback-msg text-error";
+                    }
+                    return;
+                }
+
+                // Gotero válido (negro con gota)
+                createDripper(hose, posPct, true);
+                document.getElementById('visual-water').style.width = posPct + '%';
+
+            }, 600);
+        }
+
+        function createDripper(container, posPct, isSuccess) {
+            const d = document.createElement('div');
+            d.className = isSuccess ? 'dripper' : 'dripper failed';
+            d.style.left = posPct + '%';
+            container.appendChild(d);
+            setTimeout(() => d.classList.add('active'), 50);
+        }
+
+        window.onload = newProject;
+
+    </script>
+    
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

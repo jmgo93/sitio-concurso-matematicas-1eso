@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro Nazarí 1.0: Suma de Fracciones</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #d35400; /* Color Arcilla */
+            --success: #27ae60;
+            --error: #c0392b;
+            --bg: #ffffff;
+            --tile-base: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .app-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h2 { margin: 0 0 5px 0; font-size: 1.8rem; }
+        .subtitle { color: #7f8c8d; font-size: 1rem; margin-top: 0; }
+
+        /* Área del Reto */
+        .challenge-box {
+            background-color: #fdf2e9; /* Tono arcilla muy suave */
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .math-display {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        /* Botones */
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn-check { background-color: var(--success); color: white; margin-top: 10px; }
+        .btn-check:hover { background-color: #219150; transform: translateY(-2px); }
+
+        .btn-reset { background-color: #95a5a6; color: white; margin-top: 20px; font-size: 0.9rem;}
+        .btn-reset:hover { background-color: #7f8c8d; }
+
+        /* El Muro (Grid) */
+        .wall-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .wall-grid {
+            display: grid;
+            gap: 4px;
+            background-color: #bdc3c7; /* Cemento */
+            padding: 6px;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tile {
+            width: 50px;
+            height: 50px;
+            background-color: var(--tile-base);
+            cursor: pointer;
+            border-radius: 2px;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        .tile:hover { filter: brightness(0.95); }
+        .tile:active { transform: scale(0.90); }
+
+        /* Colores de las teselas */
+        .tile.white { background-color: #ffffff; border: 1px solid #ddd; } /* Blanco hueso */
+        .tile.green { background-color: #27ae60; } /* Verde nazarí */
+        .tile.blue { background-color: #2980b9; } /* Azul cobalto (opcional) */
+
+
+        .tag-v2 { background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; vertical-align: middle; }
+
+        /* Paleta de Herramientas */
+        .palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .tool {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .tool:hover { transform: scale(1.1); }
+        .tool.selected { transform: scale(1.2); border-color: var(--primary); box-shadow: 0 0 8px rgba(0,0,0,0.3); }
+
+        .tool-white { background: #fff; border: 1px solid #ccc; }
+        .tool-green { background: #27ae60; }
+        .tool-eraser { background: #e74c3c; color: white; font-size: 1.2rem; }
+
+        /* Feedback */
+        #message-area {
+            min-height: 50px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none; /* Oculto por defecto */
+        }
+        
+        .msg-error { color: #922b21; background: #fadbd8; display: block !important; }
+        .msg-success { color: #1e8449; background: #d5f5e3; border: 1px solid #abebc6; display: block !important; }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="app-container">
+        
+        <header>
+            <h2>Muro Nazarí  <span class="tag-v2">v1.0</span></h2>
+            <p class="subtitle">Suma de fracciones con mismo denominador</p>
+        </header>
+
+        <div class="challenge-box">
+            <p>Representa la siguiente suma en el muro:</p>
+            <div id="math-problem" class="math-display">
+                Cargando...
+            </div>
+            <p style="font-size: 0.9rem; margin-top:0;">(Pinta las teselas necesarias de cada color)</p>
+        </div>
+
+        <div class="palette">
+            <div class="tool tool-white" onclick="selectColor('white')" title="Pintar Blanco"></div>
+            <div class="tool tool-green" onclick="selectColor('green')" title="Pintar Verde"></div>
+            <div class="tool tool-eraser" onclick="selectColor('eraser')" title="Borrar">✕</div>
+        </div>
+
+        <div class="wall-wrapper">
+            <div id="wall-grid" class="wall-grid"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn-check" onclick="checkMosaic()">✅ Comprobar Resultado</button>
+        </div>
+
+        <div id="message-area"></div>
+
+        <div style="text-align: center;">
+            <button class="btn-reset" onclick="initGame()">🔄 Nuevo Reto</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Estado del Juego
+        let state = {
+            denom: 0, // Denominador común
+            num1: 0,  // Numerador fracción 1 (Blanco)
+            num2: 0,  // Numerador fracción 2 (Verde)
+            selectedColor: 'white' // Herramienta seleccionada
+        };
+
+        // Inicializar
+        function initGame() {
+            // Reiniciar UI
+            const msg = document.getElementById('message-area');
+            msg.className = '';
+            msg.innerHTML = '';
+            
+            // 1. Generar denominador (entre 4 y 12 para que se vea bien en pantalla)
+            state.denom = Math.floor(Math.random() * 9) + 4; 
+            
+            // 2. Generar numeradores
+            // Aseguramos que la suma no supere el denominador (podría ser igual)
+            // num1 mínimo 1
+            state.num1 = Math.floor(Math.random() * (state.denom - 2)) + 1;
+            
+            // num2 mínimo 1, máximo lo que quede libre
+            const maxNum2 = state.denom - state.num1;
+            state.num2 = Math.floor(Math.random() * maxNum2) + 1;
+            
+            // 3. Renderizar Fórmula con MathJax
+            // Ejemplo: 2/8 Blanco + 3/8 Verde
+            const latex = `\\frac{${state.num1}}{${state.denom}} \\text{ Blanco } + \\frac{${state.num2}}{${state.denom}} \\text{ Verde }`;
+            const container = document.getElementById('math-problem');
+            container.innerHTML = `$$ ${latex} $$`;
+            
+            if(window.MathJax) {
+                MathJax.typesetPromise([container]);
+            }
+
+            // 4. Crear el muro automáticamente
+            createGrid(state.denom);
+
+            // Seleccionar herramienta por defecto
+            selectColor('white');
+        }
+
+        // Generar Visualmente el Grid
+        function createGrid(totalTiles) {
+            const grid = document.getElementById('wall-grid');
+            grid.innerHTML = '';
+
+            // Calcular columnas para que quede lo más cuadrado posible
+            let cols = Math.ceil(Math.sqrt(totalTiles));
+            
+            // Ajuste fino para números primos o raros (ej: 5, 7, 11) para que no quede hueco feo
+            // Si el total no rellena el rectángulo perfecto, usamos flexbox o grid simple.
+            // Para "Muro Nazarí", grid estricto queda mejor. Probamos columnas fijas.
+            
+            // Si es primo y > 3, lo hacemos rectangular a la fuerza (ej 7 -> 7x1 es muy largo, mejor 4 y 3)
+            // Para simplificar versión 1.0: Grid automático css
+            grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+
+            for(let i=0; i<totalTiles; i++) {
+                let div = document.createElement('div');
+                div.className = 'tile';
+                // Añadir evento click
+                div.onclick = function() { paint(this); };
+                grid.appendChild(div);
+            }
+        }
+
+        // Herramientas de Pintura
+        function selectColor(color) {
+            state.selectedColor = color;
+            // Actualizar visualmente la herramienta seleccionada
+            document.querySelectorAll('.tool').forEach(t => t.classList.remove('selected'));
+            
+            if(color === 'white') document.querySelector('.tool-white').classList.add('selected');
+            if(color === 'green') document.querySelector('.tool-green').classList.add('selected');
+            if(color === 'eraser') document.querySelector('.tool-eraser').classList.add('selected');
+        }
+
+        function paint(tile) {
+            // Eliminar cualquier color previo
+            tile.classList.remove('white', 'green', 'blue');
+            
+            if (state.selectedColor !== 'eraser') {
+                tile.classList.add(state.selectedColor);
+            }
+        }
+
+        // Validación
+        function checkMosaic() {
+            const tiles = document.querySelectorAll('.tile');
+            let w = 0, g = 0;
+
+            tiles.forEach(t => {
+                if (t.classList.contains('white')) w++;
+                if (t.classList.contains('green')) g++;
+            });
+
+            // Comprobar si coincide con los numeradores pedidos
+            const isCorrect = (w === state.num1 && g === state.num2);
+            
+            const totalSum = w + g;
+            const expectedSum = state.num1 + state.num2;
+
+            if (isCorrect) {
+                // ÉXITO
+                const latexResult = `\\frac{${state.num1}}{${state.denom}} + \\frac{${state.num2}}{${state.denom}} = \\frac{${expectedSum}}{${state.denom}}`;
+                
+                let htmlMsg = `🎉 ¡Correcto! <br> Has pintado ${w} Blancas y ${g} Verdes.<br>`;
+                htmlMsg += `La suma total es: $$ ${latexResult} $$`;
+
+                showMessage(htmlMsg, "success");
+                
+                // Renderizar la solución matemática
+                if(window.MathJax) {
+                    MathJax.typesetPromise([document.getElementById('message-area')]);
+                }
+
+            } else {
+                // ERROR con Feedback específico
+                let txt = "⚠️ Revisa tu muro:<br>";
+                
+                if (w !== state.num1) {
+                    txt += `Necesitas <strong>${state.num1}</strong> teselas Blancas (tienes ${w}).<br>`;
+                } else {
+                    txt += `Las Blancas están bien (${w}).<br>`;
+                }
+
+                if (g !== state.num2) {
+                    txt += `Necesitas <strong>${state.num2}</strong> teselas Verdes (tienes ${g}).`;
+                } else {
+                    txt += `Las Verdes están bien (${g}).`;
+                }
+                
+                showMessage(txt, "error");
+            }
+        }
+
+        function showMessage(text, type) {
+            const box = document.getElementById('message-area');
+            box.innerHTML = text;
+            box.className = ''; // reset
+            
+            if (type === 'error') box.classList.add('msg-error');
+            if (type === 'success') box.classList.add('msg-success');
+        }
+
+        // Arrancar el juego al cargar la página
+        window.onload = initGame;
+
+    </script>
+
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fundamentación Teórica y Normativa</title>
+
+
+
+<style>
+
+/* --- DESIGN SYSTEM --- */
+
+:root{
+--primary:#2A5C82;
+--secondary:#5BA3B2;
+--accent:#F4A261;
+--dark:#0F172A;
+--gray-light:#F1F5F9;
+--border:#E2E8F0;
+--code-bg:#E0E7FF;
+--code-text:#3730A3;
+}
+
+body{
+font-family:'Inter',sans-serif;
+color:var(--dark);
+background-color:transparent;
+margin:0;
+padding:20px;
+line-height:1.7;
+}
+
+.container{
+max-width:1000px;
+margin:0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+h2{
+font-family:'Montserrat',sans-serif;
+color:var(--primary);
+font-size:1.8rem;
+border-bottom:2px solid var(--border);
+padding-bottom:10px;
+margin-top:40px;
+margin-bottom:20px;
+}
+
+h3{
+font-family:'Montserrat',sans-serif;
+font-size:1.3rem;
+color:var(--secondary);
+margin-bottom:15px;
+}
+
+p{
+margin-bottom:15px;
+text-align:justify;
+}
+
+.legal-ref{
+font-family:'Fira Code',monospace;
+background-color:var(--code-bg);
+color:var(--code-text);
+padding:2px 6px;
+border-radius:4px;
+font-size:0.85em;
+font-weight:500;
+}
+
+/* --- NORMATIVA --- */
+
+.legal-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:20px;
+margin-bottom:40px;
+}
+
+.legal-card{
+background:#fff;
+border:1px solid var(--border);
+border-left:4px solid var(--primary);
+padding:20px;
+border-radius:8px;
+box-shadow:0 2px 5px rgba(0,0,0,0.05);
+}
+
+.legal-card strong{
+display:block;
+margin-bottom:10px;
+color:var(--primary);
+}
+
+/* --- METODOLOGÍA --- */
+
+.method-box{
+background:var(--gray-light);
+border-radius:12px;
+padding:25px;
+margin-bottom:30px;
+border:1px solid var(--border);
+}
+
+.method-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+@media(max-width:768px){
+.method-grid{grid-template-columns:1fr;}
+}
+
+/* --- DUA --- */
+
+.dua-container{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.dua-column{
+flex:1;
+min-width:250px;
+background:#fff;
+border:1px solid var(--border);
+border-radius:8px;
+overflow:hidden;
+}
+
+.dua-header{
+padding:15px;
+color:white;
+font-family:'Montserrat',sans-serif;
+font-weight:700;
+text-align:center;
+}
+
+.dua-content{
+padding:20px;
+font-size:0.95rem;
+}
+
+.dua-rep .dua-header{background:#4A8CB5;}
+.dua-act .dua-header{background:#5BA3B2;}
+.dua-imp .dua-header{background:#F4A261;}
+
+/* --- BLOOM --- */
+
+.bloom-wrapper{
+position:relative;
+padding-left:20px;
+margin-top:30px;
+margin-bottom:40px;
+}
+
+.bloom-step{
+position:relative;
+padding-bottom:25px;
+padding-left:30px;
+border-left:2px solid #cbd5e1;
+}
+
+.bloom-step:last-child{border-left:transparent;}
+
+.bloom-marker{
+position:absolute;
+left:-9px;
+top:0;
+width:16px;
+height:16px;
+border-radius:50%;
+background:var(--primary);
+border:3px solid white;
+box-shadow:0 0 0 1px #cbd5e1;
+}
+
+.bloom-title{
+font-weight:700;
+color:var(--primary);
+margin-bottom:5px;
+display:block;
+margin-top:-5px;
+}
+
+.hots-badge{
+display:inline-block;
+background:var(--accent);
+color:white;
+font-size:0.7rem;
+padding:2px 6px;
+border-radius:4px;
+margin-left:10px;
+}
+
+/* --- BIBLIOGRAFÍA --- */
+
+.biblio-box{
+background:var(--gray-light);
+border-radius:10px;
+padding:30px;
+border:1px solid var(--border);
+margin-bottom:40px;
+}
+
+.biblio-list{
+padding-left:20px;
+}
+
+.biblio-list li{
+margin-bottom:10px;
+}
+
+</style>
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../navigation.js" defer></script>
+<script src="../../assets/site.js" defer></script>
+<script src="../../assets/translate.js?v=20260707" defer></script>
+</head>
+
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>Tiendas de Barrio</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+
+<h2>1. Encuadre Normativo y Curricular</h2>
+
+<p>
+La presente Situación de Aprendizaje se incardina dentro del marco legislativo vigente, respondiendo a los principios de equidad, inclusión y desarrollo competencial establecidos en el sistema educativo español.
+</p>
+
+<div class="legal-grid">
+
+<div class="legal-card">
+<strong>Ley Orgánica 3/2020 (LOMLOE)</strong>
+Se asume el <span class="legal-ref">Art. 19</span> relativo a los principios pedagógicos, priorizando la resolución de problemas, la contextualización del aprendizaje y el enfoque inclusivo basado en el <span class="legal-ref">Diseño Universal para el Aprendizaje (DUA)</span>.
+</div>
+
+<div class="legal-card">
+<strong>Real Decreto 217/2022 (ESO)</strong>
+La propuesta contribuye al desarrollo de las competencias clave, especialmente la <span class="legal-ref">Competencia Matemática y en Ciencia, Tecnología e Ingeniería (STEM)</span>, así como la <span class="legal-ref">Competencia Personal, Social y de Aprender a Aprender</span>.
+</div>
+
+<div class="legal-card">
+<strong>Decreto 102/2023 (Andalucía)</strong>
+La Situación de Aprendizaje se alinea con el currículo andaluz de Educación Secundaria Obligatoria, integrando saberes básicos, competencias específicas y criterios de evaluación del área de Matemáticas.
+</div>
+
+<div class="legal-card">
+<strong>Orden de 30 de mayo de 2023</strong>
+Se incorporan las orientaciones metodológicas del currículo andaluz, promoviendo metodologías activas, evaluación formativa y atención a la diversidad desde un enfoque inclusivo.
+</div>
+
+</div>
+
+
+<h2>2. Fundamentación Metodológica</h2>
+
+<div class="method-box">
+
+<div class="method-grid">
+
+<div>
+<h3>Aprendizaje Basado en Proyectos (ABP)</h3>
+
+<p>
+La propuesta se articula mediante el Aprendizaje Basado en Proyectos, situando al alumnado ante un reto contextualizado: la creación y gestión de una tienda de barrio. Los contenidos matemáticos se movilizan para resolver situaciones reales de compra, venta y toma de decisiones económicas.
+</p>
+
+</div>
+
+<div>
+<h3>Aprendizaje Cooperativo</h3>
+
+<p>
+El alumnado trabaja en equipos cooperativos estables con roles diferenciados (tendero, contable, gestor y publicista). Esta estructura promueve la interdependencia positiva, la responsabilidad individual y la construcción compartida del conocimiento.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<h2>3. Diseño Universal para el Aprendizaje (DUA)</h2>
+
+<p>
+La práctica se diseña desde el enfoque del Diseño Universal para el Aprendizaje, anticipando la diversidad del alumnado mediante múltiples formas de acceso a la información, participación y demostración del aprendizaje.
+</p>
+
+<div class="dua-container">
+
+<div class="dua-column dua-rep">
+
+<div class="dua-header">I. Representación</div>
+
+<div class="dua-content">
+
+<strong>Múltiples formas de presentar la información.</strong>
+
+Los contenidos matemáticos se presentan mediante explicaciones orales, esquemas visuales, ejemplos contextualizados y materiales manipulativos como dinero ficticio.
+
+</div>
+
+</div>
+
+<div class="dua-column dua-act">
+
+<div class="dua-header">II. Acción y Expresión</div>
+
+<div class="dua-content">
+
+<strong>Múltiples formas de demostrar el aprendizaje.</strong>
+
+El alumnado puede mostrar su comprensión mediante cálculos escritos, registros de ventas, elaboración de gráficos, diseño de carteles o exposiciones orales.
+
+</div>
+
+</div>
+
+<div class="dua-column dua-imp">
+
+<div class="dua-header">III. Implicación</div>
+
+<div class="dua-content">
+
+<strong>Múltiples formas de motivación.</strong>
+
+La simulación de mercados y la toma de decisiones reales incrementan la implicación del alumnado y reducen la ansiedad asociada al aprendizaje matemático.
+
+</div>
+
+</div>
+
+</div>
+
+
+<h2>4. Taxonomía de Procesos Cognitivos</h2>
+
+<p>
+La secuencia didáctica se diseña siguiendo la taxonomía revisada de Bloom, permitiendo avanzar desde habilidades cognitivas básicas hacia procesos de pensamiento de orden superior.
+</p>
+
+<div class="bloom-wrapper">
+
+<div class="bloom-step">
+<div class="bloom-marker"></div>
+<span class="bloom-title">Recordar y Comprender</span>
+Comprensión de números decimales, operaciones básicas y significado de porcentajes en contextos cotidianos.
+</div>
+
+<div class="bloom-step">
+<div class="bloom-marker"></div>
+<span class="bloom-title">Aplicar</span>
+Aplicación de operaciones aritméticas y cálculo del cambio durante la simulación de compra y venta.
+</div>
+
+<div class="bloom-step">
+<div class="bloom-marker"></div>
+<span class="bloom-title">Analizar <span class="hots-badge">HOTS</span></span>
+Interpretación de datos de ventas, comparación de precios y análisis de resultados comerciales.
+</div>
+
+<div class="bloom-step">
+<div class="bloom-marker" style="background:var(--accent)"></div>
+<span class="bloom-title">Evaluar y Crear <span class="hots-badge">HOTS</span></span>
+Toma de decisiones estratégicas, diseño de promociones y elaboración de conclusiones finales del proyecto.
+</div>
+
+</div>
+
+
+<h2>5. Bibliografía</h2>
+
+<div class="biblio-box">
+
+<ul class="biblio-list">
+
+<li>Blumenfeld, P. C., Soloway, E., Marx, R. W., Krajcik, J. S., Guzdial, M., & Palincsar, A. (1991). <em>Motivating project-based learning: Sustaining the doing, supporting the learning</em>. Educational Psychologist.</li>
+
+<li>CAST (2024). <em>Universal Design for Learning Guidelines version 3.0</em>.</li>
+
+<li>Johnson, D. W., & Johnson, R. T. (1999). <em>Learning Together and Alone: Cooperative, Competitive, and Individualistic Learning</em>. Allyn & Bacon.</li>
+
+<li>OECD (2019). <em>PISA 2018 Assessment and Analytical Framework: Mathematics, Reading, Science and Financial Literacy</em>. OECD Publishing.</li>
+
+<li>Thomas, J. W. (2000). <em>A Review of Research on Project-Based Learning</em>. The Autodesk Foundation.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>Tiendas de Barrio</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

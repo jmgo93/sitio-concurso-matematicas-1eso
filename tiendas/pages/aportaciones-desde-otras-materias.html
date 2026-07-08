@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aportaciones desde otras materias - Tiendas de Barrio</title>
+<style>
+:root{
+--ink:#21313b;
+--muted:#61737c;
+--line:#d9e3e7;
+--hero-a:#2a5c82;
+--hero-b:#4b8fb3;
+--hero-c:#f4a261;
+--shadow:0 18px 42px rgba(33,49,59,0.12);
+--radius-xl:28px;
+--radius-lg:22px;
+--radius-md:16px;
+}
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:"Segoe UI",Tahoma,sans-serif;
+color:var(--ink);
+background:
+radial-gradient(circle at top left, rgba(42,92,130,0.15), transparent 28%),
+radial-gradient(circle at 86% 12%, rgba(244,162,97,0.15), transparent 24%),
+linear-gradient(180deg, #f5f8fb 0%, #fdf5ee 100%);
+}
+
+.crosscurr-page{
+width:min(1180px, calc(100% - 2rem));
+margin:0 auto;
+padding:1.4rem 0 3rem;
+}
+
+.crosscurr-hero{
+position:relative;
+overflow:hidden;
+padding:2rem;
+border-radius:var(--radius-xl);
+background:
+radial-gradient(circle at 80% 18%, rgba(255,255,255,0.18), transparent 22%),
+linear-gradient(140deg, var(--hero-a), var(--hero-b) 58%, var(--hero-c));
+color:#fff;
+box-shadow:var(--shadow);
+}
+
+.crosscurr-hero::after{
+content:"";
+position:absolute;
+right:-2.5rem;
+bottom:-2.5rem;
+width:13rem;
+height:13rem;
+border-radius:50%;
+background:rgba(255,255,255,0.1);
+}
+
+.crosscurr-kicker{
+margin:0 0 0.7rem;
+font-size:0.78rem;
+letter-spacing:0.12em;
+text-transform:uppercase;
+opacity:0.88;
+}
+
+.crosscurr-hero h1{
+margin:0;
+font-family:Georgia,serif;
+font-size:clamp(2rem, 4vw, 3.15rem);
+line-height:1.04;
+max-width:13ch;
+}
+
+.crosscurr-lead{
+max-width:48rem;
+margin:1rem 0 0;
+font-size:1.05rem;
+line-height:1.7;
+color:rgba(255,255,255,0.95);
+}
+
+.crosscurr-hero-grid{
+display:grid;
+grid-template-columns:minmax(0, 1.5fr) minmax(18rem, 0.95fr);
+gap:1.2rem;
+align-items:end;
+}
+
+.crosscurr-pillbox{
+position:relative;
+z-index:1;
+display:grid;
+gap:0.85rem;
+}
+
+.crosscurr-pill{
+display:flex;
+gap:0.7rem;
+align-items:flex-start;
+padding:0.9rem 1rem;
+border-radius:18px;
+background:rgba(255,255,255,0.14);
+backdrop-filter:blur(6px);
+}
+
+.crosscurr-pill strong{
+display:block;
+margin-bottom:0.2rem;
+font-size:0.95rem;
+}
+
+.crosscurr-pill p{
+margin:0;
+font-size:0.9rem;
+line-height:1.5;
+color:rgba(255,255,255,0.9);
+}
+
+.crosscurr-pill svg{
+width:1.2rem;
+height:1.2rem;
+flex:0 0 auto;
+stroke:currentColor;
+fill:none;
+stroke-width:1.8;
+margin-top:0.1rem;
+}
+
+.crosscurr-note{
+margin:1rem 0 0;
+padding:1rem 1.1rem;
+border-radius:18px;
+background:#fff7ee;
+border:1px solid rgba(244,162,97,0.25);
+color:#8b5d20;
+line-height:1.6;
+}
+
+.crosscurr-section{
+margin-top:1.25rem;
+padding:1.25rem;
+border-radius:var(--radius-xl);
+background:rgba(255,255,255,0.8);
+border:1px solid rgba(33,49,59,0.08);
+box-shadow:0 14px 30px rgba(33,49,59,0.06);
+backdrop-filter:blur(8px);
+}
+
+.crosscurr-section__head{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+align-items:flex-end;
+margin-bottom:1rem;
+}
+
+.crosscurr-section__head h2{
+margin:0;
+font-family:Georgia,serif;
+font-size:1.7rem;
+}
+
+.crosscurr-section__head p{
+margin:0.3rem 0 0;
+color:var(--muted);
+line-height:1.6;
+max-width:48rem;
+}
+
+.crosscurr-step{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:2.2rem;
+height:2.2rem;
+border-radius:50%;
+font-weight:800;
+color:#fff;
+background:linear-gradient(135deg, var(--hero-a), var(--hero-c));
+}
+
+.subject-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+gap:1rem;
+}
+
+.subject-card{
+display:flex;
+flex-direction:column;
+gap:0.9rem;
+min-height:100%;
+padding:1.05rem;
+border-radius:var(--radius-lg);
+background:var(--subject-soft);
+border:1px solid var(--subject-line);
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.4);
+}
+
+.subject-card__head{
+display:flex;
+gap:0.8rem;
+align-items:flex-start;
+}
+
+.subject-card__icon{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:3rem;
+height:3rem;
+border-radius:18px;
+color:var(--subject-strong);
+background:#fff;
+box-shadow:0 8px 18px rgba(33,49,59,0.08);
+flex:0 0 auto;
+}
+
+.subject-card__icon svg{
+width:1.45rem;
+height:1.45rem;
+stroke:currentColor;
+fill:none;
+stroke-width:1.8;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+
+.subject-card__eyebrow{
+margin:0;
+font-size:0.75rem;
+text-transform:uppercase;
+letter-spacing:0.12em;
+color:var(--subject-strong);
+font-weight:800;
+}
+
+.subject-card h3{
+margin:0.2rem 0 0;
+font-size:1.15rem;
+line-height:1.25;
+}
+
+.subject-card__idea{
+margin:0;
+color:var(--ink);
+line-height:1.65;
+}
+
+.subject-card__meta{
+display:grid;
+gap:0.7rem;
+margin:0;
+}
+
+.subject-card__meta div{
+padding:0.75rem 0.8rem;
+border-radius:14px;
+background:rgba(255,255,255,0.78);
+border:1px solid rgba(33,49,59,0.06);
+}
+
+.subject-card__meta dt{
+margin:0 0 0.22rem;
+font-size:0.77rem;
+font-weight:800;
+letter-spacing:0.08em;
+text-transform:uppercase;
+color:var(--subject-strong);
+}
+
+.subject-card__meta dd{
+margin:0;
+line-height:1.55;
+color:#31444d;
+}
+
+.subject-lengua{--subject-strong:#a85b2f;--subject-soft:#fff3ea;--subject-line:rgba(168,91,47,0.18);}
+.subject-idiomas{--subject-strong:#2f73b8;--subject-soft:#eef6ff;--subject-line:rgba(47,115,184,0.17);}
+.subject-social{--subject-strong:#90611c;--subject-soft:#fff8e9;--subject-line:rgba(144,97,28,0.17);}
+.subject-ciencia{--subject-strong:#2e8b56;--subject-soft:#eefaf2;--subject-line:rgba(46,139,86,0.18);}
+.subject-tech{--subject-strong:#375ca7;--subject-soft:#eef2ff;--subject-line:rgba(55,92,167,0.18);}
+.subject-art{--subject-strong:#b1548f;--subject-soft:#fdf1f9;--subject-line:rgba(177,84,143,0.18);}
+.subject-musica{--subject-strong:#6a49b8;--subject-soft:#f4efff;--subject-line:rgba(106,73,184,0.18);}
+.subject-ef{--subject-strong:#c24c4c;--subject-soft:#fff1f0;--subject-line:rgba(194,76,76,0.18);}
+.subject-valores{--subject-strong:#0f6f78;--subject-soft:#edf9fa;--subject-line:rgba(15,111,120,0.18);}
+
+.coordination-panel{
+margin-top:1.25rem;
+padding:1.25rem;
+border-radius:var(--radius-xl);
+background:#20313a;
+color:#ebf2f4;
+box-shadow:var(--shadow);
+}
+
+.coordination-panel h2{
+margin:0;
+font-family:Georgia,serif;
+font-size:1.7rem;
+}
+
+.coordination-panel p{
+margin:0.7rem 0 0;
+line-height:1.65;
+color:rgba(235,242,244,0.88);
+}
+
+.coordination-steps{
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:0.9rem;
+margin-top:1rem;
+}
+
+.coordination-step{
+padding:1rem;
+border-radius:18px;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.12);
+}
+
+.coordination-step strong{
+display:block;
+margin-bottom:0.35rem;
+font-size:1rem;
+}
+
+.coordination-step p{
+margin:0;
+font-size:0.92rem;
+}
+
+@media (max-width: 920px){
+.crosscurr-hero-grid{grid-template-columns:1fr;}
+.crosscurr-section__head{flex-direction:column;align-items:flex-start;}
+.coordination-steps{grid-template-columns:1fr;}
+}
+
+@media (max-width: 640px){
+.crosscurr-page{width:calc(100% - 1rem);}
+.crosscurr-hero,.crosscurr-section,.coordination-panel{padding:1rem;}
+.subject-grid{grid-template-columns:1fr;}
+}
+</style>
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../navigation.js" defer></script>
+<script src="../../assets/site.js" defer></script>
+<script src="../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>Tiendas de Barrio</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="icon-book" viewBox="0 0 24 24">
+    <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v16H7.5A2.5 2.5 0 0 0 5 21.5z"/>
+    <path d="M5 5.5v16"/>
+    <path d="M9 7h6"/>
+  </symbol>
+  <symbol id="icon-chat" viewBox="0 0 24 24">
+    <path d="M5 6h14v9H9l-4 3z"/>
+    <path d="M9 10h6"/>
+  </symbol>
+  <symbol id="icon-map" viewBox="0 0 24 24">
+    <path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"/>
+    <path d="M9 4v14"/>
+    <path d="M15 6v14"/>
+  </symbol>
+  <symbol id="icon-leaf" viewBox="0 0 24 24">
+    <path d="M5 14c0-6 5-9 14-9 0 9-3 14-9 14-3 0-5-2-5-5z"/>
+    <path d="M8 16c3-3 6-5 10-7"/>
+  </symbol>
+  <symbol id="icon-chip" viewBox="0 0 24 24">
+    <rect x="7" y="7" width="10" height="10" rx="2"/>
+    <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/>
+  </symbol>
+  <symbol id="icon-ruler" viewBox="0 0 24 24">
+    <path d="m4 20 16-16 2 2-16 16H4z"/>
+    <path d="M13 7l4 4"/>
+    <path d="M10 10l2 2"/>
+  </symbol>
+  <symbol id="icon-note" viewBox="0 0 24 24">
+    <path d="M14 4v10.5a3 3 0 1 1-2-2.83V7l8-2v8.5a3 3 0 1 1-2-2.83V4z"/>
+  </symbol>
+  <symbol id="icon-move" viewBox="0 0 24 24">
+    <path d="M12 3v18"/>
+    <path d="m8 7 4-4 4 4"/>
+    <path d="m8 17 4 4 4-4"/>
+    <path d="M3 12h18"/>
+    <path d="m7 8-4 4 4 4"/>
+    <path d="m17 8 4 4-4 4"/>
+  </symbol>
+  <symbol id="icon-hands" viewBox="0 0 24 24">
+    <path d="M8 12 5.5 9.5a2 2 0 0 0-2.8 2.8l4.6 4.6a3 3 0 0 0 2.1.9H12"/>
+    <path d="m16 12 2.5-2.5a2 2 0 0 1 2.8 2.8l-4.6 4.6a3 3 0 0 1-2.1.9H12"/>
+    <path d="M9 12h6"/>
+  </symbol>
+  <symbol id="icon-briefcase" viewBox="0 0 24 24">
+    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+    <rect x="3" y="7" width="18" height="12" rx="2"/>
+    <path d="M3 12h18"/>
+  </symbol>
+</svg>
+
+<main class="crosscurr-page">
+  <section class="crosscurr-hero">
+    <div class="crosscurr-hero-grid">
+      <div>
+        <p class="crosscurr-kicker">Tiendas de Barrio · Coordinación de 1.º de ESO</p>
+        <h1>Aportaciones desde otras materias</h1>
+        <p class="crosscurr-lead">Tiendas de Barrio puede convertirse en una situación de aprendizaje de centro si las demás materias se suman con tareas breves, evaluables y conectadas con el comercio local, el consumo responsable, la comunicación y la vida del barrio. Las propuestas de esta página se formulan desde competencias específicas y criterios de evaluación habituales del currículo de 1.º de ESO.</p>
+      </div>
+      <div class="crosscurr-pillbox">
+        <div class="crosscurr-pill">
+          <svg><use href="#icon-briefcase"></use></svg>
+          <div>
+            <strong>Enfoque interdisciplinar</strong>
+            <p>Cada tarjeta propone una contribución concreta del resto de materias y la vincula a productos que pueden integrarse en la simulación de tiendas.</p>
+          </div>
+        </div>
+        <div class="crosscurr-pill">
+          <svg><use href="#icon-hands"></use></svg>
+          <div>
+            <strong>Evaluación compartida</strong>
+            <p>Las evidencias pueden recogerse con rúbricas, portfolios, exposiciones orales, listas de cotejo o escalas de observación acordadas entre departamentos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="crosscurr-note">La idea no es multiplicar tareas, sino enriquecer la misma simulación con contribuciones específicas de cada materia: comunicar mejor, investigar mejor, diseñar mejor y tomar decisiones más responsables.</p>
+
+  <section class="crosscurr-section">
+    <div class="crosscurr-section__head">
+      <div>
+        <div class="crosscurr-step">1</div>
+        <h2>Comunicar, persuadir y atender al público</h2>
+        <p>Estas materias ayudan a que la tienda tenga voz propia, mensajes eficaces y una identidad visual coherente con las necesidades del barrio y del cliente.</p>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <article class="subject-card subject-lengua">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-book"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Lengua Castellana y Literatura</p>
+            <h3>Argumentar, vender y explicar con claridad</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">La simulación comercial permite trabajar eslóganes, folletos, entrevistas a clientes, guiones de atención al público y presentaciones orales para defender decisiones de compra, precios o promociones.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Comprensión y producción de textos orales, escritos y multimodales; interacción oral; búsqueda y organización de información.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Planificar y revisar textos funcionales, adaptar el registro al receptor, exponer ideas con orden y sostener argumentos con datos sencillos.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Catálogo comercial comentado, cuña de radio escolar o pitch de la tienda.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-idiomas">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-chat"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Primera y Segunda Lengua Extranjera</p>
+            <h3>Atención bilingüe y escaparates para visitantes</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Las lenguas extranjeras pueden aportar diálogos de compra-venta, carteles bilingües, fichas de producto, mensajes de bienvenida y pequeñas campañas para turismo o comercio de proximidad.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Comprensión de mensajes breves, interacción oral guiada, mediación lingüística y producción funcional en contextos reales.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Localizar información esencial, participar en intercambios sencillos, reformular contenidos y elaborar textos breves con finalidad práctica.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Escaparate bilingüe o guía de conversación para atender a clientela diversa.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-art">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-ruler"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Educación Plástica, Visual y Audiovisual</p>
+            <h3>Marca, logotipo y experiencia visual de tienda</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">La materia puede encargarse de la identidad gráfica: diseño de logotipo, rótulos, escaparates, packaging, etiquetas y recursos visuales para campañas de proximidad.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Lectura crítica de imágenes, creación de proyectos visuales y uso expresivo de elementos plásticos y audiovisuales.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Analizar referentes, justificar decisiones compositivas, experimentar con materiales y crear mensajes visuales eficaces.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Manual visual de marca con logotipo, escaparate y piezas promocionales.</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="crosscurr-section">
+    <div class="crosscurr-section__head">
+      <div>
+        <div class="crosscurr-step">2</div>
+        <h2>Investigar el barrio y tomar decisiones con fundamento</h2>
+        <p>Estas aportaciones convierten la tienda en un pequeño laboratorio social, científico y tecnológico donde se analizan necesidades reales, hábitos de consumo y soluciones viables.</p>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <article class="subject-card subject-social">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-map"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Geografía e Historia</p>
+            <h3>Mapa del barrio y evolución del comercio local</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">El alumnado puede investigar cómo ha cambiado el pequeño comercio, qué servicios faltan en el entorno, qué rutas hacen las familias y cómo se organiza el espacio urbano del barrio.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Análisis de fuentes, lectura del espacio geográfico, comprensión de transformaciones sociales y valoración del entorno cercano.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Interpretar mapas y testimonios, comparar cambios temporales, relacionar problemas del entorno con decisiones económicas y proponer mejoras.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Mapa comentado del comercio de proximidad y estudio de necesidades del barrio.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-ciencia">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-leaf"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Biología y Geología</p>
+            <h3>Productos saludables, estacionales y sostenibles</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Esta materia puede orientar decisiones sobre alimentos frescos, temporalidad de productos, envases, huella ambiental, residuos y hábitos de consumo responsables.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Indagación científica escolar, interpretación de evidencias, explicación de procesos naturales y análisis del impacto humano sobre el entorno.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Formular preguntas, comparar opciones, analizar datos de salud y sostenibilidad y justificar elecciones con base científica.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Línea de productos de temporada o etiqueta de compra responsable para la tienda.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-tech">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-chip"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Tecnología y Digitalización / Computación y Robótica</p>
+            <h3>Stock, precios, catálogos y automatización</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">La simulación comercial se enriquece con hojas de cálculo, inventarios, etiquetas QR, maquetas de TPV, paneles de ventas o pequeños flujos automatizados para pedidos y reposición.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Resolución de problemas tecnológicos, pensamiento computacional, uso seguro de herramientas digitales y comunicación del proceso de diseño.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Diseñar soluciones, documentarlas, probarlas, mejorarlas y valorar su utilidad para resolver necesidades reales del proyecto.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Panel digital de existencias y ventas o maqueta funcional de punto de venta.</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="crosscurr-section">
+    <div class="crosscurr-section__head">
+      <div>
+        <div class="crosscurr-step">3</div>
+        <h2>Convivir, crear cultura de barrio y cuidar hábitos</h2>
+        <p>La dimensión social del proyecto permite trabajar pertenencia, bienestar, creatividad y compromiso con un comercio más humano, accesible y responsable.</p>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <article class="subject-card subject-musica">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-note"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Música</p>
+            <h3>Jingles, identidad sonora y ambientación</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Cada tienda puede tener una pequeña identidad sonora: jingle, cuña musical, base rítmica para campañas o ambientación para una feria final de comercio escolar.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Escucha activa, creación musical, interpretación colectiva y valoración del papel social de la música.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Reconocer estructuras simples, crear secuencias musicales, coordinar interpretaciones y revisar el resultado artístico en grupo.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Jingle o cuña sonora para presentar la tienda en la exposición final.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-ef">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-move"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Educación Física</p>
+            <h3>Hábitos activos y consumo saludable</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">La materia puede proponer retos ligados a cestas saludables, recorridos activos por el barrio, diseño de campañas para un comercio cercano y cooperativo o dinámicas de fair play en la simulación.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Hábitos saludables, cooperación, toma de decisiones motrices, participación activa y cuidado del bienestar propio y colectivo.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Seleccionar opciones saludables, participar de forma segura, cooperar en retos grupales y valorar el movimiento como parte de la vida cotidiana.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Campaña <em>Compra cerca, vive activo</em> o gymkhana de comercio saludable.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-valores">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-hands"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Valores Cívicos y Éticos / Atención Educativa</p>
+            <h3>Consumo responsable, igualdad y accesibilidad</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Tiendas de Barrio es un escenario excelente para debatir sobre publicidad, derechos del consumidor, igualdad en la atención, accesibilidad del comercio y sostenibilidad de las decisiones de compra.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Reflexión ética, deliberación argumentada, convivencia democrática y compromiso con la justicia, la inclusión y el bien común.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Analizar dilemas, formular juicios razonados, escuchar otras perspectivas y proponer normas o mejoras aplicables al entorno cercano.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Código ético de la tienda o checklist de comercio responsable y accesible.</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="coordination-panel">
+    <h2>Una secuencia sencilla para coordinar al equipo docente</h2>
+    <p>La mejor versión del proyecto no nace de sumar actividades paralelas, sino de distribuir papeles: una materia mejora la comunicación, otra la investigación, otra el diseño y otra la reflexión sobre hábitos y ciudadanía.</p>
+    <div class="coordination-steps">
+      <article class="coordination-step">
+        <strong>1. Elegir una fase</strong>
+        <p>Relacionad cada aportación con un momento real del proyecto: propuesta, simulación, análisis o comunicación final.</p>
+      </article>
+      <article class="coordination-step">
+        <strong>2. Concretar evidencia y criterio</strong>
+        <p>Definid una producción breve por materia con criterios observables y el instrumento de evaluación compartido.</p>
+      </article>
+      <article class="coordination-step">
+        <strong>3. Devolver al alumnado una visión global</strong>
+        <p>Unificad todo en una feria, un porfolio o una exposición de barrio para que el alumnado vea cómo cada materia aporta valor al mismo reto.</p>
+      </article>
+    </div>
+  </section>
+</main>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>Tiendas de Barrio</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

@@ -1,0 +1,1810 @@
+{
+  "quiz_sumasyrestas": {
+    "title": "Nivel 1: Suma y Resta de Fracciones",
+    "questions": [
+      {
+        "q": "Calcula la siguiente suma con el mismo denominador: $$\\frac{2}{7} + \\frac{3}{7}$$",
+        "options": [
+          "$$\\frac{5}{14}$$",
+          "$$\\frac{5}{7}$$",
+          "$$\\frac{6}{49}$$",
+          "$$\\frac{1}{7}$$"
+        ],
+        "correct": 1,
+        "explanation": "¡Cuidado! Cuando el denominador es igual, **se mantiene** y solo sumamos los numeradores ($$2+3=5$$). Nunca sumes los denominadores ($$7+7$$ es incorrecto)."
+      },
+      {
+        "q": "Resta de fracciones con igual denominador: $$\\frac{8}{9} - \\frac{2}{9}$$",
+        "options": [
+          "$$\\frac{6}{0}$$",
+          "$$\\frac{10}{9}$$",
+          "$$\\frac{6}{9}$$",
+          "$$\\frac{6}{18}$$"
+        ],
+        "correct": 2,
+        "explanation": "Mantenemos el denominador ($$9$$) y restamos los numeradores ($$8-2=6$$). El error común es restar los denominadores, lo cual es imposible."
+      },
+      {
+        "q": "Suma con distinto denominador. ¿Cuál es el resultado de $$\\frac{1}{2} + \\frac{1}{4}$$?",
+        "options": [
+          "$$\\frac{2}{6}$$",
+          "$$\\frac{1}{6}$$",
+          "$$\\frac{3}{4}$$",
+          "$$\\frac{2}{8}$$"
+        ],
+        "correct": 2,
+        "explanation": "No puedes sumar en línea. Primero buscamos el denominador común (4). La operación queda: $$\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$$."
+      },
+      {
+        "q": "Operación con un número entero: $$1 + \\frac{2}{3}$$",
+        "options": [
+          "$$\\frac{3}{3}$$",
+          "$$\\frac{5}{3}$$",
+          "$$\\frac{3}{4}$$",
+          "$$\\frac{2}{4}$$"
+        ],
+        "correct": 1,
+        "explanation": "Truco: Convierte el 1 en una fracción con el mismo denominador ($$\\frac{3}{3}$$). Así: $$\\frac{3}{3} + \\frac{2}{3} = \\frac{5}{3}$$."
+      },
+      {
+        "q": "Resta con distinto denominador: $$\\frac{3}{4} - \\frac{1}{2}$$",
+        "options": [
+          "$$\\frac{2}{2}$$",
+          "$$\\frac{1}{4}$$",
+          "$$\\frac{2}{6}$$",
+          "$$\\frac{4}{6}$$"
+        ],
+        "correct": 1,
+        "explanation": "Calculamos el m.c.m. de 4 y 2, que es 4. Convertimos $$\\frac{1}{2}$$ en $$\\frac{2}{4}$$. Ahora restamos: $$\\frac{3}{4} - \\frac{2}{4} = \\frac{1}{4}$$."
+      },
+      {
+        "q": "Identifica el error común. Al calcular $$\\frac{1}{3} + \\frac{1}{5}$$, un alumno obtuvo $$\\frac{2}{8}$$. ¿Por qué está mal?",
+        "options": [
+          "Porque sumó los denominadores.",
+          "Porque debía restar.",
+          "El resultado es correcto.",
+          "Porque multiplicó en cruz."
+        ],
+        "correct": 0,
+        "explanation": "Este es el error más grave en fracciones. **Nunca** se suman los denominadores linealmente. Debes usar el mínimo común múltiplo (15)."
+      },
+      {
+        "q": "Calcula correctamente la operación anterior: $$\\frac{1}{3} + \\frac{1}{5}$$",
+        "options": [
+          "$$\\frac{2}{15}$$",
+          "$$\\frac{8}{15}$$",
+          "$$\\frac{1}{8}$$",
+          "$$\\frac{2}{8}$$"
+        ],
+        "correct": 1,
+        "explanation": "Denominador común es 15. Transformamos: $$\\frac{5}{15} + \\frac{3}{15} = \\frac{8}{15}$$."
+      },
+      {
+        "q": "Resta de un entero y una fracción: $$2 - \\frac{1}{2}$$",
+        "options": [
+          "$$\\frac{1}{2}$$",
+          "$$\\frac{3}{2}$$",
+          "$$\\frac{0}{2}$$",
+          "$$1$$"
+        ],
+        "correct": 1,
+        "explanation": "Imagina que tienes 2 tartas y quitas media. Matemáticamente: $$2 = \\frac{4}{2}$$. Entonces $$\\frac{4}{2} - \\frac{1}{2} = \\frac{3}{2}$$."
+      },
+      {
+        "q": "Suma de tres fracciones con mismo denominador: $$\\frac{1}{5} + \\frac{2}{5} + \\frac{1}{5}$$",
+        "options": [
+          "$$\\frac{4}{15}$$",
+          "$$\\frac{4}{5}$$",
+          "$$\\frac{3}{5}$$",
+          "$$\\frac{4}{25}$$"
+        ],
+        "correct": 1,
+        "explanation": "El denominador se mantiene quieto ($$5$$). Solo sumamos arriba: $$1+2+1 = 4$$. Resultado: $$\\frac{4}{5}$$."
+      },
+      {
+        "q": "Operación combinada simple: $$\\frac{3}{2} + \\frac{1}{2} - \\frac{2}{2}$$",
+        "options": [
+          "$$1$$",
+          "$$\\frac{2}{6}$$",
+          "$$0$$",
+          "$$\\frac{6}{2}$$"
+        ],
+        "correct": 0,
+        "explanation": "Al tener el mismo denominador, operamos directo: $$3 + 1 - 2 = 2$$. Nos queda $$\\frac{2}{2}$$, que es igual a la unidad (1)."
+      }
+    ]
+  },
+  "quiz_multiplicacion": {
+    "title": "Nivel 2: Multiplicación de Fracciones",
+    "questions": [
+      {
+        "q": "¿Cómo se multiplican dos fracciones? Ejemplo: $$\\frac{a}{b} \\cdot \\frac{c}{d}$$",
+        "options": [
+          "En línea (numerador por numerador y denominador por denominador).",
+          "En cruz (numerador por denominador opuesto).",
+          "Se busca el denominador común.",
+          "Se suman los exponentes."
+        ],
+        "correct": 0,
+        "explanation": "La multiplicación es la operación más directa: se multiplica recto. Los de arriba con los de arriba y los de abajo con los de abajo."
+      },
+      {
+        "q": "Calcula: $$\\frac{2}{3} \\cdot \\frac{4}{5}$$",
+        "options": [
+          "$$\\frac{8}{15}$$",
+          "$$\\frac{10}{12}$$",
+          "$$\\frac{6}{8}$$",
+          "$$\\frac{8}{8}$$"
+        ],
+        "correct": 0,
+        "explanation": "Multiplicamos en línea: $$2 \\cdot 4 = 8$$ y $$3 \\cdot 5 = 15$$. Resultado: $$\\frac{8}{15}$$."
+      },
+      {
+        "q": "Multiplicación de un entero por una fracción: $$3 \\cdot \\frac{2}{7}$$",
+        "options": [
+          "$$\\frac{6}{21}$$",
+          "$$\\frac{6}{7}$$",
+          "$$\\frac{5}{7}$$",
+          "$$\\frac{2}{21}$$"
+        ],
+        "correct": 1,
+        "explanation": "El entero solo multiplica al numerador (imagina que el 3 tiene un 1 debajo: $$\\frac{3}{1}$$). $$3 \\cdot 2 = 6$$, el 7 se queda igual."
+      },
+      {
+        "q": "Calcula el cuadrado de una fracción: $$(\\frac{2}{3})^2$$",
+        "options": [
+          "$$\\frac{4}{6}$$",
+          "$$\\frac{2}{9}$$",
+          "$$\\frac{4}{9}$$",
+          "$$\\frac{4}{3}$$"
+        ],
+        "correct": 2,
+        "explanation": "Elevar al cuadrado es multiplicar la fracción por sí misma: $$\\frac{2}{3} \\cdot \\frac{2}{3} = \\frac{4}{9}$$."
+      },
+      {
+        "q": "Fracción de una fracción: ¿Cuánto es la mitad de un cuarto ($$\\frac{1}{2} \\text{ de } \\frac{1}{4}$$)?",
+        "options": [
+          "$$\\frac{1}{8}$$",
+          "$$\\frac{2}{6}$$",
+          "$$\\frac{1}{2}$$",
+          "$$\\frac{1}{6}$$"
+        ],
+        "correct": 0,
+        "explanation": "En matemáticas, 'de' suele significar multiplicación. $$\\frac{1}{2} \\cdot \\frac{1}{4} = \\frac{1}{8}$$."
+      },
+      {
+        "q": "Simplifica el resultado de: $$\\frac{1}{2} \\cdot \\frac{4}{5}$$",
+        "options": [
+          "$$\\frac{5}{7}$$",
+          "$$\\frac{4}{10}$$",
+          "$$\\frac{2}{5}$$",
+          "$$\\frac{1}{5}$$"
+        ],
+        "correct": 2,
+        "explanation": "Primero multiplicamos: $$\\frac{4}{10}$$. Luego simplificamos dividiendo entre 2 arriba y abajo: $$\\frac{2}{5}$$."
+      },
+      {
+        "q": "Producto inverso: $$\\frac{3}{4} \\cdot \\frac{4}{3}$$",
+        "options": [
+          "$$\\frac{7}{7}$$",
+          "$$1$$",
+          "$$\\frac{12}{7}$$",
+          "$$0$$"
+        ],
+        "correct": 1,
+        "explanation": "Obtenemos $$\\frac{12}{12}$$. Cuando el numerador y el denominador son iguales, el resultado siempre es 1."
+      },
+      {
+        "q": "Área de un rectángulo de base $$\\frac{1}{2}$$ m y altura $$\\frac{2}{3}$$ m",
+        "options": [
+          "$$\\frac{3}{5} m^2$$",
+          "$$\\frac{1}{3} m^2$$",
+          "$$\\frac{2}{5} m^2$$",
+          "$$1 m^2$$"
+        ],
+        "correct": 1,
+        "explanation": "El área es base por altura: $$\\frac{1}{2} \\cdot \\frac{2}{3} = \\frac{2}{6}$$. Simplificado es $$\\frac{1}{3}$$."
+      },
+      {
+        "q": "Calcula el doble de un tercio ($$2 \\cdot \\frac{1}{3}$$)",
+        "options": [
+          "$$\\frac{2}{6}$$",
+          "$$\\frac{1}{6}$$",
+          "$$\\frac{2}{3}$$",
+          "$$\\frac{3}{2}$$"
+        ],
+        "correct": 2,
+        "explanation": "Multiplicamos el entero por el numerador: $$2 \\cdot 1 = 2$$. El denominador no cambia. Resultado: $$\\frac{2}{3}$$."
+      },
+      {
+        "q": "Multiplicación por cero: $$\\frac{7}{8} \\cdot 0$$",
+        "options": [
+          "$$\\frac{7}{8}$$",
+          "$$0$$",
+          "$$\\frac{0}{8}$$",
+          "$$1$$"
+        ],
+        "correct": 1,
+        "explanation": "Cualquier número (incluidas las fracciones) multiplicado por cero es siempre $$0$$."
+      }
+    ]
+  },
+  "quiz_division": {
+    "title": "Nivel 3: División de Fracciones",
+    "questions": [
+      {
+        "q": "¿Cómo se realiza la división de dos fracciones? $$\\frac{a}{b} : \\frac{c}{d}$$",
+        "options": [
+          "En línea (numerador entre numerador).",
+          "En cruz (se multiplican los términos cruzados).",
+          "Se calcula el m.c.m. de los denominadores.",
+          "Se restan los exponentes."
+        ],
+        "correct": 1,
+        "explanation": "Para dividir, multiplicamos en cruz: el numerador de la primera por el denominador de la segunda (arriba) y viceversa (abajo)."
+      },
+      {
+        "q": "Calcula: $$\\frac{1}{2} : \\frac{1}{3}$$",
+        "options": [
+          "$$\\frac{1}{6}$$",
+          "$$\\frac{3}{2}$$",
+          "$$\\frac{2}{3}$$",
+          "$$1$$"
+        ],
+        "correct": 1,
+        "explanation": "Multiplicamos en cruz: $$1 \\cdot 3$$ arriba (3) y $$2 \\cdot 1$$ abajo (2). Resultado: $$\\frac{3}{2}$$."
+      },
+      {
+        "q": "División de un entero entre una fracción: $$2 : \\frac{1}{2}$$",
+        "options": [
+          "$$1$$",
+          "$$4$$",
+          "$$\\frac{1}{4}$$",
+          "$$2$$"
+        ],
+        "correct": 1,
+        "explanation": "¿Cuántas mitades caben en 2 unidades? Caben 4. Matemáticamente: $$\\frac{2}{1} : \\frac{1}{2} \\rightarrow 2 \\cdot 2 = 4$$."
+      },
+      {
+        "q": "División de una fracción entre un entero: $$\\frac{1}{2} : 2$$",
+        "options": [
+          "$$1$$",
+          "$$\\frac{1}{4}$$",
+          "$$4$$",
+          "$$\\frac{2}{2}$$"
+        ],
+        "correct": 1,
+        "explanation": "Si repartes media tarta entre 2 personas, toca un cuarto a cada una. $$\\frac{1}{2} : \\frac{2}{1} = \\frac{1}{4}$$."
+      },
+      {
+        "q": "Propiedad fundamental: $$\\frac{3}{5} : \\frac{3}{5}$$",
+        "options": [
+          "$$1$$",
+          "$$0$$",
+          "$$\\frac{9}{25}$$",
+          "$$\\frac{6}{10}$$"
+        ],
+        "correct": 0,
+        "explanation": "Cualquier número dividido entre sí mismo es siempre 1. $$\\frac{15}{15} = 1$$."
+      },
+      {
+        "q": "Otra forma de dividir es multiplicar por la...",
+        "options": [
+          "Fracción opuesta.",
+          "Fracción inversa (darle la vuelta).",
+          "Misma fracción.",
+          "Fracción unidad."
+        ],
+        "correct": 1,
+        "explanation": "Dividir es lo mismo que multiplicar por la inversa de la segunda fracción. $$: \\frac{a}{b}$$ es igual a $$\\cdot \\frac{b}{a}$$."
+      },
+      {
+        "q": "Calcula y simplifica: $$\\frac{3}{4} : \\frac{1}{2}$$",
+        "options": [
+          "$$\\frac{3}{8}$$",
+          "$$\\frac{6}{4}$$",
+          "$$\\frac{3}{2}$$",
+          "$$\\frac{4}{6}$$"
+        ],
+        "correct": 2,
+        "explanation": "Operamos: $$\\frac{6}{4}$$. Simplificamos entre 2: $$\\frac{3}{2}$$."
+      },
+      {
+        "q": "Torre de fracciones: $$\\frac{1/3}{1/4}$$",
+        "options": [
+          "$$\\frac{4}{3}$$",
+          "$$\\frac{3}{4}$$",
+          "$$\\frac{1}{12}$$",
+          "$$12$$"
+        ],
+        "correct": 0,
+        "explanation": "Es una división vertical. Extremos arriba ($$1 \\cdot 4$$) y medios abajo ($$3 \\cdot 1$$). Resultado: $$\\frac{4}{3}$$."
+      },
+      {
+        "q": "Calcula: $$1 : \\frac{1}{3}$$",
+        "options": [
+          "$$\\frac{1}{3}$$",
+          "$$3$$",
+          "$$\\frac{3}{3}$$",
+          "$$0.33$$"
+        ],
+        "correct": 1,
+        "explanation": "El inverso de un tercio es 3. $$1 \\cdot 3 = 3$$."
+      },
+      {
+        "q": "Identifica el error: Al dividir $$\\frac{2}{3} : \\frac{4}{5}$$, alguien obtuvo $$\\frac{8}{15}$$.",
+        "options": [
+          "Es correcto.",
+          "Multiplicó en línea en vez de en cruz.",
+          "Sumó los numeradores.",
+          "No simplificó."
+        ],
+        "correct": 1,
+        "explanation": "Obtuvo $$\\frac{8}{15}$$ porque hizo $$2 \\cdot 4$$ y $$3 \\cdot 5$$. Eso es multiplicar, no dividir."
+      }
+    ]
+  },
+  "quiz_mix_operaciones": {
+    "title": "Nivel 4: Las 4 Operaciones Básicas",
+    "questions": [
+      {
+        "q": "Suma básica (mismo denominador): $$\\frac{2}{9} + \\frac{5}{9}$$",
+        "options": [
+          "$$\\frac{7}{18}$$",
+          "$$\\frac{7}{9}$$",
+          "$$\\frac{10}{9}$$",
+          "$$\\frac{3}{9}$$"
+        ],
+        "correct": 1,
+        "explanation": "Cuando el denominador es igual, se deja quieto y solo sumamos los numeradores: $$2+5=7$$.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Multiplicación: $$\\frac{2}{3} \\cdot \\frac{1}{5}$$",
+        "options": [
+          "$$\\frac{2}{15}$$",
+          "$$\\frac{3}{8}$$",
+          "$$\\frac{10}{3}$$",
+          "$$\\frac{2}{8}$$"
+        ],
+        "correct": 0,
+        "explanation": "La multiplicación es la más fácil: 'en línea'. El de arriba por el de arriba ($$2 \\cdot 1$$) y el de abajo por el de abajo ($$3 \\cdot 5$$).",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "División (Cuidado): $$\\frac{1}{2} : \\frac{1}{4}$$",
+        "options": [
+          "$$\\frac{1}{8}$$",
+          "$$2$$",
+          "$$\\frac{1}{2}$$",
+          "$$4$$"
+        ],
+        "correct": 1,
+        "explanation": "Multiplicamos en cruz: $$1 \\cdot 4 = 4$$ (arriba) y $$2 \\cdot 1 = 2$$ (abajo). $$\\frac{4}{2} = 2$$.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "¡Alerta de Error! Al sumar $$\\frac{1}{2} + \\frac{1}{4}$$, muchos responden $$\\frac{2}{6}$$. ¿Por qué está mal?",
+        "options": [
+          "Es correcto.",
+          "Sumaron los denominadores (PROHIBIDO).",
+          "Deberían haber restado.",
+          "Falta simplificar."
+        ],
+        "correct": 1,
+        "explanation": "Jamás se suman los números de abajo. Debes buscar el m.c.m. (4). La respuesta correcta sería $$\\frac{3}{4}$$.",
+        "layout": "list",
+        "style": "warning"
+      },
+      {
+        "q": "¿Verdadero o Falso? Para dividir fracciones se multiplica en cruz.",
+        "options": [
+          "Verdadero",
+          "Falso",
+          "-",
+          "-"
+        ],
+        "correct": 0,
+        "explanation": "Correcto. Aunque se llame 'división', el procedimiento mecánico es una multiplicación cruzada (método del caramelo).",
+        "layout": "bool",
+        "style": "normal"
+      },
+      {
+        "q": "Resta con distinto denominador: $$\\frac{3}{4} - \\frac{1}{2}$$",
+        "options": [
+          "$$\\frac{2}{2}$$",
+          "$$\\frac{1}{4}$$",
+          "$$\\frac{2}{6}$$",
+          "$$1$$"
+        ],
+        "correct": 1,
+        "explanation": "Convertimos $$\\frac{1}{2}$$ en $$\\frac{2}{4}$$. Ahora restamos: $$\\frac{3}{4} - \\frac{2}{4} = \\frac{1}{4}$$.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Multiplicación por un entero: $$3 \\cdot \\frac{2}{7}$$",
+        "options": [
+          "$$\\frac{6}{21}$$",
+          "$$\\frac{5}{7}$$",
+          "$$\\frac{6}{7}$$",
+          "$$\\frac{32}{7}$$"
+        ],
+        "correct": 2,
+        "explanation": "El entero solo multiplica al numerador. El denominador se queda igual.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "División curiosa: $$\\frac{5}{8} : \\frac{5}{8}$$",
+        "options": [
+          "$$1$$",
+          "$$0$$",
+          "$$\\frac{25}{64}$$",
+          "$$25$$"
+        ],
+        "correct": 0,
+        "explanation": "Cualquier cosa dividida entre sí misma es 1.",
+        "layout": "standard",
+        "style": "hero"
+      },
+      {
+        "q": "Potencia (que es multiplicar): $$(\\frac{1}{3})^2$$",
+        "options": [
+          "$$\\frac{2}{6}$$",
+          "$$\\frac{1}{6}$$",
+          "$$\\frac{1}{9}$$",
+          "$$\\frac{2}{9}$$"
+        ],
+        "correct": 2,
+        "explanation": "Es lo mismo que $$\\frac{1}{3} \\cdot \\frac{1}{3}$$.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Un cuarto de ocho ($$\\frac{1}{4} \\cdot 8$$)",
+        "options": [
+          "$$32$$",
+          "$$2$$",
+          "$$4$$",
+          "$$\\frac{1}{32}$$"
+        ],
+        "correct": 1,
+        "explanation": "Multiplicamos $$1 \\cdot 8 = 8$$, y dividimos entre 4. $$8 : 4 = 2$$.",
+        "layout": "standard",
+        "style": "normal"
+      }
+    ]
+  },
+  "quiz_teoria_flashcards": {
+    "title": "Teoría 1: Conceptos Fundamentales",
+    "questions": [
+      {
+        "q": "¿Qué representa una **Fracción**?",
+        "options": [
+          "Una parte de un todo o una división indicada.",
+          "Un número siempre mayor que 1.",
+          "Una operación de resta.",
+          "Un número negativo."
+        ],
+        "correct": 0,
+        "explanation": "Como dice la tarjeta: $$\\frac{3}{4}$$ significa '3 partes de 4' o '3 entre 4'.",
+        "layout": "list",
+        "style": "normal"
+      },
+      {
+        "q": "¿Qué herramienta necesitas obligatoriamente para **sumar** con distinto denominador?",
+        "options": [
+          "El m.c.m. (Mínimo Común Múltiplo).",
+          "La calculadora.",
+          "El m.c.d. (Máximo Común Divisor).",
+          "La regla de tres."
+        ],
+        "correct": 0,
+        "explanation": "No se puede sumar directo. Necesitas un 'muro común' (denominador común) usando el m.c.m.",
+        "layout": "hero",
+        "style": "normal"
+      },
+      {
+        "q": "Identifica el error en esta definición: 'Para multiplicar fracciones, se hace en cruz'.",
+        "options": [
+          "Es correcto, se hace en cruz.",
+          "No, la multiplicación es EN LÍNEA.",
+          "Se hace calculando el m.c.m.",
+          "Solo se multiplican los numeradores."
+        ],
+        "correct": 1,
+        "explanation": "¡Cuidado! La multiplicación es la única que va recta: Numerador $\\cdot$ Numerador y Denominador $\\cdot$ Denominador.",
+        "layout": "list",
+        "style": "warning"
+      },
+      {
+        "q": "¿Cómo se realiza la **división** de fracciones (el método del caramelo)?",
+        "options": [
+          "Multiplicando en cruz.",
+          "Dividiendo en línea.",
+          "Restando los términos.",
+          "Sumando los exponentes."
+        ],
+        "correct": 0,
+        "explanation": "Aunque sea división, la mecánica es multiplicar los términos cruzados.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "¿Cuándo decimos que una fracción es **irreducible**?",
+        "options": [
+          "Cuando no se puede simplificar más.",
+          "Cuando tiene números muy grandes.",
+          "Cuando el numerador es mayor que el denominador.",
+          "Cuando es igual a 1."
+        ],
+        "correct": 0,
+        "explanation": "Es irreducible cuando el numerador y el denominador son primos entre sí (no tienen divisores comunes).",
+        "layout": "list",
+        "style": "normal"
+      },
+      {
+        "q": "¿Verdadero o Falso? Para pasar de fracción a decimal se divide el numerador entre el denominador.",
+        "options": [
+          "Verdadero",
+          "Falso",
+          "-",
+          "-"
+        ],
+        "correct": 0,
+        "explanation": "Correcto. Ejemplo: $$\\frac{1}{4} = 1 : 4 = 0,25$$.",
+        "layout": "bool",
+        "style": "normal"
+      },
+      {
+        "q": "¿Cuál es el **inverso** de la fracción $$\\frac{2}{3}$$?",
+        "options": [
+          "$$\\frac{3}{2}$$",
+          "$$-\\frac{2}{3}$$",
+          "$$1$$",
+          "$$0$$"
+        ],
+        "correct": 0,
+        "explanation": "Para el inverso, simplemente 'le damos la vuelta': intercambiamos numerador y denominador.",
+        "layout": "hero",
+        "style": "normal"
+      },
+      {
+        "q": "Definición: ¿Qué es una fracción **Impropia**?",
+        "options": [
+          "Aquella donde el numerador es MAYOR que el denominador.",
+          "Aquella donde el numerador es MENOR que el denominador.",
+          "Una fracción con números negativos.",
+          "Una fracción igual a cero."
+        ],
+        "correct": 0,
+        "explanation": "Impropia significa que representa más de una unidad (ej: $$\\frac{7}{5}$$). Propia es cuando es menor que 1 (ej: $$\\frac{2}{5}$$).",
+        "layout": "list",
+        "style": "normal"
+      },
+      {
+        "q": "¿Qué son las fracciones **equivalentes**?",
+        "options": [
+          "Las que representan la misma cantidad.",
+          "Las que tienen el mismo denominador.",
+          "Las que suman 1.",
+          "Las que son irreducibles."
+        ],
+        "correct": 0,
+        "explanation": "Son distintas formas de escribir lo mismo. Ejemplo: $$\\frac{1}{2}$$ es lo mismo que $$\\frac{2}{4}$$.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "¿Verdadero o Falso? El m.c.m. de 3 y 4 es 7.",
+        "options": [
+          "Verdadero",
+          "Falso",
+          "-",
+          "-"
+        ],
+        "correct": 1,
+        "explanation": "Falso. El m.c.m. de 3 y 4 es 12. (7 sería la suma, no el múltiplo común).",
+        "layout": "bool",
+        "style": "warning"
+      }
+    ]
+  },
+  "quiz_proporcionalidad": {
+    "title": "Teoría2 : Proporcionalidad y Porcentajes",
+    "questions": [
+      {
+        "q": "¿Qué es una **Razón** en matemáticas?",
+        "options": [
+          "Una comparación entre dos cantidades por cociente.",
+          "Una suma de dos números.",
+          "El resultado de multiplicar dos fracciones.",
+          "Un número siempre mayor que 100."
+        ],
+        "correct": 0,
+        "explanation": "Es el cociente entre dos números. Se suele escribir como $$a:b$$ (se lee 'a es a b').",
+        "layout": "hero",
+        "style": "normal"
+      },
+      {
+        "q": "En agricultura, el Ratio **NPK** indica la proporción de Nitrógeno, Fósforo y Potasio. En un abono 13-40-13, ¿cuál es el elemento más abundante?",
+        "options": [
+          "El Fósforo (P).",
+          "El Nitrógeno (N).",
+          "El Potasio (K).",
+          "Todos por igual."
+        ],
+        "correct": 0,
+        "explanation": "El número central (40) corresponde al Fósforo (P). Es un abono para estimular la raíz y floración.",
+        "layout": "list",
+        "style": "normal",
+        "image": "../../../assets/images/quiz-npk.svg"
+      },
+      {
+        "q": "Fórmula: En una **Regla de Tres Directa**, si $$\\frac{A}{B} = \\frac{C}{x}$$, ¿cómo despejamos la $$x$$?",
+        "options": [
+          "$$x = \\frac{B \\cdot C}{A}$$",
+          "$$x = A \\cdot B \\cdot C$$",
+          "$$x = \\frac{A \\cdot C}{B}$$",
+          "$$x = \\frac{A}{B \\cdot C}$$"
+        ],
+        "correct": 0,
+        "explanation": "Se multiplica en cruz los que tienen pareja (B y C) y se divide por el que se queda solo (A).",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Diferencia Clave: Una **Fracción** compara Parte con Todo. ¿Qué compara habitualmente una **Razón**?",
+        "options": [
+          "Parte con Parte (ej: Agua vs Abono).",
+          "El total con el total.",
+          "Fracciones con decimales.",
+          "Siempre compara con 100."
+        ],
+        "correct": 0,
+        "explanation": "Ejemplo: En una mezcla 10:1 (agua:abono), comparamos dos partes distintas, no una parte del total.",
+        "layout": "list",
+        "style": "warning"
+      },
+      {
+        "q": "¿Verdadero o Falso? El **Porcentaje (%)** es una razón donde el denominador siempre es 100.",
+        "options": [
+          "Verdadero",
+          "Falso",
+          "-",
+          "-"
+        ],
+        "correct": 0,
+        "explanation": "Exacto. $$20\\%$$ significa literalmente '20 de cada 100'. Matemáticamente es $$\\frac{20}{100}$$.",
+        "layout": "bool",
+        "style": "normal"
+      },
+      {
+        "q": "Cálculo rápido: ¿A qué número decimal equivale el $$20\\%$$?",
+        "options": [
+          "$$0,2$$",
+          "$$0,02$$",
+          "$$2,0$$",
+          "$$20$$"
+        ],
+        "correct": 0,
+        "explanation": "Al dividir entre 100, movemos la coma dos sitios a la izquierda. $$20 : 100 = 0,2$$.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Lógica: ¿Cuál de estas parejas son **Magnitudes Directamente Proporcionales**?",
+        "options": [
+          "Kilos de manzanas y Precio total.",
+          "Velocidad de un coche y tiempo en llegar.",
+          "Número de obreros y tiempo en acabar la obra.",
+          "La edad de una persona y su altura."
+        ],
+        "correct": 0,
+        "explanation": "Directa: Si compro el doble de manzanas, pago el doble. (Velocidad y tiempo son Inversas: más rápido = menos tiempo).",
+        "layout": "list",
+        "style": "normal"
+      },
+      {
+        "q": "Definición técnica: Dos magnitudes son directas si al multiplicar una por $$k$$...",
+        "options": [
+          "La otra también se multiplica por $$k$$.",
+          "La otra se divide por $$k$$.",
+          "La otra se queda igual.",
+          "La otra se suma con $$k$$."
+        ],
+        "correct": 0,
+        "explanation": "Esa $$k$$ es la constante de proporcionalidad. Si doblas una (x2), la otra se dobla (x2).",
+        "layout": "standard",
+        "style": "hero"
+      },
+      {
+        "q": "Interpretación: Si la razón de mezcla es **1:3**, significa...",
+        "options": [
+          "1 parte del producto A por cada 3 del producto B.",
+          "1 parte del producto A y 3 es el total.",
+          "Que hay que echar 3 litros de A.",
+          "Que la mezcla pesa 13 kg."
+        ],
+        "correct": 0,
+        "explanation": "Es una relación Parte a Parte. Por cada cazo de uno, echas tres cazos del otro.",
+        "layout": "list",
+        "style": "normal"
+      },
+      {
+        "q": "[Imagen de balanza] En una regla de tres directa, si una cantidad sube, la otra...",
+        "options": [
+          "Sube en la misma proporción.",
+          "Baja.",
+          "Se mantiene constante.",
+          "Desaparece."
+        ],
+        "correct": 0,
+        "explanation": "Es la esencia de la proporcionalidad directa. Más gasolina = Más dinero. Menos gasolina = Menos dinero.",
+        "layout": "standard",
+        "style": "normal",
+        "image": "../../../assets/images/quiz-fracciones.jpg"
+      }
+    ]
+  },
+  "quiz_algebra": {
+    "title": "Teoría 3: Iniciación al Álgebra",
+    "questions": [
+      {
+        "q": "Definición: ¿Qué es una **Variable** en matemáticas?",
+        "options": [
+          "Una letra que representa un número desconocido.",
+          "Un número que siempre vale 1.",
+          "El resultado final de una cuenta.",
+          "Un signo de puntuación."
+        ],
+        "correct": 0,
+        "explanation": "Como dice la tarjeta: usamos letras (x, y, t...) para representar valores que no conocemos o que pueden cambiar.",
+        "layout": "hero",
+        "style": "normal"
+      },
+      {
+        "q": "Traducción: ¿Cómo se escribe en lenguaje algebraico **'El doble de un número'**?",
+        "options": [
+          "$$2x$$",
+          "$$x^2$$",
+          "$$x + 2$$",
+          "$$\\frac{x}{2}$$"
+        ],
+        "correct": 0,
+        "explanation": "El doble siempre implica multiplicar por 2. ($$x^2$$ sería 'el cuadrado' y $$x+2$$ 'el número más dos').",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Lenguaje: Si $$x$$ es un número, ¿cómo escribimos **'El siguiente de un número'**?",
+        "options": [
+          "$$x + 1$$",
+          "$$x - 1$$",
+          "$$2x$$",
+          "$$1x$$"
+        ],
+        "correct": 0,
+        "explanation": "El siguiente es el que va después. Al número desconocido le sumamos 1.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Identifica el ERROR grave: Un alumno sumó $$2x + 3x^2$$ y puso $$5x^3$$. ¿Por qué está mal?",
+        "options": [
+          "Porque NO son Términos Semejantes.",
+          "Porque sumó mal los coeficientes.",
+          "Porque debería haber restado.",
+          "Es correcto."
+        ],
+        "correct": 0,
+        "explanation": "¡Cuidado! Solo se pueden sumar 'peras con peras'. $$x$$ y $$x^2$$ tienen distinta parte literal, así que se dejan indicados, no se juntan.",
+        "layout": "list",
+        "style": "warning"
+      },
+      {
+        "q": "¿Verdadero o Falso? La expresión $$3x + 1$$ es un **Monomio**.",
+        "options": [
+          "Verdadero",
+          "Falso",
+          "-",
+          "-"
+        ],
+        "correct": 1,
+        "explanation": "Falso. Un monomio es un SOLO término (ej: $$3x^2$$). Aquí hay una suma de dos cosas, así que es un binomio.",
+        "layout": "bool",
+        "style": "normal"
+      },
+      {
+        "q": "Regla de la Suma: En la ecuación $$x + 5 = 15$$, ¿cómo pasa el 5 al otro lado?",
+        "options": [
+          "Restando ($$15 - 5$$).",
+          "Sumando otra vez ($$15 + 5$$).",
+          "Dividiendo ($$15 : 5$$).",
+          "Desaparece."
+        ],
+        "correct": 0,
+        "explanation": "Lo que está sumando en un miembro, pasa restando al otro para despejar la incógnita.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "Regla del Producto: En la ecuación $$3x = 12$$, el 3 está multiplicando. ¿Cómo pasa al otro lado?",
+        "options": [
+          "Dividiendo ($$\\frac{12}{3}$$).",
+          "Restando ($$12 - 3$$).",
+          "Multiplicando ($$12 \\cdot 3$$).",
+          "Con signo negativo."
+        ],
+        "correct": 0,
+        "explanation": "Si multiplica a la x, pasa dividiendo al otro lado de la igualdad.",
+        "layout": "standard",
+        "style": "normal"
+      },
+      {
+        "q": "¿Qué significa ser **Solución** de una ecuación?",
+        "options": [
+          "Es el valor numérico que hace que la igualdad sea cierta.",
+          "Es el número más grande de la ecuación.",
+          "Es la letra x.",
+          "Es el primer número que aparece."
+        ],
+        "correct": 0,
+        "explanation": "Ejemplo: En $$x+2=5$$, la solución es 3, porque es el único número que cumple que $$3+2=5$$.",
+        "layout": "list",
+        "style": "normal"
+      },
+      {
+        "q": "Modelización: Para un invernadero de 40m de ancho, la fórmula del perímetro es $$P = 2L + 80$$. ¿Qué representa la $$L$$?",
+        "options": [
+          "El Largo del invernadero.",
+          "Los Litros de agua.",
+          "El Lado de un cuadrado.",
+          "La Luz solar."
+        ],
+        "correct": 0,
+        "explanation": "En este contexto de geometría, la variable L se usa para representar la longitud desconocida (Largo).",
+        "layout": "standard",
+        "style": "normal",
+        "image": "../../../assets/images/quiz-perimetro.svg"
+      },
+      {
+        "q": "Traducción: ¿Cómo escribimos **'La mitad de un número'**?",
+        "options": [
+          "$$\\frac{x}{2}$$",
+          "$$2x$$",
+          "$$x - 2$$",
+          "$$x^2$$"
+        ],
+        "correct": 0,
+        "explanation": "La mitad siempre es dividir entre 2.",
+        "layout": "standard",
+        "style": "normal"
+      }
+    ]
+  },
+  "quiz_visual": {
+    "title": "Visual 1: Representación Gráfica",
+    "questions": [
+      {
+        "q": "¿Qué fracción representa la siguiente imagen? <br> $$ \\color{blue}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+        "options": [
+          "$$ \\frac{3}{5} $$",
+          "$$ \\frac{2}{5} $$",
+          "$$ \\frac{3}{2} $$",
+          "$$ \\frac{5}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "Hay 5 cuadrados en total (denominador). De ellos, 3 están pintados de azul (numerador)."
+      },
+      {
+        "q": "Selecciona la representación correcta para la fracción $$ \\frac{1}{4} $$",
+        "options": [
+          "$$ \\color{red}{\\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+          "$$ \\color{red}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{red}{\\blacksquare} \\color{lightgray}{\\square \\square \\square \\square} $$",
+          "$$ \\color{lightgray}{\\square \\square \\square \\square} $$"
+        ],
+        "correct": 0,
+        "explanation": "Necesitamos 1 cuadrado pintado de un total de 4 cuadrados."
+      },
+      {
+        "q": "Mira esta barra de chocolate. ¿Cuánto nos hemos comido (puntos azules)? <br> $$ \\begin{array}{|c|c|c|c|c|c|} \\hline \\color{blue}{\\bullet} & \\color{blue}{\\bullet} & \\color{blue}{\\bullet} & \\color{blue}{\\bullet} & \\circ & \\circ \\\\ \\hline \\end{array} $$",
+        "options": [
+          "$$ \\frac{4}{6} $$",
+          "$$ \\frac{2}{6} $$",
+          "$$ \\frac{4}{2} $$",
+          "$$ \\frac{6}{4} $$"
+        ],
+        "correct": 0,
+        "explanation": "La barra tiene 6 trozos en total. Hay 4 marcados con puntos azules. La fracción es 4/6 (que simplificada sería 2/3)."
+      },
+      {
+        "q": "¿Qué fracción es MAYOR que la representada aquí? <br> $$ \\color{green}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+        "options": [
+          "$$ \\frac{3}{5} $$",
+          "$$ \\frac{1}{5} $$",
+          "$$ \\frac{2}{5} $$",
+          "$$ \\frac{1}{10} $$"
+        ],
+        "correct": 0,
+        "explanation": "La imagen muestra 2/5. Buscamos una fracción mayor. 3/5 es mayor que 2/5."
+      },
+      {
+        "q": "Suma visual: <br> $$ \\left( \\color{orange}{\\blacksquare} \\color{lightgray}{\\square \\square} \\right) + \\left( \\color{orange}{\\blacksquare} \\color{lightgray}{\\square \\square} \\right) $$",
+        "options": [
+          "$$ \\frac{2}{3} $$",
+          "$$ \\frac{2}{6} $$",
+          "$$ \\frac{1}{3} $$",
+          "$$ \\frac{3}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "Tenemos 1/3 más 1/3. En total son 2 cuadrados naranjas de cada grupo de 3. Resultado: 2/3."
+      },
+      {
+        "q": "¿Cuál de estas barras representa una fracción **impropia** (más de la unidad)?",
+        "options": [
+          "$$ \\color{purple}{\\blacksquare \\blacksquare \\blacksquare} \\; \\color{purple}{\\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{purple}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square} $$",
+          "$$ \\color{purple}{\\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+          "$$ \\color{lightgray}{\\square \\square} $$"
+        ],
+        "correct": 0,
+        "explanation": "La primera opción muestra un entero completo (3/3) más otro trozo (1/3). Es decir, 4/3, que es impropia."
+      },
+      {
+        "q": "Equivalencia visual. ¿Qué imagen representa lo mismo que $$ \\frac{1}{2} $$?",
+        "options": [
+          "$$ \\color{blue}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{blue}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square} $$",
+          "$$ \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square \\square \\square} $$"
+        ],
+        "correct": 0,
+        "explanation": "La primera opción muestra 2/4. Si simplificamos 2/4, obtenemos 1/2."
+      },
+      {
+        "q": "Resta visual: <br> $$ \\color{red}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square} - \\color{red}{\\blacksquare}\\color{lightgray}{\\square \\square \\square} $$",
+        "options": [
+          "$$ \\frac{2}{4} $$",
+          "$$ \\frac{3}{4} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ \\frac{2}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "Tenemos 3/4 y quitamos 1/4 (un cuadrado rojo). Nos quedan 2 cuadrados rojos de 4. Resultado: 2/4."
+      },
+      {
+        "q": "Completa para llegar a la unidad (1): <br> Tienes $$ \\color{green}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$. ¿Cuántos faltan?",
+        "options": [
+          "$$ \\frac{2}{5} $$",
+          "$$ \\frac{3}{5} $$",
+          "$$ \\frac{1}{5} $$",
+          "$$ \\frac{5}{5} $$"
+        ],
+        "correct": 0,
+        "explanation": "Hay 3 verdes de 5 totales (3/5). Para completar la barra (5/5) faltan los 2 grises (2/5)."
+      },
+      {
+        "q": "¿Qué porcentaje representa esta fracción? <br> $$ \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+        "options": [
+          "25%",
+          "50%",
+          "75%",
+          "10%"
+        ],
+        "correct": 0,
+        "explanation": "Es 1 de 4 ($$ \\frac{1}{4} $$). Si divides 100 entre 4, toca a 25. Es el 25%."
+      }
+    ]
+  },
+  "quiz_visual_sumas": {
+    "title": "Visual 2: Sumas y Restas",
+    "questions": [
+      {
+        "q": "¿Qué suma representa esta imagen? <br> $$ \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square} \\; + \\; \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square} $$",
+        "options": [
+          "$$ \\frac{1}{3} + \\frac{1}{3} $$",
+          "$$ \\frac{2}{3} + \\frac{1}{3} $$",
+          "$$ \\frac{1}{2} + \\frac{1}{2} $$",
+          "$$ \\frac{3}{3} + \\frac{1}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "En cada grupo de 3, hay 1 azul. Estamos sumando un tercio más un tercio."
+      },
+      {
+        "q": "Resultado visual: Tienes $$ \\color{green}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$ y añades $$ \\color{green}{\\blacksquare} $$. ¿Qué obtienes?",
+        "options": [
+          "$$ \\frac{3}{4} $$",
+          "$$ \\frac{2}{4} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ \\frac{4}{4} $$"
+        ],
+        "correct": 0,
+        "explanation": "Tenías 2/4 (dos verdes). Añades 1/4 (uno verde). En total tienes 3 verdes de 4: $$ \\frac{3}{4} $$."
+      },
+      {
+        "q": "Resta visual: $$ \\color{red}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} \\; - \\; \\color{red}{\\blacksquare} $$",
+        "options": [
+          "$$ \\frac{2}{5} $$",
+          "$$ \\frac{3}{5} $$",
+          "$$ \\frac{4}{5} $$",
+          "$$ \\frac{1}{5} $$"
+        ],
+        "correct": 0,
+        "explanation": "Hay 3 bloques rojos de 5 (3/5). Si quitamos 1 bloque rojo (1/5), nos quedan 2 bloques rojos (2/5)."
+      },
+      {
+        "q": "Suma con distinto denominador (Visual): <br> $$ \\color{blue}{\\blacksquare} \\color{lightgray}{\\square} \\; + \\; \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square \\square} $$ <br> (Pista: 1/2 es igual a 2/4)",
+        "options": [
+          "$$ \\frac{3}{4} $$",
+          "$$ \\frac{2}{4} $$",
+          "$$ \\frac{2}{6} $$",
+          "$$ \\frac{1}{2} $$"
+        ],
+        "correct": 0,
+        "explanation": "Visualmente, la mitad (1/2) ocupa lo mismo que dos cuartos (2/4). Así que $$ \\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4} $$."
+      },
+      {
+        "q": "¿Cuánto falta para completar la barra entera? <br> $$ \\color{orange}{\\blacksquare \\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+        "options": [
+          "$$ \\frac{2}{6} $$",
+          "$$ \\frac{4}{6} $$",
+          "$$ \\frac{1}{6} $$",
+          "$$ \\frac{5}{6} $$"
+        ],
+        "correct": 0,
+        "explanation": "Hay 6 huecos en total. 4 están llenos (naranja). Faltan los 2 grises para llegar al total (6/6). Faltan 2/6."
+      },
+      {
+        "q": "Operación con Enteros: <br> $$ \\color{purple}{\\blacksquare \\blacksquare \\blacksquare} \\; + \\; \\color{purple}{\\blacksquare} \\color{lightgray}{\\square \\square} $$",
+        "options": [
+          "$$ 1 + \\frac{1}{3} $$",
+          "$$ 1 + \\frac{2}{3} $$",
+          "$$ \\frac{3}{3} + \\frac{3}{3} $$",
+          "$$ 3 + \\frac{1}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "El primer grupo está todo lleno (3/3 = 1 entero). El segundo tiene solo 1 de 3. Es $$ 1 + \\frac{1}{3} $$."
+      },
+      {
+        "q": "¿Qué operación representa esta imagen? <br> $$ \\color{gray}{\\blacksquare \\blacksquare \\square} \\rightarrow \\color{gray}{\\blacksquare \\square \\square} $$",
+        "options": [
+          "$$ \\frac{2}{3} - \\frac{1}{3} $$",
+          "$$ \\frac{2}{3} + \\frac{1}{3} $$",
+          "$$ \\frac{1}{3} - \\frac{1}{3} $$",
+          "$$ \\frac{3}{3} - \\frac{2}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "Pasamos de tener 2 bloques (2/3) a tener solo 1 bloque (1/3). Hemos restado uno."
+      },
+      {
+        "q": "Elige la representación de $$ \\frac{5}{5} - \\frac{2}{5} $$",
+        "options": [
+          "$$ \\color{blue}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{blue}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+          "$$ \\color{blue}{\\blacksquare \\blacksquare \\blacksquare \\blacksquare \\blacksquare} $$",
+          "$$ \\color{lightgray}{\\square \\square \\square \\square \\square} $$"
+        ],
+        "correct": 0,
+        "explanation": "Si a 5/5 (todo lleno) le quitas 2, te quedan 3 llenos. La imagen correcta muestra 3 azules y 2 vacíos."
+      },
+      {
+        "q": "Suma acumulada: <br> $$ \\frac{1}{4} + \\frac{1}{4} + \\frac{1}{4} $$",
+        "options": [
+          "$$ \\color{red}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square} $$",
+          "$$ \\color{red}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{red}{\\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+          "$$ \\color{red}{\\blacksquare \\blacksquare \\blacksquare \\blacksquare} $$"
+        ],
+        "correct": 0,
+        "explanation": "Sumamos 3 veces un cuarto. El resultado es 3/4. Buscamos la imagen con 3 bloques rojos."
+      },
+      {
+        "q": "Problema visual: Si tienes media pizza ($$ \\color{orange}{\\blacksquare} \\color{lightgray}{\\square} $$) y te comes la mitad de lo que tienes...",
+        "options": [
+          "Te queda $$ \\frac{1}{4} $$",
+          "Te queda $$ \\frac{1}{2} $$",
+          "Te queda $$ 0 $$",
+          "Te queda $$ \\frac{3}{4} $$"
+        ],
+        "correct": 0,
+        "explanation": "La mitad de 1/2 es 1/4. Visualmente, partirías el bloque naranja en dos."
+      }
+    ]
+  },
+  "quiz_visual_mult_div": {
+    "title": "Visual 3: Multiplicación y División",
+    "questions": [
+      {
+        "q": "Multiplicación como Área. ¿Qué representa esta rejilla? <br> $$ \\begin{array}{|c|c|} \\hline \\color{blue}{\\bullet} & \\circ \\\\ \\hline \\circ & \\circ \\\\ \\hline \\end{array} $$",
+        "options": [
+          "$$ \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4} $$",
+          "$$ \\frac{1}{2} + \\frac{1}{2} $$",
+          "$$ 2 \\cdot 2 $$",
+          "$$ \\frac{1}{4} \\cdot 4 $$"
+        ],
+        "correct": 0,
+        "explanation": "Hemos dividido el cuadrado en 4 (mitad vertical y mitad horizontal). La intersección (el punto) es 1 de 4."
+      },
+      {
+        "q": "¿Cuánto es la mitad de un tercio? <br> $$ \\frac{1}{2} \\cdot \\color{green}{\\blacksquare} \\color{lightgray}{\\square \\square} $$",
+        "options": [
+          "$$ \\frac{1}{6} $$",
+          "$$ \\frac{1}{3} $$",
+          "$$ \\frac{2}{3} $$",
+          "$$ \\frac{1}{2} $$"
+        ],
+        "correct": 0,
+        "explanation": "Si divides cada tercio en dos partes, tienes 6 partes en total. Tomar una es 1/6."
+      },
+      {
+        "q": "Visualiza el doble: $$ 2 \\cdot \\left( \\color{red}{\\blacksquare} \\color{lightgray}{\\square \\square} \\right) $$",
+        "options": [
+          "$$ \\color{red}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square} $$",
+          "$$ \\color{red}{\\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{red}{\\blacksquare \\blacksquare \\blacksquare} $$",
+          "$$ \\color{lightgray}{\\square \\square \\square} $$"
+        ],
+        "correct": 0,
+        "explanation": "Tienes 1/3. El doble son 2/3 (dos bloques rojos)."
+      },
+      {
+        "q": "División visual: ¿Cuántas mitades ($$ \\color{blue}{\\blacksquare} \\color{lightgray}{\\square} $$) caben en 2 enteros? <br> $$ \\color{blue}{\\blacksquare \\blacksquare} \\; \\color{blue}{\\blacksquare \\blacksquare} $$",
+        "options": [
+          "4",
+          "2",
+          "1",
+          "8"
+        ],
+        "correct": 0,
+        "explanation": "En cada entero caben 2 mitades. En dos enteros caben 4 mitades. $$ 2 : \\frac{1}{2} = 4 $$."
+      },
+      {
+        "q": "Fracción de una colección. Calcula $$ \\frac{2}{3} $$ de 6 puntos: <br> $$ \\bullet \\bullet \\bullet \\bullet \\bullet \\bullet $$",
+        "options": [
+          "4 puntos",
+          "2 puntos",
+          "3 puntos",
+          "6 puntos"
+        ],
+        "correct": 0,
+        "explanation": "Hacemos 3 grupos de 2 puntos. Tomamos 2 grupos. $$ 2 + 2 = 4 $$ puntos."
+      },
+      {
+        "q": "Cuadrado de una fracción. Visualiza $$ \\frac{1}{2} \\cdot \\frac{1}{2} $$ en un cuadrado.",
+        "options": [
+          "Es la cuarta parte ($$ \\frac{1}{4} $$)",
+          "Es la mitad ($$ \\frac{1}{2} $$)",
+          "Es el entero (1)",
+          "Es cero"
+        ],
+        "correct": 0,
+        "explanation": "Si cortas una tarta por la mitad, y luego esa mitad por la mitad otra vez, tienes un cuarto."
+      },
+      {
+        "q": "Multiplicación de enteros: $$ 3 \\cdot \\frac{1}{4} $$",
+        "options": [
+          "$$ \\color{orange}{\\blacksquare \\blacksquare \\blacksquare} \\color{lightgray}{\\square} $$",
+          "$$ \\color{orange}{\\blacksquare} \\color{lightgray}{\\square \\square \\square} $$",
+          "$$ \\color{orange}{\\blacksquare \\blacksquare} \\color{lightgray}{\\square \\square} $$",
+          "$$ \\color{lightgray}{\\square \\square \\square \\square} $$"
+        ],
+        "correct": 0,
+        "explanation": "Significa 'tres veces un cuarto'. Juntamos 3 bloques naranjas de 4. Resultado: 3/4."
+      },
+      {
+        "q": "Reparto (División): Tienes $$ \\color{blue}{\\blacksquare \\blacksquare \\blacksquare} $$ (3/4) de pizza y la repartes entre 3 amigos.",
+        "options": [
+          "Le toca $$ \\frac{1}{4} $$ a cada uno",
+          "Le toca $$ \\frac{3}{4} $$ a cada uno",
+          "Le toca $$ \\frac{1}{2} $$ a cada uno",
+          "Le toca 1 a cada uno"
+        ],
+        "correct": 0,
+        "explanation": "Matemáticamente: $$ \\frac{3}{4} : 3 $$. Si tienes 3 trozos y sois 3 personas, toca 1 trozo (de cuarto) a cada uno."
+      },
+      {
+        "q": "¿Qué fracción multiplicada por 2 da 1 (Entero)?",
+        "options": [
+          "$$ \\frac{1}{2} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ \\frac{1}{3} $$",
+          "$$ \\frac{2}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "Visualmente: Dos mitades hacen un entero. $$ 2 \\cdot \\frac{1}{2} = 1 $$."
+      },
+      {
+        "q": "Área del rectángulo visual: Base $$ \\frac{3}{1} $$ y Altura $$ \\frac{1}{3} $$",
+        "options": [
+          "$$ \\frac{3}{3} $$ (1 unidad cuadrada)",
+          "$$ \\frac{1}{3} $$",
+          "$$ \\frac{3}{1} $$",
+          "$$ 9 $$"
+        ],
+        "correct": 0,
+        "explanation": "Al multiplicar $$ 3 \\cdot \\frac{1}{3} $$ obtenemos 1. Es el concepto de números inversos."
+      }
+    ]
+  },
+  "quiz_visual_combinadas": {
+    "title": "Visual 4: Operaciones Combinadas",
+    "questions": [
+      {
+        "q": "Paso 1: Paréntesis. Resuelve visualmente: <br> $$ 2 \\cdot \\left( \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square} + \\color{blue}{\\blacksquare} \\color{lightgray}{\\square \\square} \\right) $$",
+        "options": [
+          "$$ \\frac{4}{3} $$",
+          "$$ \\frac{2}{3} $$",
+          "$$ \\frac{1}{3} $$",
+          "$$ \\frac{3}{3} $$"
+        ],
+        "correct": 0,
+        "explanation": "Primero el paréntesis: 1/3 + 1/3 = 2/3. Luego multiplicamos por 2: 4/3."
+      },
+      {
+        "q": "Jerarquía Visual: <br> $$ \\color{red}{\\blacksquare \\blacksquare \\blacksquare \\blacksquare} $$ (1 entero) $$ - \\frac{1}{2} \\cdot \\frac{1}{2} $$",
+        "options": [
+          "$$ \\frac{3}{4} $$",
+          "$$ \\frac{1}{2} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ 1 $$"
+        ],
+        "correct": 0,
+        "explanation": "Primero la multiplicación: $$ \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4} $$. Luego restamos: $$ 1 - \\frac{1}{4} = \\frac{3}{4} $$."
+      },
+      {
+        "q": "¿Qué representa esta secuencia? <br> $$ \\color{gray}{\\blacksquare \\blacksquare} \\; \\xrightarrow{:2} \\; \\color{gray}{\\blacksquare} \\; \\xrightarrow{+1} \\; ? $$",
+        "options": [
+          "2",
+          "1",
+          "3",
+          "4"
+        ],
+        "correct": 0,
+        "explanation": "Teníamos 2. Dividimos entre 2 (nos queda 1). Sumamos 1. Resultado final: 2."
+      },
+      {
+        "q": "Operación mixta: Tienes $$ 1 \\frac{1}{2} $$ tartas. Comes $$ \\frac{1}{2} $$. ¿Qué queda?",
+        "options": [
+          "$$ \\color{purple}{\\blacksquare \\blacksquare} $$ (1 entero)",
+          "$$ \\color{purple}{\\blacksquare} $$ (1 medio)",
+          "$$ 0 $$",
+          "$$ \\frac{3}{2} $$"
+        ],
+        "correct": 0,
+        "explanation": "Visualmente: $$ (1 + \\frac{1}{2}) - \\frac{1}{2} = 1 $$. Solo queda el entero."
+      },
+      {
+        "q": "Calcula el área sombreada (resta): <br> Cuadrado grande (1) menos cuarto ($$ \\frac{1}{4} $$)",
+        "options": [
+          "$$ \\frac{3}{4} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ \\frac{1}{2} $$",
+          "$$ \\frac{4}{4} $$"
+        ],
+        "correct": 0,
+        "explanation": "Si a un cuadrado completo le quitas una esquina (un cuarto), te quedan tres cuartos."
+      },
+      {
+        "q": "Doble de una suma: $$ 2 \\cdot ( \\frac{1}{4} + \\frac{1}{4} ) $$",
+        "options": [
+          "1",
+          "$$ \\frac{1}{2} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ 2 $$"
+        ],
+        "correct": 0,
+        "explanation": "Primero paréntesis: 1/4 + 1/4 = 2/4 (que es media pizza). El doble de media pizza es 1 pizza entera."
+      },
+      {
+        "q": "Prioridad: $$ \\frac{1}{2} + \\frac{1}{2} \\cdot \\frac{1}{2} $$ <br> (Recuerda: multiplica antes de sumar)",
+        "options": [
+          "$$ \\frac{3}{4} $$",
+          "$$ \\frac{1}{2} $$",
+          "$$ \\frac{2}{4} $$",
+          "$$ 1 $$"
+        ],
+        "correct": 0,
+        "explanation": "Multiplicación primero: $$ \\frac{1}{4} $$. Ahora suma: $$ \\frac{1}{2} $$ (que son 2/4) + $$ \\frac{1}{4} $$ = $$ \\frac{3}{4} $$."
+      },
+      {
+        "q": "Castillo de fracciones visual: <br> La mitad de la mitad de la mitad.",
+        "options": [
+          "$$ \\frac{1}{8} $$",
+          "$$ \\frac{1}{6} $$",
+          "$$ \\frac{1}{4} $$",
+          "$$ \\frac{1}{16} $$"
+        ],
+        "correct": 0,
+        "explanation": "Es multiplicar $$ \\frac{1}{2} \\cdot \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{8} $$."
+      },
+      {
+        "q": "Completa la serie visual: <br> $$ \\frac{1}{4}, \\frac{2}{4}, \\frac{3}{4}, ... $$",
+        "options": [
+          "$$ \\color{blue}{\\blacksquare \\blacksquare \\blacksquare \\blacksquare} $$ (1)",
+          "$$ \\frac{5}{4} $$",
+          "$$ \\frac{1}{2} $$",
+          "$$ 0 $$"
+        ],
+        "correct": 0,
+        "explanation": "Vamos añadiendo un cuarto cada vez. El siguiente paso es 4/4, que es la unidad completa."
+      },
+      {
+        "q": "¿Qué operación da 0 visualmente?",
+        "options": [
+          "$$ \\frac{1}{2} - \\frac{1}{2} $$",
+          "$$ \\frac{1}{2} : \\frac{1}{2} $$",
+          "$$ \\frac{1}{2} \\cdot \\frac{1}{2} $$",
+          "$$ \\frac{1}{2} + 0 $$"
+        ],
+        "correct": 0,
+        "explanation": "Si tienes media manzana y te comes media manzana, te quedan cero manzanas."
+      }
+    ]
+  },
+  "quiz_lenguaje_algebraico": {
+    "title": "Álgebra 1: Lenguaje Algebraico Básico",
+    "questions": [
+      {
+        "q": "¿Cómo se expresa algebraicamente \"un número cualquiera\"?",
+        "options": [
+          "$$ x $$",
+          "$$ 1 $$",
+          "$$ x + 1 $$",
+          "$$ 0 $$"
+        ],
+        "correct": 0,
+        "explanation": "En álgebra, utilizamos letras (comúnmente la 'x') para representar un valor desconocido o variable."
+      },
+      {
+        "q": "¿Cuál es la expresión para \"el doble de un número\"?",
+        "options": [
+          "$$ x + 2 $$",
+          "$$ x^2 $$",
+          "$$ 2x $$",
+          "$$ \\frac{x}{2} $$"
+        ],
+        "correct": 2,
+        "explanation": "Para hallar el doble multiplicamos por 2. En álgebra, 2 multiplicado por x se escribe 2x."
+      },
+      {
+        "q": "Traduce: \"La mitad de un número\"",
+        "options": [
+          "$$ x - 2 $$",
+          "$$ \\frac{x}{2} $$",
+          "$$ 2x $$",
+          "$$ x^2 $$"
+        ],
+        "correct": 1,
+        "explanation": "La mitad de cualquier cantidad se obtiene dividiéndola entre 2, lo cual se representa como una fracción."
+      },
+      {
+        "q": "Elige la opción que representa \"un número aumentado en cinco\":",
+        "options": [
+          "$$ 5x $$",
+          "$$ x - 5 $$",
+          "$$ \\frac{x}{5} $$",
+          "$$ x + 5 $$"
+        ],
+        "correct": 3,
+        "explanation": "La palabra 'aumentado' se traduce matemáticamente como una suma (+)."
+      },
+      {
+        "q": "¿Cómo escribes \"el cuadrado de un número\"?",
+        "options": [
+          "$$ x^2 $$",
+          "$$ 2x $$",
+          "$$ \\sqrt{x} $$",
+          "$$ x + 2 $$"
+        ],
+        "correct": 0,
+        "explanation": "El 'cuadrado' de un número significa elevar ese número a la potencia de 2 (su exponente es 2)."
+      },
+      {
+        "q": "Selecciona la expresión para \"el número anterior a x\":",
+        "options": [
+          "$$ x + 1 $$",
+          "$$ x - 1 $$",
+          "$$ -x $$",
+          "$$ 1 - x $$"
+        ],
+        "correct": 1,
+        "explanation": "Para encontrar el número que va justo antes de cualquier número entero, siempre le restamos 1."
+      },
+      {
+        "q": "Traduce la frase: \"El triple de un número, menos cuatro\"",
+        "options": [
+          "$$ 3(x - 4) $$",
+          "$$ 4x - 3 $$",
+          "$$ 3x - 4 $$",
+          "$$ \\frac{x}{3} - 4 $$"
+        ],
+        "correct": 2,
+        "explanation": "La coma en la frase indica el orden: primero multiplicas por 3 (el triple), y a ese resultado le restas 4."
+      },
+      {
+        "q": "¿Cuál es \"la suma de un número y su doble\"?",
+        "options": [
+          "$$ x + 2 $$",
+          "$$ x + x^2 $$",
+          "$$ 2x + 3x $$",
+          "$$ x + 2x $$"
+        ],
+        "correct": 3,
+        "explanation": "Identificamos las dos partes: 'el número' es x, 'su doble' es 2x. Ambas partes se suman."
+      },
+      {
+        "q": "¿Cómo se expresa \"el cuádruple de la suma de un número y tres\"?",
+        "options": [
+          "$$ 4x + 3 $$",
+          "$$ 4(x + 3) $$",
+          "$$ x + 12 $$",
+          "$$ \\frac{x+3}{4} $$"
+        ],
+        "correct": 1,
+        "explanation": "Para que el cuádruple (multiplicar por 4) afecte a TODA la suma, y no solo a la x, debemos agrupar la suma entre paréntesis."
+      },
+      {
+        "q": "Traduce correctamente: \"La tercera parte de un número, más uno\"",
+        "options": [
+          "$$ \\frac{x+1}{3} $$",
+          "$$ 3x + 1 $$",
+          "$$ \\frac{x}{3} + 1 $$",
+          "$$ x + \\frac{1}{3} $$"
+        ],
+        "correct": 2,
+        "explanation": "Primero tomas el número y lo divides entre 3 (su tercera parte), y de forma independiente le sumas 1."
+      }
+    ]
+  },
+  "quiz_suma_monomios": {
+    "title": "Álgebra 2: Suma y Resta de Monomios",
+    "questions": [
+      {
+        "q": "Suma los siguientes monomios: $$ 3x + 4x $$",
+        "options": [
+          "$$ 7x $$",
+          "$$ 7x^2 $$",
+          "$$ 12x $$",
+          "$$ 7 $$"
+        ],
+        "correct": 0,
+        "explanation": "Al sumar monomios semejantes, se suman los números (coeficientes) y se deja exactamente la misma letra. 3 + 4 = 7, así que son 7x."
+      },
+      {
+        "q": "Resuelve esta resta: $$ 8x - 3x $$",
+        "options": [
+          "$$ 5 $$",
+          "$$ 11x $$",
+          "$$ 5x $$",
+          "$$ 5x^2 $$"
+        ],
+        "correct": 2,
+        "explanation": "Igual que en la suma, restamos los números (8 - 3 = 5) y mantenemos la letra intacta."
+      },
+      {
+        "q": "Agrupa estos términos: $$ x + 5x $$",
+        "options": [
+          "$$ 5x $$",
+          "$$ 6x^2 $$",
+          "$$ 5x^2 $$",
+          "$$ 6x $$"
+        ],
+        "correct": 3,
+        "explanation": "Recuerda que una 'x' sola tiene un '1' invisible delante (1x). Por tanto, 1x + 5x = 6x."
+      },
+      {
+        "q": "Simplifica la expresión: $$ x + x + x + x $$",
+        "options": [
+          "$$ 4x $$",
+          "$$ x^4 $$",
+          "$$ 4x^4 $$",
+          "$$ 4 $$"
+        ],
+        "correct": 0,
+        "explanation": "Sumar cuatro veces la misma variable es lo mismo que multiplicarla por 4. Los exponentes no cambian al sumar."
+      },
+      {
+        "q": "¿Cuál es el resultado de $$ 4x + 2x - x $$?",
+        "options": [
+          "$$ 6x $$",
+          "$$ 7x $$",
+          "$$ 5x $$",
+          "$$ 5 $$"
+        ],
+        "correct": 2,
+        "explanation": "Operamos de izquierda a derecha: 4x + 2x = 6x. Luego le restamos 1x, lo que nos da 5x."
+      },
+      {
+        "q": "Calcula prestando atención a los signos: $$ 2x - 7x $$",
+        "options": [
+          "$$ 5x $$",
+          "$$ -5x $$",
+          "$$ -9x $$",
+          "$$ 9x $$"
+        ],
+        "correct": 1,
+        "explanation": "Al restar un número mayor a uno menor, el resultado es negativo (2 - 7 = -5). La 'x' acompaña al resultado."
+      },
+      {
+        "q": "Suma estos dos términos: $$ 5x^2 + 4x^2 $$",
+        "options": [
+          "$$ 9x^4 $$",
+          "$$ 20x^2 $$",
+          "$$ 9x $$",
+          "$$ 9x^2 $$"
+        ],
+        "correct": 3,
+        "explanation": "Son semejantes porque ambos tienen 'x²'. Sumamos 5+4=9 y dejamos la MISMA parte literal (x²)."
+      },
+      {
+        "q": "¿Qué obtenemos al calcular $$ 6x - 6x $$?",
+        "options": [
+          "$$ x $$",
+          "$$ 0 $$",
+          "$$ 1 $$",
+          "$$ 12x $$"
+        ],
+        "correct": 1,
+        "explanation": "Si a una cantidad le restas exactamente la misma cantidad, el resultado es cero. No hace falta poner '0x'."
+      },
+      {
+        "q": "¿Se pueden sumar $$ 2x $$ y $$ 3x^2 $$?",
+        "options": [
+          "Sí, el resultado es $$ 5x^3 $$",
+          "Sí, el resultado es $$ 5x^2 $$",
+          "No, porque no son términos semejantes",
+          "Sí, el resultado es $$ 6x^3 $$"
+        ],
+        "correct": 2,
+        "explanation": "Para poder sumar o restar monomios, deben tener exactamente la misma letra y el mismo exponente. Como 'x' y 'x²' son distintos, la expresión se queda igual."
+      },
+      {
+        "q": "Simplifica esta expresión combinada: $$ 3x + 2x + 5 $$",
+        "options": [
+          "$$ 10x $$",
+          "$$ 5x + 5 $$",
+          "$$ 10 $$",
+          "$$ 5x^2 + 5 $$"
+        ],
+        "correct": 1,
+        "explanation": "Solo puedes agrupar las 'x' con las 'x' (3x + 2x = 5x). El número suelto (+ 5) pertenece a otra familia y se deja como está."
+      }
+    ]
+  },
+  "quiz_suma_binomios": {
+    "title": "Álgebra 3: Suma y Resta de Binomios",
+    "questions": [
+      {
+        "q": "Suma los siguientes binomios: $$ (x + 2) + (x + 3) $$",
+        "options": [
+          "$$ 2x + 5 $$",
+          "$$ x^2 + 5 $$",
+          "$$ 2x + 6 $$",
+          "$$ 5x $$"
+        ],
+        "correct": 0,
+        "explanation": "Debes sumar las letras por un lado (x + x = 2x) y los números sueltos por otro (2 + 3 = 5)."
+      },
+      {
+        "q": "Resuelve prestando atención a los signos: $$ (3x - 1) + (2x + 4) $$",
+        "options": [
+          "$$ 5x + 5 $$",
+          "$$ 5x + 3 $$",
+          "$$ 6x - 4 $$",
+          "$$ x + 3 $$"
+        ],
+        "correct": 1,
+        "explanation": "Agrupamos las 'x' (3x + 2x = 5x) y agrupamos los números (-1 + 4 = 3). ¡Cuidado con el signo negativo del 1!"
+      },
+      {
+        "q": "Suma un binomio con un monomio: $$ (4x + 7) + 2x $$",
+        "options": [
+          "$$ 6x + 7 $$",
+          "$$ 13x $$",
+          "$$ 4x + 9 $$",
+          "$$ 6x + 14 $$"
+        ],
+        "correct": 0,
+        "explanation": "El término 2x solo se puede sumar con su 'familia', que es el 4x (4x + 2x = 6x). El 7 se queda igual."
+      },
+      {
+        "q": "¡Cuidado con la resta! Calcula: $$ (5x + 4) - (2x + 1) $$",
+        "options": [
+          "$$ 3x + 5 $$",
+          "$$ 7x + 5 $$",
+          "$$ 3x + 3 $$",
+          "$$ 7x + 3 $$"
+        ],
+        "correct": 2,
+        "explanation": "El signo menos delante del segundo paréntesis cambia TODOS sus signos, convirtiéndose en -2x - 1. Luego restamos: 5x - 2x = 3x, y 4 - 1 = 3."
+      },
+      {
+        "q": "Otra resta engañosa: $$ (6x + 5) - (x - 2) $$",
+        "options": [
+          "$$ 5x + 3 $$",
+          "$$ 5x + 7 $$",
+          "$$ 7x + 3 $$",
+          "$$ 5x - 7 $$"
+        ],
+        "correct": 1,
+        "explanation": "Al quitar el paréntesis con el menos delante, el '- 2' se convierte en '+ 2'. Así que agrupamos: 6x - x = 5x, y 5 + 2 = 7."
+      },
+      {
+        "q": "Suma estos dos binomios opuestos: $$ (2x + 5) + (-2x - 5) $$",
+        "options": [
+          "$$ 4x + 10 $$",
+          "$$ -4x - 10 $$",
+          "$$ 0 $$",
+          "$$ x $$"
+        ],
+        "correct": 2,
+        "explanation": "Al sumar términos opuestos, se cancelan. 2x - 2x = 0, y 5 - 5 = 0. El resultado final es 0."
+      },
+      {
+        "q": "¿Qué pasa si intentamos sumar esto? $$ (x^2 + 3) + (x + 2) $$",
+        "options": [
+          "$$ x^3 + 5 $$",
+          "$$ 2x^2 + 5 $$",
+          "$$ 2x + 5 $$",
+          "$$ x^2 + x + 5 $$"
+        ],
+        "correct": 3,
+        "explanation": "Recuerda que 'x²' y 'x' no son términos semejantes y no se pueden mezclar. Solo podemos sumar los números (3 + 2 = 5)."
+      },
+      {
+        "q": "Simplifica la expresión: $$ (1 + 4x) + (2x - 3) $$",
+        "options": [
+          "$$ 6x - 2 $$",
+          "$$ 6x + 4 $$",
+          "$$ 5x - 1 $$",
+          "$$ 2x - 2 $$"
+        ],
+        "correct": 0,
+        "explanation": "El orden dentro del paréntesis no importa. Sumamos las 'x' (4x + 2x = 6x) y los números (1 - 3 = -2)."
+      },
+      {
+        "q": "Resta estos binomios: $$ (8x - 3) - (8x + 3) $$",
+        "options": [
+          "$$ 0 $$",
+          "$$ 16x $$",
+          "$$ -6 $$",
+          "$$ 16x - 6 $$"
+        ],
+        "correct": 2,
+        "explanation": "El menos cambia el signo del segundo paréntesis: -8x - 3. Agrupamos: 8x - 8x = 0 (desaparece la x), y -3 - 3 = -6."
+      },
+      {
+        "q": "Reto final, agrupa todo: $$ x + (3x + 1) + (x - 1) $$",
+        "options": [
+          "$$ 5x $$",
+          "$$ 4x + 2 $$",
+          "$$ 5x + 2 $$",
+          "$$ 4x $$"
+        ],
+        "correct": 0,
+        "explanation": "Sumamos todas las variables: 1x + 3x + 1x = 5x. Sumamos los números: +1 - 1 = 0. Resultado final: 5x."
+      }
+    ]
+  },
+  "quiz_algebra_visual": {
+    "title": "Álgebra Visual: Fichas y Baldosas de diferentes tipos",
+    "questions": [
+      {
+        "q": "Leyenda: Si $$ \\color{green}{\\blacksquare} = x $$ y $$ \\color{blue}{\\bullet} = 1 $$. <br> ¿Qué polinomio representa $$ \\color{green}{\\blacksquare \\blacksquare} \\; \\color{blue}{\\bullet \\bullet \\bullet} $$?",
+        "options": [
+          "$$ 2x + 3 $$",
+          "$$ x^2 + 3 $$",
+          "$$ 5x $$",
+          "$$ 2x - 3 $$"
+        ],
+        "correct": 0,
+        "explanation": "Hay 2 cuadrados verdes (2x) y 3 círculos azules (+3). Juntos forman la expresión 2x + 3."
+      },
+      {
+        "q": "Añadimos negativos: $$ \\color{red}{\\blacksquare} = -x $$ y $$ \\color{orange}{\\bullet} = -1 $$. <br> ¿Qué expresión es $$ \\color{red}{\\blacksquare \\blacksquare} \\; \\color{blue}{\\bullet} $$?",
+        "options": [
+          "$$ 2x + 1 $$",
+          "$$ -2x + 1 $$",
+          "$$ -2x - 1 $$",
+          "$$ x - 2 $$"
+        ],
+        "correct": 1,
+        "explanation": "Los 2 cuadrados rojos representan -2x, y el círculo azul suelto representa +1. Por tanto, es -2x + 1."
+      },
+      {
+        "q": "Suma visual: Tienes $$ \\color{green}{\\blacksquare} $$ y te dan $$ \\color{green}{\\blacksquare \\blacksquare} $$. <br> ¿Cuánto tienes en total?",
+        "options": [
+          "$$ 3x $$",
+          "$$ 3x^2 $$",
+          "$$ 3 $$",
+          "$$ x^3 $$"
+        ],
+        "correct": 0,
+        "explanation": "Un cuadrado verde más dos cuadrados verdes equivalen a tres cuadrados verdes: $$ \\color{green}{\\blacksquare \\blacksquare \\blacksquare} $$ (3x)."
+      },
+      {
+        "q": "Principio de Aniquilación (Cero): ¿Qué ocurre si juntas una ficha positiva y una negativa $$ \\color{blue}{\\bullet} \\color{orange}{\\bullet} $$?",
+        "options": [
+          "$$ 2 $$",
+          "$$ -2 $$",
+          "$$ 0 $$",
+          "$$ 1 $$"
+        ],
+        "correct": 2,
+        "explanation": "Un positivo (+1) y un negativo (-1) se neutralizan mutuamente, desapareciendo y dando como resultado 0."
+      },
+      {
+        "q": "Simplifica eliminando los opuestos: <br> $$ \\color{green}{\\blacksquare \\blacksquare \\blacksquare} \\; \\color{red}{\\blacksquare} $$",
+        "options": [
+          "$$ 4x $$",
+          "$$ 2x $$",
+          "$$ -2x $$",
+          "$$ 0 $$"
+        ],
+        "correct": 1,
+        "explanation": "Tienes 3x y -1x. Un cuadrado rojo aniquila a un cuadrado verde. Nos quedan 2 cuadrados verdes (2x)."
+      },
+      {
+        "q": "Suma de binomios visual: <br> $$ (\\color{green}{\\blacksquare \\blacksquare} \\; \\color{blue}{\\bullet}) + (\\color{green}{\\blacksquare} \\; \\color{orange}{\\bullet \\bullet}) $$",
+        "options": [
+          "$$ 3x - 1 $$",
+          "$$ 3x + 3 $$",
+          "$$ 2x - 1 $$",
+          "$$ x + 1 $$"
+        ],
+        "correct": 0,
+        "explanation": "Juntamos los cuadrados: 2 verdes + 1 verde = 3 verdes (3x). Juntamos los círculos: 1 azul (+1) y 2 naranjas (-2). Un azul aniquila a un naranja, quedando 1 naranja (-1)."
+      },
+      {
+        "q": "El opuesto: Para calcular el opuesto de un binomio, cambiamos el color de todas las fichas. <br> ¿Cuál es el opuesto de $$ \\color{green}{\\blacksquare} \\; \\color{orange}{\\bullet \\bullet} $$ ($$ x - 2 $$)?",
+        "options": [
+          "$$ -x - 2 $$",
+          "$$ x + 2 $$",
+          "$$ -x + 2 $$",
+          "$$ 2x $$"
+        ],
+        "correct": 2,
+        "explanation": "El verde pasa a ser rojo (-x) y los naranjas pasan a ser azules (+2). El resultado es $$ \\color{red}{\\blacksquare} \\; \\color{blue}{\\bullet \\bullet} $$ (-x + 2)."
+      },
+      {
+        "q": "Resta visual directa: A la expresión $$ \\color{green}{\\blacksquare \\blacksquare} \\; \\color{blue}{\\bullet \\bullet \\bullet} $$ le quitamos físicamente $$ \\color{green}{\\blacksquare} \\; \\color{blue}{\\bullet} $$. ¿Qué queda?",
+        "options": [
+          "$$ x + 2 $$",
+          "$$ 2x + 2 $$",
+          "$$ x + 4 $$",
+          "$$ x - 2 $$"
+        ],
+        "correct": 0,
+        "explanation": "Teníamos 2x + 3. Si le retiramos 1x y 1, nos queda 1x y 2 (x + 2)."
+      },
+      {
+        "q": "Multiplicación visual: Crea el triple de este grupo: <br> $$ 3 \\cdot (\\color{green}{\\blacksquare} \\; \\color{orange}{\\bullet}) $$",
+        "options": [
+          "$$ 3x - 1 $$",
+          "$$ 3x - 3 $$",
+          "$$ x - 3 $$",
+          "$$ 3x + 3 $$"
+        ],
+        "correct": 1,
+        "explanation": "Debes repetir el grupo entero 3 veces. Obtendrás 3 cuadrados verdes y 3 círculos naranjas: $$ \\color{green}{\\blacksquare \\blacksquare \\blacksquare} \\; \\color{orange}{\\bullet \\bullet \\bullet} $$ (3x - 3)."
+      },
+      {
+        "q": "Gran simplificación: <br> $$ \\color{green}{\\blacksquare \\blacksquare} \\; \\color{red}{\\blacksquare \\blacksquare \\blacksquare} \\; \\color{blue}{\\bullet \\bullet \\bullet} \\; \\color{orange}{\\bullet} $$",
+        "options": [
+          "$$ -x + 2 $$",
+          "$$ x + 2 $$",
+          "$$ -5x + 4 $$",
+          "$$ x - 2 $$"
+        ],
+        "correct": 0,
+        "explanation": "Los 2 verdes se aniquilan con 2 rojos, dejando 1 rojo (-x). Un azul se aniquila con un naranja, dejando 2 azules (+2). Resultado: -x + 2."
+      }
+    ]
+  }
+}

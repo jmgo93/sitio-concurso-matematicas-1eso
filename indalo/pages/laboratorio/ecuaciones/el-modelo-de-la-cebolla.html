@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: El Modelo de la Cebolla</title>
+
+    <script>
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --bg-color: #f4f1ea;
+            --text-color: #2c3e50;
+            --onion-core: #27ae60;
+            --onion-layer-1: #82e0aa;
+            --onion-layer-2: #d5f5e3;
+            --onion-layer-3: #eaeded;
+            --accent: #8e44ad;
+            --success: #2ecc71;
+            --error: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 20px; margin: 0;
+            min-min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px; width: 100%;
+            background: white; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            padding: 30px; text-align: center;
+        }
+
+        header h1 { color: var(--accent); margin-bottom: 5px; font-size: 2.2rem; }
+        .subtitle { color: #7f8c8d; margin-top: 0; font-size: 1.1rem; }
+
+        /* VISUALIZADOR DE LA ECUACIÓN */
+        .equation-display {
+            font-size: 2.5rem;
+            margin: 30px 0;
+            padding: 20px;
+            background: #fff;
+            border: 2px dashed #bdc3c7;
+            border-radius: 12px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        /* PANEL DE BOTONES (LAS CAPAS) */
+        .options-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-layer {
+            background: #fff;
+            border: 3px solid var(--accent);
+            color: var(--accent);
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-layer:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(142, 68, 173, 0.3);
+        }
+
+        /* FEEDBACK */
+        #feedback {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-height: 3em;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .msg-info { color: #2980b9; background: #eaf2f8; border: 1px solid #2980b9; }
+        .msg-error { color: var(--error); background: #fdedec; border: 1px solid var(--error); }
+        .msg-success { color: var(--success); background: #eaeded; border: 1px solid var(--success); }
+
+        .btn-reset {
+            background-color: var(--success);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+            display: none;
+        }
+        .btn-reset:hover { transform: scale(1.05); }
+
+        /* Animaciones */
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .peel-effect { animation: peel 0.6s forwards; }
+        @keyframes peel {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; filter: blur(2px); }
+            100% { transform: scale(1); opacity: 1; filter: blur(0); }
+        }
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container" id="game-container">
+        <header>
+            <h1>🧅 El Modelo de la Cebolla</h1>
+            <p class="subtitle">La "x" está atrapada en el centro. Selecciona la operación que deshace la CAPA MÁS EXTERNA para ir liberándola.</p>
+        </header>
+
+        <div id="equation-display" class="equation-display">
+            </div>
+
+        <div id="feedback" class="msg-info">Analiza la ecuación: ¿Qué operación engloba a todas las demás? Esa es la primera que debes deshacer.</div>
+
+        <div class="options-container" id="options-container">
+            </div>
+
+        <button class="btn-reset" id="btn-reset" onclick="initGame()">Pelar una nueva cebolla</button>
+    </div>
+
+    <script>
+        // Estado del juego
+        let state = {
+            type: 1, // 1: ax+b=c, 2: (ax+b)/c=d, 3: a(x+b)=c
+            step: 0, // Capas peladas
+            a: 0, b: 0, c: 0, d: 0, xVal: 0,
+            currentRightSide: 0
+        };
+
+        function initGame() {
+            state.step = 0;
+            state.type = Math.floor(Math.random() * 3) + 1;
+            
+            // Generar valores para que siempre dé entero
+            state.xVal = Math.floor(Math.random() * 9) - 4; // x entre -4 y 4
+            if(state.xVal === 0) state.xVal = 2;
+
+            state.a = Math.floor(Math.random() * 5) + 2; // 2 a 6
+            if(Math.random() > 0.5) state.a *= -1;
+
+            state.b = Math.floor(Math.random() * 10) + 1; // 1 a 10
+            if(Math.random() > 0.5) state.b *= -1;
+
+            if (state.type === 1) {
+                // ax + b = c
+                state.c = (state.a * state.xVal) + state.b;
+                state.currentRightSide = state.c;
+            } else if (state.type === 2) {
+                // (ax + b) / c = d
+                state.c = Math.floor(Math.random() * 3) + 2; // denominador 2 a 4
+                if(Math.random() > 0.5) state.c *= -1;
+                state.d = ((state.a * state.xVal) + state.b) / state.c;
+                // Ajustar si no es exacto
+                if (!Number.isInteger(state.d)) {
+                    state.b += (state.c - (((state.a * state.xVal) + state.b) % state.c));
+                    state.d = ((state.a * state.xVal) + state.b) / state.c;
+                }
+                state.currentRightSide = state.d;
+            } else if (state.type === 3) {
+                // a(x + b) = c
+                state.c = state.a * (state.xVal + state.b);
+                state.currentRightSide = state.c;
+            }
+
+            document.getElementById('btn-reset').style.display = 'none';
+            document.getElementById('options-container').style.display = 'flex';
+            setFeedback("¿Cuál es la capa más externa que envuelve a la 'x'?", "info");
+            
+            renderState();
+        }
+
+        function getSign(num) {
+            return num > 0 ? `+ ${num}` : `- ${Math.abs(num)}`;
+        }
+
+        function renderState() {
+            let eqStr = "";
+            let correctAction = null;
+            let wrongActions = [];
+
+            // Determinar qué mostrar según el tipo y el paso actual
+            if (state.type === 1) {
+                // ax + b = c
+                if (state.step === 0) {
+                    eqStr = `$$ ${state.a}x ${getSign(state.b)} = ${state.currentRightSide} $$`;
+                    correctAction = { text: state.b > 0 ? `Restar ${state.b}` : `Sumar ${Math.abs(state.b)}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: `Dividir entre ${state.a}`, isCorrect: false, hint: "Esa es la capa interna. El coeficiente está pegado a la x, primero quita lo que suma o resta." },
+                        { text: state.b > 0 ? `Sumar ${state.b}` : `Restar ${Math.abs(state.b)}`, isCorrect: false, hint: "¡Cuidado! Debes usar la operación INVERSA para deshacer la capa." }
+                    ];
+                } else if (state.step === 1) {
+                    eqStr = `$$ ${state.a}x = ${state.currentRightSide} $$`;
+                    correctAction = { text: `Dividir entre ${state.a}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: state.a > 0 ? `Restar ${state.a}` : `Sumar ${Math.abs(state.a)}`, isCorrect: false, hint: "El número está multiplicando a la x. Su operación inversa es la división." }
+                    ];
+                } else {
+                    winGame(); return;
+                }
+            } 
+            else if (state.type === 2) {
+                // (ax + b) / c = d
+                if (state.step === 0) {
+                    eqStr = `$$ \\frac{${state.a}x ${getSign(state.b)}}{${state.c}} = ${state.currentRightSide} $$`;
+                    correctAction = { text: `Multiplicar por ${state.c}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: state.b > 0 ? `Restar ${state.b}` : `Sumar ${Math.abs(state.b)}`, isCorrect: false, hint: "Esa suma está en el numerador. El denominador engloba TODO, es la capa más externa." },
+                        { text: `Dividir entre ${state.a}`, isCorrect: false, hint: "¡Estás intentando tocar el corazón de la cebolla! Empieza desde fuera." }
+                    ];
+                } else if (state.step === 1) {
+                    eqStr = `$$ ${state.a}x ${getSign(state.b)} = ${state.currentRightSide} $$`;
+                    correctAction = { text: state.b > 0 ? `Restar ${state.b}` : `Sumar ${Math.abs(state.b)}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: `Dividir entre ${state.a}`, isCorrect: false, hint: "Primero quita los términos sueltos antes de separar el coeficiente de la x." }
+                    ];
+                } else if (state.step === 2) {
+                    eqStr = `$$ ${state.a}x = ${state.currentRightSide} $$`;
+                    correctAction = { text: `Dividir entre ${state.a}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: state.a > 0 ? `Restar ${state.a}` : `Sumar ${Math.abs(state.a)}`, isCorrect: false, hint: "Recuerda: si están pegados, se están multiplicando." }
+                    ];
+                } else {
+                    winGame(); return;
+                }
+            }
+            else if (state.type === 3) {
+                // a(x + b) = c
+                if (state.step === 0) {
+                    eqStr = `$$ ${state.a}(x ${getSign(state.b)}) = ${state.currentRightSide} $$`;
+                    correctAction = { text: `Dividir entre ${state.a}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: state.b > 0 ? `Restar ${state.b}` : `Sumar ${Math.abs(state.b)}`, isCorrect: false, hint: "Ese número está protegido dentro del paréntesis (la capa interna). Quita el multiplicador exterior primero." },
+                        { text: `Multiplicar por ${state.a}`, isCorrect: false, hint: "El número ya está multiplicando, debes usar la operación inversa." }
+                    ];
+                } else if (state.step === 1) {
+                    eqStr = `$$ x ${getSign(state.b)} = ${state.currentRightSide} $$`;
+                    correctAction = { text: state.b > 0 ? `Restar ${state.b}` : `Sumar ${Math.abs(state.b)}`, isCorrect: true, hint: "" };
+                    wrongActions = [
+                        { text: state.b > 0 ? `Sumar ${state.b}` : `Restar ${Math.abs(state.b)}`, isCorrect: false, hint: "Utiliza la operación opuesta para cruzar el igual." }
+                    ];
+                } else {
+                    winGame(); return;
+                }
+            }
+
+            // Renderizar Ecuación con efecto visual
+            const eqDiv = document.getElementById('equation-display');
+            eqDiv.classList.remove('peel-effect');
+            void eqDiv.offsetWidth; // Reflow
+            eqDiv.classList.add('peel-effect');
+            eqDiv.innerHTML = eqStr;
+            if(window.MathJax) MathJax.typesetPromise([eqDiv]);
+
+            // Mezclar botones
+            let options = [correctAction, ...wrongActions];
+            options.sort(() => Math.random() - 0.5);
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            options.forEach(opt => {
+                let btn = document.createElement('button');
+                btn.className = 'btn-layer';
+                btn.innerText = opt.text;
+                btn.onclick = () => handleAction(opt);
+                container.appendChild(btn);
+            });
+        }
+
+        function handleAction(option) {
+            if (option.isCorrect) {
+                // Calcular nuevo lado derecho
+                if (state.type === 1) {
+                    if (state.step === 0) state.currentRightSide += (state.b * -1);
+                    else if (state.step === 1) state.currentRightSide /= state.a;
+                } 
+                else if (state.type === 2) {
+                    if (state.step === 0) state.currentRightSide *= state.c;
+                    else if (state.step === 1) state.currentRightSide += (state.b * -1);
+                    else if (state.step === 2) state.currentRightSide /= state.a;
+                }
+                else if (state.type === 3) {
+                    if (state.step === 0) state.currentRightSide /= state.a;
+                    else if (state.step === 1) state.currentRightSide += (state.b * -1);
+                }
+
+                state.step++;
+                setFeedback("¡Capa pelada correctamente! Operación inversa aplicada.", "success");
+                renderState();
+            } else {
+                setFeedback(`❌ Error: ${option.hint}`, "error");
+                const gameContainer = document.getElementById('game-container');
+                gameContainer.classList.remove('shake');
+                void gameContainer.offsetWidth;
+                gameContainer.classList.add('shake');
+            }
+        }
+
+        function winGame() {
+            const eqDiv = document.getElementById('equation-display');
+            eqDiv.innerHTML = `$$ x = ${state.xVal} $$`;
+            if(window.MathJax) MathJax.typesetPromise([eqDiv]);
+
+            document.getElementById('options-container').style.display = 'none';
+            document.getElementById('btn-reset').style.display = 'inline-block';
+            setFeedback(`🎉 ¡Has llegado al corazón de la cebolla! La x está completamente sola.`, "success");
+        }
+
+        function setFeedback(msg, type) {
+            const fb = document.getElementById('feedback');
+            fb.innerText = msg;
+            fb.className = `msg-${type}`;
+        }
+
+        window.onload = initGame;
+    </script>
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

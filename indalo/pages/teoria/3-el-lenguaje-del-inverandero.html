@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría: Lenguaje Algebraico</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+    <script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+
+    <style>
+        :root {
+            --primary: #2980b9; /* Azul Ingeniería */
+            --primary-dark: #1a5276;
+            --secondary: #bdc3c7; /* Gris Metal */
+            --text: #2c3e50;
+            --bg: #ffffff;
+            --panel: #f4f6f7;
+            --border-radius: 12px;
+            --shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        /* TARJETAS DE CONTENIDO */
+        .topic-card {
+            background: var(--panel);
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border-left: 6px solid var(--primary);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-top: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-top: 25px;
+            font-weight: 600;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+
+        /* ELEMENTOS VISUALES */
+        
+        /* 1. Variable Slider Visual */
+        .variable-demo {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .slider-track {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            position: relative;
+            margin: 30px 20px;
+        }
+
+        .slider-thumb {
+            width: 20px; height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            top: -5px;
+            left: 50%; /* Static demo position */
+            box-shadow: 0 0 0 4px rgba(41, 128, 185, 0.2);
+        }
+
+        .variable-label {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        /* 2. Diagrama Invernadero */
+        .greenhouse-diagram {
+            position: relative;
+            width: 300px;
+            height: 180px;
+            margin: 20px auto;
+            border: 2px dashed #7f8c8d;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Lados fijos */
+        .side-fixed {
+            position: absolute;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .side-left { left: -30px; top: 50%; transform: translateY(-50%); }
+        .side-right { right: -30px; top: 50%; transform: translateY(-50%); }
+
+        /* Lados variables */
+        .side-var {
+            position: absolute;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .side-top { top: -25px; left: 50%; transform: translateX(-50%); }
+        .side-bottom { bottom: -25px; left: 50%; transform: translateX(-50%); }
+
+        .diagram-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 30px;
+        }
+
+        /* 3. Tabla Traducción */
+        .translation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+        }
+
+        .translation-table th { background: var(--primary); color: white; padding: 10px; }
+        .translation-table td { padding: 12px; border-bottom: 1px solid #ddd; }
+        .translation-table tr:last-child td { border: none; }
+        .translation-table td:nth-child(2) { 
+            font-family: 'Courier New', monospace; 
+            font-weight: bold; 
+            color: var(--primary-dark);
+            text-align: center;
+        }
+
+        /* Navegación footer */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn-nav {
+            background-color: var(--text);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-nav:hover { background-color: var(--primary); }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script src="../../navigation.js" defer></script>
+<script src="../../../assets/site.js" defer></script>
+<script src="../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+
+        <header>
+            <div style="font-size: 3rem;">📐</div>
+            <h1>El Lenguaje del Invernadero</h1>
+            <p class="subtitle">Bloque 2: Introducción al Álgebra y la Generalización</p>
+        </header>
+
+        <div class="topic-card">
+            <h2>1. ¿Qué es una Variable?</h2>
+            <p>
+                En aritmética, los números son fijos (5 es siempre 5). En el diseño de invernaderos, necesitamos valores que puedan cambiar o "variar".
+            </p>
+            <p>
+                Una <strong>variable</strong> es como una caja vacía o un deslizador. Usamos letras (como $x$, $L$, $a$) para representarlas.
+            </p>
+
+            <div class="variable-demo">
+                <div class="variable-label">Largo ($L$)</div>
+                <div class="slider-track">
+                    <div class="slider-thumb"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">
+                    $L$ puede valer 10m, 50m o 100m. La letra $L$ representa <strong>todas</strong> esas posibilidades a la vez.
+                </p>
+            </div>
+        </div>
+
+        <div class="topic-card">
+            <h2>2. De la Realidad a la Fórmula</h2>
+            <p>
+                Imagina que diseñamos un invernadero estándar. El ancho siempre es de 40 metros (para que quepan las máquinas), pero el largo ($L$) depende del terreno del cliente.
+            </p>
+
+            <div class="greenhouse-diagram">
+                <div class="side-fixed side-left">40 m</div>
+                <div class="side-fixed side-right">40 m</div>
+                <div class="side-var side-top">$L$</div>
+                <div class="side-var side-bottom">$L$</div>
+                
+                <div style="width: 100%; height: 100%; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(41, 128, 185, 0.1) 10px, rgba(41, 128, 185, 0.1) 20px);"></div>
+            </div>
+            
+            <div class="diagram-caption">
+                ¿Cuánta valla necesitamos para rodearlo? (Perímetro)
+            </div>
+
+            <h3>Deducción Matemática</h3>
+            <p>Sumamos los cuatro lados:</p>
+            $$ P = L + 40 + L + 40 $$
+            <p>Los matemáticos somos ordenados. Juntamos las letras con letras y números con números:</p>
+            $$ P = 2L + 80 $$
+            <p>¡Esta es la fórmula! Funciona para cualquier cliente, tenga el terreno que tenga.</p>
+        </div>
+
+        <div class="topic-card">
+            <h2>3. Diccionario Español - Algebraico</h2>
+            <p>Para resolver problemas, primero tienes que traducir las palabras a símbolos.</p>
+
+            <table class="translation-table">
+                <thead>
+                    <tr>
+                        <th>Lenguaje Natural (Español)</th>
+                        <th>Lenguaje Algebraico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Un invernadero de longitud desconocida</td>
+                        <td>$x$</td>
+                    </tr>
+                    <tr>
+                        <td>El doble de largo</td>
+                        <td>$2x$</td>
+                    </tr>
+                    <tr>
+                        <td>La mitad de la producción</td>
+                        <td>$\frac{x}{2}$</td>
+                    </tr>
+                    <tr>
+                        <td>El largo aumentado en 10 metros</td>
+                        <td>$x + 10$</td>
+                    </tr>
+                    <tr>
+                        <td>El área (Ancho 40 por Largo $x$)</td>
+                        <td>$40x$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="topic-card">
+            <h2>4. Prediciendo el Futuro (Valor Numérico)</h2>
+            <p>
+                Cuando el cliente por fin decide el tamaño, sustituimos la letra por el número. A esto se le llama hallar el <strong>valor numérico</strong>.
+            </p>
+            
+            <div style="background: #eaf2f8; padding: 15px; border-radius: 8px;">
+                <p><strong>Ejemplo:</strong> Usando la fórmula $P = 2L + 80$.</p>
+                <p>Si el cliente quiere $L = 50$ metros:</p>
+                $$ P = 2 \cdot (50) + 80 $$
+                $$ P = 100 + 80 = 180 \text{ metros} $$
+            </div>
+        </div>
+
+
+    </div>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

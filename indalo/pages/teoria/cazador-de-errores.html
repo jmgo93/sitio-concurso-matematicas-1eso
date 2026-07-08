@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Errores Comunes y Soluciones</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --bg: #fdf2e9;
+            --card-bg: #ffffff;
+            --error-bg: #fadbd8;
+            --error-text: #c0392b;
+            --success-bg: #d4efdf;
+            --success-text: #27ae60;
+            --text-main: #2c3e50;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        h1 { color: #d35400; margin-bottom: 10px; font-size: 2.5rem; }
+        .subtitle { font-size: 1.1rem; color: #7f8c8d; }
+
+        /* GRID DE ERRORES */
+        .error-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* TARJETA DE ERROR */
+        .error-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border-top: 5px solid var(--error-text);
+            transition: transform 0.2s;
+        }
+        
+        .error-card:hover { transform: translateY(-3px); }
+
+        .card-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .error-title { font-weight: bold; font-size: 1.1rem; color: #333; }
+        .icon-alert { font-size: 1.5rem; }
+
+        .card-body { padding: 20px; }
+
+        /* SECCIONES DENTRO DE LA TARJETA */
+        .example-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .wrong { 
+            background: var(--error-bg); 
+            color: var(--error-text); 
+            padding: 8px; 
+            border-radius: 4px; 
+            text-decoration: line-through;
+            flex: 1;
+            text-align: center;
+        }
+
+        .right { 
+            background: var(--success-bg); 
+            color: var(--success-text); 
+            padding: 8px; 
+            border-radius: 4px; 
+            flex: 1;
+            text-align: center;
+        }
+
+        .explanation {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .why-tag {
+            font-weight: bold;
+            color: #d35400;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ACTIVIDAD FLASH */
+        .flash-activity {
+            background: #f4f6f7;
+            padding: 15px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9rem;
+        }
+
+        .flash-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script src="../../navigation.js" defer></script>
+<script src="../../../assets/site.js" defer></script>
+<script src="../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <header>
+        <h1>🚫 El Cazador de Errores</h1>
+        <p class="subtitle">Guía de supervivencia para 1º ESO: Los 10 fallos más comunes y cómo evitarlos.</p>
+    </header>
+
+    <div class="error-grid">
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">1. La "Suma Prohibida"</span>
+                <span class="icon-alert">⚠️</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$\frac{1}{2} + \frac{1}{3} = \frac{2}{5}$</div>
+                    <div class="right">$\frac{3}{6} + \frac{2}{6} = \frac{5}{6}$</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Porque nuestro cerebro quiere sumar todo lo que ve. Pero sumar denominadores es como sumar "peras con manzanas".
+                    <br><br>
+                    <strong>Solución:</strong> Busca el m.c.m. para tener piezas del mismo tamaño antes de sumar.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Dibuja dos pizzas. Divide una en 2 y otra en 3. ¿Son los trozos iguales? ¡No los sumes hasta que lo sean!
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">2. Dividir en Línea</span>
+                <span class="icon-alert">➗</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$\frac{2}{3} : \frac{1}{5} = \frac{2}{0.6}$</div>
+                    <div class="right">$\frac{2\cdot5}{3\cdot1} = \frac{10}{3}$</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> La suma y resta son rectas, pero la división es traviesa.
+                    <br><br>
+                    <strong>Solución:</strong> Recuerda el "Caramelo". Multiplica en cruz (zig-zag).
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Haz el gesto de la "X" con los brazos cada vez que veas el signo de dividir (:).
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">3. El Trabajo a Medias</span>
+                <span class="icon-alert">🛑</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">Resultado: $\frac{4}{8}$</div>
+                    <div class="right">Resultado: $\frac{1}{2}$</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Llegas al resultado y te relajas. ¡Cuidado! En el examen cuenta como incompleto.
+                    <br><br>
+                    <strong>Solución:</strong> Pregúntate siempre al final: "¿Se pueden dividir los dos entre 2, 3 o 5?".
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Escribe $\frac{50}{100}$. Tienes 10 segundos para dejarla lo más pequeña posible.
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">4. La Confusión del Ratio</span>
+                <span class="icon-alert">🧪</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">1:3 es $\frac{1}{3}$ del total</div>
+                    <div class="right">1:3 es $\frac{1}{4}$ del total</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Confundir "Parte-Parte" con "Parte-Todo". Si mezclas 1 vaso de agua y 3 de zumo, tienes 4 vasos en total.
+                    <br><br>
+                    <strong>Solución:</strong> Suma las partes del ratio (1+3=4) para hallar el denominador total.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Si la clase tiene ratio chicos:chicas 1:1, ¿qué fracción son chicas? (Pista: no es el 100%).
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">5. Proporción Aditiva</span>
+                <span class="icon-alert">🚜</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">2L $\to$ 4kg | 3L $\to$ 5kg</div>
+                    <div class="right">2L $\to$ 4kg | 3L $\to$ 6kg</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Pensamos "de 2 a 3 va 1, pues sumo 1". Pero la proporción <strong>multiplica</strong>, no suma.
+                    <br><br>
+                    <strong>Solución:</strong> Busca el "valor de la unidad". Si 2L son 4kg, 1L son 2kg. Entonces 3L son $3 \times 2 = 6$.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Si 1 chicle cuesta 10 céntimos, ¿cuánto cuestan 10 chicles? ¡No digas 19!
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">6. La Potencia Fantasma</span>
+                <span class="icon-alert">👻</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$x + x = x^2$</div>
+                    <div class="right">$x + x = 2x$</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Confundimos sumar (agrupar cosas) con multiplicar (calcular áreas).
+                    <br><br>
+                    <strong>Solución:</strong> Piensa en cajas. Una caja más una caja son 2 cajas ($2x$), no una "caja cuadrada".
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Di en voz alta: "Manzana más Manzana". ¿Dices "Dos Manzanas" o "Manzana al cuadrado"?
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">7. Mezclar Peras y Manzanas</span>
+                <span class="icon-alert">🍎</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$2x + 3 = 5x$</div>
+                    <div class="right">$2x + 3$ (Se queda así)</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Queremos obtener un solo resultado final, pero en álgebra a veces la respuesta es una expresión.
+                    <br><br>
+                    <strong>Solución:</strong> Si no tienen la misma letra (apellido), no se pueden juntar en la misma habitación.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Tacha lo que NO se puede sumar: $3x$, $4y$, $5x$, $2$. (Solo puedes unir $3x$ y $5x$).
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">8. El Menos Traicionero</span>
+                <span class="icon-alert">➖</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$5 - (x + 2) = 5 - x + 2$</div>
+                    <div class="right">$5 - x - 2$</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> El menos delante del paréntesis afecta a TODO lo de dentro, no solo al primero.
+                    <br><br>
+                    <strong>Solución:</strong> Imagina que el menos es un interruptor que cambia TODOS los signos de dentro.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Escribe el opuesto de $(3a - 5)$. Solución: $-3a + 5$.
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">9. El Salto Incorrecto</span>
+                <span class="icon-alert">🤸</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$3x = 12 \to x = 12 - 3$</div>
+                    <div class="right">$x = 12 : 3$</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Vemos el 3 pegado a la x y pensamos que está sumando. ¡Pero está multiplicando!
+                    <br><br>
+                    <strong>Solución:</strong> Si no hay signo entre el número y la letra, es un pegamento fuerte (multiplicación). Pasa dividiendo.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Resuelve mentalmente: $2x = 10$. Si has pensado 8, ¡has caído en la trampa! Es 5.
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <div class="card-header">
+                <span class="error-title">10. Responder lo que no piden</span>
+                <span class="icon-alert">❓</span>
+            </div>
+            <div class="card-body">
+                <span class="why-tag">El Error:</span>
+                <div class="example-box">
+                    <div class="wrong">$x = 5$ (Fin)</div>
+                    <div class="right">"La valla mide 5 metros"</div>
+                </div>
+                <div class="explanation">
+                    <strong>¿Por qué pasa?</strong> Nos obsesionamos con hallar la $x$ y olvidamos que $x$ era la edad de la abuela o los litros de agua.
+                    <br><br>
+                    <strong>Solución:</strong> Lee la última frase del problema otra vez antes de entregar.
+                </div>
+                <div class="flash-activity">
+                    <div class="flash-title">⚡ Reto Flash</div>
+                    Si $x$ es el número de hermanos y te sale $x = 2.5$, ¿tiene sentido? Revisa tus cálculos.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Fracciones 2.0 - Vasos de Agua</title>
+    
+    <script>
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+        svg: { fontCache: 'global' }
+    };
+    </script>
+    <script id="MathJax-script" async src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #3498db; /* Azul Agua */
+            --primary-dark: #2980b9;
+            --target: #e67e22;  /* Naranja Jugador */
+            --bg: #f4f7f6;
+            --panel: #ffffff;
+            --success: #27ae60;
+            --error: #c0392b;
+            --glass-border: rgba(189, 195, 199, 0.8);
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--panel);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 { margin-top: 0; color: #2c3e50; }
+        .subtitle { color: #7f8c8d; margin-bottom: 30px; }
+
+        /* ZONA VISUAL DE VASOS */
+        .visual-area {
+            background: #ecf0f1;
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end; /* Alinea los vasos por la base */
+            position: relative;
+        }
+
+        .glass-station {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 45%;
+        }
+
+        .bar-label {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            height: 60px; /* Espacio fijo para MathJax */
+        }
+
+        /* EL VASO DE AGUA */
+        .glass-container {
+            width: 140px;
+            height: 280px;
+            border: 5px solid var(--glass-border);
+            border-top: none;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* EL AGUA (Animada) */
+        .water {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%; /* Se controla vía JS */
+            background: linear-gradient(to bottom, rgba(79, 172, 254, 0.8) 0%, rgba(0, 242, 254, 0.8) 100%);
+            border-top: 3px solid rgba(255, 255, 255, 0.6);
+            /* Curva de animación realista de fluidos */
+            transition: height 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s;
+            z-index: 1;
+        }
+
+        /* Agua Naranja para el usuario */
+        .interactive-glass .water {
+            background: linear-gradient(to bottom, rgba(243, 156, 18, 0.8) 0%, rgba(211, 84, 0, 0.8) 100%);
+        }
+
+        /* SEGMENTOS (Marcas de volumen) */
+        .glass-segments {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .segment {
+            flex: 1;
+            border-bottom: 2px dashed rgba(44, 62, 80, 0.2);
+            transition: background 0.2s;
+        }
+        .segment:last-child { border-bottom: none; }
+
+        .interactive-glass .segment {
+            cursor: pointer;
+        }
+        .interactive-glass .segment:hover {
+            background: rgba(243, 156, 18, 0.15); /* Hover sutil */
+        }
+
+        /* LINEA DE GUÍA (Ayuda visual horizontal) */
+        #guide-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            z-index: 10;
+            pointer-events: none;
+            display: none;
+            transition: bottom 0.8s;
+        }
+
+        /* CONTROLES */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn-check { background-color: var(--success); color: white; }
+        .btn-check:hover { background-color: #219150; transform: translateY(-2px); }
+
+        .btn-new { background-color: var(--primary-dark); color: white; }
+        .btn-new:hover { background-color: #1f618d; transform: translateY(-2px); }
+</style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <h1>💧 Vasos Equivalentes</h1>
+    <p class="subtitle">Llena el vaso naranja tocando las marcas hasta igualar el volumen de agua del vaso azul.</p>
+
+    <div class="visual-area" id="board">
+        
+        <div id="guide-line"></div>
+
+        <div class="glass-station">
+            <div class="bar-label">
+                <span style="color:var(--primary)">Vaso Origen:</span><br>
+                <span id="ref-math"></span>
+            </div>
+            <div class="glass-container">
+                <div class="water" id="ref-water"></div>
+                <div class="glass-segments" id="ref-segments"></div>
+            </div>
+        </div>
+
+        <div class="glass-station">
+            <div class="bar-label">
+                <span style="color:var(--target)">Tu Misión:</span><br>
+                <span id="target-math"></span>
+            </div>
+            <div class="glass-container interactive-glass">
+                <div class="water" id="target-water"></div>
+                <div class="glass-segments" id="target-segments"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="btn-check" onclick="checkAnswer()">✅ Comprobar Volumen</button>
+        <button class="btn-new" onclick="generateChallenge()">🔄 Nuevo Reto</button>
+        <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+    </div>
+
+    <div id="feedback"></div>
+</div>
+
+
+
+<script>
+    // ESTADO DEL JUEGO
+    let state = {
+        num1: 0, den1: 0, 
+        num2: 0, den2: 0, 
+        userSelection: 0  
+    };
+
+    function generateChallenge() {
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('guide-line').style.display = 'none';
+        state.userSelection = 0;
+
+        const bases = [
+            {n:1, d:2}, {n:1, d:3}, {n:2, d:3}, 
+            {n:1, d:4}, {n:3, d:4}, {n:1, d:5}, {n:2, d:5}, {n:3, d:5}, {n:4, d:5}
+        ];
+        const base = bases[Math.floor(Math.random() * bases.length)];
+        state.num1 = base.n;
+        state.den1 = base.d;
+
+        let maxFactor = Math.floor(10 / state.den1);
+        if (maxFactor < 2) maxFactor = 2;
+        
+        const factor = Math.floor(Math.random() * (maxFactor - 1)) + 2;
+        state.den2 = state.den1 * factor;
+        
+        renderMath();
+
+        // Dibujar vasos y actualizar agua
+        drawGlass('ref-segments', state.den1, false);
+        document.getElementById('ref-water').style.height = `${(state.num1 / state.den1) * 100}%`;
+
+        drawGlass('target-segments', state.den2, true);
+        document.getElementById('target-water').style.height = `0%`;
+    }
+
+    function drawGlass(elementId, segments, isInteractive) {
+        const container = document.getElementById(elementId);
+        container.innerHTML = ''; 
+
+        for (let i = 0; i < segments; i++) {
+            const div = document.createElement('div');
+            div.classList.add('segment');
+
+            if (isInteractive) {
+                // Lógica Top-Down: El índice 0 es el segmento superior.
+                // Si hace clic en el index 0, quiere llenar todo el vaso (segments).
+                // Si hace clic en el último, quiere llenar 1 parte.
+                const fillAmount = segments - i; 
+                div.onclick = () => fillWater(fillAmount, segments);
+            }
+
+            container.appendChild(div);
+        }
+    }
+
+    function fillWater(amount, totalSegments) {
+        state.userSelection = amount;
+        
+        // Animamos el CSS cambiando la altura (height) del agua
+        const waterDiv = document.getElementById('target-water');
+        waterDiv.style.height = `${(state.userSelection / totalSegments) * 100}%`;
+        
+        updateUserMath();
+    }
+
+    function renderMath() {
+        const refContainer = document.getElementById('ref-math');
+        const targetContainer = document.getElementById('target-math');
+
+        refContainer.innerHTML = `$$ \\frac{${state.num1}}{${state.den1}} $$`;
+        targetContainer.innerHTML = `$$ \\frac{?}{${state.den2}} $$`;
+
+        if(window.MathJax) {
+            MathJax.typesetPromise([refContainer, targetContainer]);
+        }
+    }
+
+    function updateUserMath() {
+        const targetContainer = document.getElementById('target-math');
+        const currentNum = state.userSelection > 0 ? state.userSelection : "?";
+        targetContainer.innerHTML = `$$ \\frac{${currentNum}}{${state.den2}} $$`;
+        if(window.MathJax) MathJax.typesetPromise([targetContainer]);
+    }
+
+    function checkAnswer() {
+        const factor = state.den2 / state.den1;
+        const correctNum = state.num1 * factor;
+        
+        const feedback = document.getElementById('feedback');
+        feedback.style.display = 'block';
+        feedback.className = '';
+
+        if (state.userSelection === correctNum) {
+            feedback.innerHTML = `🎉 ¡Volumen exacto! Son equivalentes. <br> Hemos multiplicado numerador y denominador por <strong>${factor}</strong>.`;
+            feedback.classList.add('feedback-success');
+            showGuideLine(correctNum, state.den2);
+        } else if (state.userSelection < correctNum) {
+            feedback.innerHTML = `⚠️ Te falta agua. <br> Toca una marca más arriba para seguir llenando el vaso.`;
+            feedback.classList.add('feedback-error');
+            document.getElementById('guide-line').style.display = 'none';
+        } else {
+            feedback.innerHTML = `⚠️ Te has pasado de la raya. <br> Toca una marca más abajo para vaciar un poco el vaso.`;
+            feedback.classList.add('feedback-error');
+            document.getElementById('guide-line').style.display = 'none';
+        }
+    }
+
+function showGuideLine(num, den) {
+        const line = document.getElementById('guide-line');
+        
+        // 1. Calculamos la proporción de llenado (ej: 0.5 para la mitad)
+        const fillRatio = num / den;
+        
+        // 2. Medidas exactas extraídas de nuestro CSS
+        const glassHeight = 280;   // Altura del vaso (.glass-container)
+        const bottomPadding = 40;  // Padding inferior del panel gris (.visual-area)
+        const bottomBorder = 5;    // Grosor del borde inferior del vaso
+        
+        // 3. Calculamos la posición exacta en píxeles desde el suelo del panel gris
+        const exactPosition = bottomPadding + bottomBorder + (glassHeight * fillRatio);
+        
+        // Aplicamos la medida calculada
+        line.style.bottom = `${exactPosition}px`; 
+        
+        line.style.opacity = '0';
+        line.style.display = 'block';
+        
+        setTimeout(() => {
+            line.style.opacity = '1';
+        }, 50);
+    }
+window.onload = generateChallenge;
+
+</script>
+
+    <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

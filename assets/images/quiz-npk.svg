@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-label="NPK 13-40-13">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dff8f0" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="200" fill="url(#bg)" rx="24" />
+  <circle cx="86" cy="100" r="54" fill="#0f766e" opacity="0.12" />
+  <circle cx="530" cy="42" r="28" fill="#0f766e" opacity="0.12" />
+  <rect x="118" y="70" width="364" height="60" rx="16" fill="rgba(255,255,255,0.78)" />
+  <text x="300" y="108" text-anchor="middle" font-size="28" font-family="Trebuchet MS, Segoe UI, sans-serif" fill="#0f766e" font-weight="700">NPK 13-40-13</text>
+</svg>

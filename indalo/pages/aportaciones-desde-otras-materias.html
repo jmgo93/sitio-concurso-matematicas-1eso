@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aportaciones desde otras materias - La Tierra del Indalo</title>
+<style>
+:root{
+--ink:#1f2f39;
+--muted:#60727b;
+--line:#d9e4e6;
+--panel:#ffffff;
+--panel-soft:#f7fbfb;
+--hero-a:#c4682c;
+--hero-b:#0f6f78;
+--hero-c:#2f8f5d;
+--shadow:0 18px 42px rgba(31,47,57,0.12);
+--radius-xl:28px;
+--radius-lg:22px;
+--radius-md:16px;
+}
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:"Segoe UI",Tahoma,sans-serif;
+color:var(--ink);
+background:
+radial-gradient(circle at top left, rgba(196,104,44,0.14), transparent 28%),
+radial-gradient(circle at 85% 10%, rgba(15,111,120,0.12), transparent 24%),
+linear-gradient(180deg, #f8f4ee 0%, #eef6f4 100%);
+}
+
+.crosscurr-page{
+width:min(1180px, calc(100% - 2rem));
+margin:0 auto;
+padding:1.4rem 0 3rem;
+}
+
+.crosscurr-hero{
+position:relative;
+overflow:hidden;
+padding:2rem;
+border-radius:var(--radius-xl);
+background:
+radial-gradient(circle at 78% 18%, rgba(255,255,255,0.18), transparent 22%),
+linear-gradient(140deg, var(--hero-a), var(--hero-b) 55%, var(--hero-c));
+color:#fff;
+box-shadow:var(--shadow);
+}
+
+.crosscurr-hero::after{
+content:"";
+position:absolute;
+right:-3rem;
+bottom:-3rem;
+width:14rem;
+height:14rem;
+border-radius:50%;
+background:rgba(255,255,255,0.1);
+}
+
+.crosscurr-kicker{
+margin:0 0 0.7rem;
+font-size:0.78rem;
+letter-spacing:0.12em;
+text-transform:uppercase;
+opacity:0.88;
+}
+
+.crosscurr-hero h1{
+margin:0;
+font-family:Georgia,serif;
+font-size:clamp(2rem, 4vw, 3.15rem);
+line-height:1.04;
+max-width:13ch;
+}
+
+.crosscurr-lead{
+max-width:48rem;
+margin:1rem 0 0;
+font-size:1.05rem;
+line-height:1.7;
+color:rgba(255,255,255,0.95);
+}
+
+.crosscurr-hero-grid{
+display:grid;
+grid-template-columns:minmax(0, 1.5fr) minmax(18rem, 0.95fr);
+gap:1.2rem;
+align-items:end;
+}
+
+.crosscurr-pillbox{
+position:relative;
+z-index:1;
+display:grid;
+gap:0.85rem;
+}
+
+.crosscurr-pill{
+display:flex;
+gap:0.7rem;
+align-items:flex-start;
+padding:0.9rem 1rem;
+border-radius:18px;
+background:rgba(255,255,255,0.14);
+backdrop-filter:blur(6px);
+}
+
+.crosscurr-pill strong{
+display:block;
+margin-bottom:0.2rem;
+font-size:0.95rem;
+}
+
+.crosscurr-pill p{
+margin:0;
+font-size:0.9rem;
+line-height:1.5;
+color:rgba(255,255,255,0.9);
+}
+
+.crosscurr-pill svg{
+width:1.2rem;
+height:1.2rem;
+flex:0 0 auto;
+stroke:currentColor;
+fill:none;
+stroke-width:1.8;
+margin-top:0.1rem;
+}
+
+.crosscurr-note{
+margin:1rem 0 0;
+padding:1rem 1.1rem;
+border-radius:18px;
+background:#fff8ea;
+border:1px solid rgba(196,104,44,0.2);
+color:#8a5316;
+line-height:1.6;
+}
+
+.crosscurr-section{
+margin-top:1.25rem;
+padding:1.25rem;
+border-radius:var(--radius-xl);
+background:rgba(255,255,255,0.78);
+border:1px solid rgba(31,47,57,0.08);
+box-shadow:0 14px 30px rgba(31,47,57,0.06);
+backdrop-filter:blur(8px);
+}
+
+.crosscurr-section__head{
+display:flex;
+justify-content:space-between;
+gap:1rem;
+align-items:flex-end;
+margin-bottom:1rem;
+}
+
+.crosscurr-section__head h2{
+margin:0;
+font-family:Georgia,serif;
+font-size:1.7rem;
+}
+
+.crosscurr-section__head p{
+margin:0.3rem 0 0;
+color:var(--muted);
+line-height:1.6;
+max-width:48rem;
+}
+
+.crosscurr-step{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:2.2rem;
+height:2.2rem;
+border-radius:50%;
+font-weight:800;
+color:#fff;
+background:linear-gradient(135deg, var(--hero-a), var(--hero-b));
+}
+
+.subject-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+gap:1rem;
+}
+
+.subject-card{
+display:flex;
+flex-direction:column;
+gap:0.9rem;
+min-height:100%;
+padding:1.05rem;
+border-radius:var(--radius-lg);
+background:var(--subject-soft, var(--panel-soft));
+border:1px solid var(--subject-line, rgba(31,47,57,0.09));
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.4);
+}
+
+.subject-card__head{
+display:flex;
+gap:0.8rem;
+align-items:flex-start;
+}
+
+.subject-card__icon{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:3rem;
+height:3rem;
+border-radius:18px;
+color:var(--subject-strong);
+background:#fff;
+box-shadow:0 8px 18px rgba(31,47,57,0.08);
+flex:0 0 auto;
+}
+
+.subject-card__icon svg{
+width:1.45rem;
+height:1.45rem;
+stroke:currentColor;
+fill:none;
+stroke-width:1.8;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+
+.subject-card__eyebrow{
+margin:0;
+font-size:0.75rem;
+text-transform:uppercase;
+letter-spacing:0.12em;
+color:var(--subject-strong);
+font-weight:800;
+}
+
+.subject-card h3{
+margin:0.2rem 0 0;
+font-size:1.15rem;
+line-height:1.25;
+}
+
+.subject-card__idea{
+margin:0;
+color:var(--ink);
+line-height:1.65;
+}
+
+.subject-card__meta{
+display:grid;
+gap:0.7rem;
+margin:0;
+}
+
+.subject-card__meta div{
+padding:0.75rem 0.8rem;
+border-radius:14px;
+background:rgba(255,255,255,0.75);
+border:1px solid rgba(31,47,57,0.06);
+}
+
+.subject-card__meta dt{
+margin:0 0 0.22rem;
+font-size:0.77rem;
+font-weight:800;
+letter-spacing:0.08em;
+text-transform:uppercase;
+color:var(--subject-strong);
+}
+
+.subject-card__meta dd{
+margin:0;
+line-height:1.55;
+color:#30434c;
+}
+
+.subject-lengua{--subject-strong:#b15a2c;--subject-soft:#fff4ea;--subject-line:rgba(177,90,44,0.18);}
+.subject-idiomas{--subject-strong:#2a6fb0;--subject-soft:#eef6ff;--subject-line:rgba(42,111,176,0.16);}
+.subject-social{--subject-strong:#8a5f1f;--subject-soft:#fff8e8;--subject-line:rgba(138,95,31,0.18);}
+.subject-ciencia{--subject-strong:#2d8b55;--subject-soft:#eefaf2;--subject-line:rgba(45,139,85,0.18);}
+.subject-tech{--subject-strong:#3b63ad;--subject-soft:#eef2ff;--subject-line:rgba(59,99,173,0.18);}
+.subject-art{--subject-strong:#a34aa3;--subject-soft:#fdf1fd;--subject-line:rgba(163,74,163,0.18);}
+.subject-musica{--subject-strong:#7047b7;--subject-soft:#f4efff;--subject-line:rgba(112,71,183,0.18);}
+.subject-ef{--subject-strong:#c24c4c;--subject-soft:#fff1f0;--subject-line:rgba(194,76,76,0.18);}
+.subject-valores{--subject-strong:#0f6f78;--subject-soft:#edf9fa;--subject-line:rgba(15,111,120,0.18);}
+
+.coordination-panel{
+margin-top:1.25rem;
+padding:1.25rem;
+border-radius:var(--radius-xl);
+background:#1f2f39;
+color:#eaf2f4;
+box-shadow:var(--shadow);
+}
+
+.coordination-panel h2{
+margin:0;
+font-family:Georgia,serif;
+font-size:1.7rem;
+}
+
+.coordination-panel p{
+margin:0.7rem 0 0;
+line-height:1.65;
+color:rgba(234,242,244,0.88);
+}
+
+.coordination-steps{
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:0.9rem;
+margin-top:1rem;
+}
+
+.coordination-step{
+padding:1rem;
+border-radius:18px;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.12);
+}
+
+.coordination-step strong{
+display:block;
+margin-bottom:0.35rem;
+font-size:1rem;
+}
+
+.coordination-step p{
+margin:0;
+font-size:0.92rem;
+}
+
+@media (max-width: 920px){
+.crosscurr-hero-grid{grid-template-columns:1fr;}
+.crosscurr-section__head{flex-direction:column;align-items:flex-start;}
+.coordination-steps{grid-template-columns:1fr;}
+}
+
+@media (max-width: 640px){
+.crosscurr-page{width:calc(100% - 1rem);}
+.crosscurr-hero,.crosscurr-section,.coordination-panel{padding:1rem;}
+.subject-grid{grid-template-columns:1fr;}
+}
+</style>
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../navigation.js" defer></script>
+<script src="../../assets/site.js" defer></script>
+<script src="../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="icon-book" viewBox="0 0 24 24">
+    <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v16H7.5A2.5 2.5 0 0 0 5 21.5z"/>
+    <path d="M5 5.5v16"/>
+    <path d="M9 7h6"/>
+  </symbol>
+  <symbol id="icon-chat" viewBox="0 0 24 24">
+    <path d="M5 6h14v9H9l-4 3z"/>
+    <path d="M9 10h6"/>
+  </symbol>
+  <symbol id="icon-map" viewBox="0 0 24 24">
+    <path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"/>
+    <path d="M9 4v14"/>
+    <path d="M15 6v14"/>
+  </symbol>
+  <symbol id="icon-leaf" viewBox="0 0 24 24">
+    <path d="M5 14c0-6 5-9 14-9 0 9-3 14-9 14-3 0-5-2-5-5z"/>
+    <path d="M8 16c3-3 6-5 10-7"/>
+  </symbol>
+  <symbol id="icon-chip" viewBox="0 0 24 24">
+    <rect x="7" y="7" width="10" height="10" rx="2"/>
+    <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/>
+  </symbol>
+  <symbol id="icon-ruler" viewBox="0 0 24 24">
+    <path d="m4 20 16-16 2 2-16 16H4z"/>
+    <path d="M13 7l4 4"/>
+    <path d="M10 10l2 2"/>
+  </symbol>
+  <symbol id="icon-note" viewBox="0 0 24 24">
+    <path d="M14 4v10.5a3 3 0 1 1-2-2.83V7l8-2v8.5a3 3 0 1 1-2-2.83V4z"/>
+  </symbol>
+  <symbol id="icon-move" viewBox="0 0 24 24">
+    <path d="M12 3v18"/>
+    <path d="m8 7 4-4 4 4"/>
+    <path d="m8 17 4 4 4-4"/>
+    <path d="M3 12h18"/>
+    <path d="m7 8-4 4 4 4"/>
+    <path d="m17 8 4 4-4 4"/>
+  </symbol>
+  <symbol id="icon-hands" viewBox="0 0 24 24">
+    <path d="M8 12 5.5 9.5a2 2 0 0 0-2.8 2.8l4.6 4.6a3 3 0 0 0 2.1.9H12"/>
+    <path d="m16 12 2.5-2.5a2 2 0 0 1 2.8 2.8l-4.6 4.6a3 3 0 0 1-2.1.9H12"/>
+    <path d="M9 12h6"/>
+  </symbol>
+  <symbol id="icon-path" viewBox="0 0 24 24">
+    <path d="M5 18c0-3 2-5 5-5s5-2 5-5"/>
+    <circle cx="5" cy="18" r="2"/>
+    <circle cx="15" cy="8" r="2"/>
+    <circle cx="20" cy="4" r="2"/>
+  </symbol>
+</svg>
+
+<main class="crosscurr-page">
+  <section class="crosscurr-hero">
+    <div class="crosscurr-hero-grid">
+      <div>
+        <p class="crosscurr-kicker">La Tierra del Indalo · Coordinación de 1.º de ESO</p>
+        <h1>Aportaciones desde otras materias</h1>
+        <p class="crosscurr-lead">Esta situación de aprendizaje puede abrirse al conjunto del equipo docente para que el alumnado relacione el patrimonio nazarí, el paisaje agrario almeriense y los retos de sostenibilidad con tareas propias del resto de materias. Las propuestas de esta página se apoyan en el currículo de 1.º de ESO y en criterios de evaluación vinculados a la comunicación, la indagación, la creación, la competencia digital y la ciudadanía.</p>
+      </div>
+      <div class="crosscurr-pillbox">
+        <div class="crosscurr-pill">
+          <svg><use href="#icon-path"></use></svg>
+          <div>
+            <strong>Clave de lectura curricular</strong>
+            <p>Cada tarjeta resume competencias específicas relacionadas, criterios activables y un producto fácil de coordinar con Matemáticas.</p>
+          </div>
+        </div>
+        <div class="crosscurr-pill">
+          <svg><use href="#icon-hands"></use></svg>
+          <div>
+            <strong>Formato de trabajo</strong>
+            <p>Se pueden convertir en microproyectos, estaciones de aula, tareas de producto final o evidencias para el porfolio interdisciplinar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="crosscurr-note">Estas ideas no sustituyen a la programación de cada departamento: sirven como banco de propuestas para concretar competencias específicas, criterios de evaluación y saberes básicos desde una lógica de proyecto compartido y de evaluación integradora.</p>
+
+  <section class="crosscurr-section">
+    <div class="crosscurr-section__head">
+      <div>
+        <div class="crosscurr-step">1</div>
+        <h2>Narrar, investigar y explicar el territorio</h2>
+        <p>El proyecto gana profundidad cuando otras materias ayudan a leer el paisaje, documentar el patrimonio, explicar procesos y producir mensajes claros para distintos públicos.</p>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <article class="subject-card subject-lengua">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-book"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Lengua Castellana y Literatura</p>
+            <h3>Crónicas del territorio y guías de divulgación</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">El alumnado puede transformar la investigación matemática en textos expositivos, guiones de podcast, entrevistas o crónicas breves sobre mosaicos, riego, invernaderos y sostenibilidad.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Comprensión y producción de textos orales, escritos y multimodales; alfabetización informacional; interacción oral argumentada.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Seleccionar y contrastar fuentes, planificar y revisar textos, sintetizar información y sostener exposiciones orales adaptadas a la audiencia.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Dossier divulgativo o podcast escolar titulado <em>Cómo hablan los mosaicos y los invernaderos</em>.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-idiomas">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-chat"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Primera y Segunda Lengua Extranjera</p>
+            <h3>Ruta bilingüe del Indalo, la Alcazaba y el invernadero</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Las lenguas extranjeras pueden aportar mediación y difusión internacional: señalética, descripciones breves, vídeos guiados, diálogos de visita o glosarios sobre proporciones, agua y agricultura.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Comprensión de textos breves, interacción oral, mediación lingüística y producción escrita funcional en contextos reales.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Extraer información esencial, reformular mensajes, participar en intercambios guiados y elaborar textos sencillos con corrección suficiente.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Folleto o audioguía bilingüe para visitantes del proyecto y para familias.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-social">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-map"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Geografía e Historia</p>
+            <h3>Paisaje, patrimonio y cambios del territorio</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Desde esta materia se puede reconstruir la huella histórica del agua, las transformaciones del espacio agrario y el valor cultural de la geometría nazarí como patrimonio local.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Análisis de fuentes, lectura crítica del espacio geográfico, interpretación de procesos históricos y valoración del patrimonio.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Relacionar pasado y presente, interpretar mapas e imágenes, explicar cambios en el territorio y argumentar medidas de conservación.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Atlas de aula con mapas, cronologías y estudios de caso sobre Almería.</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="crosscurr-section">
+    <div class="crosscurr-section__head">
+      <div>
+        <div class="crosscurr-step">2</div>
+        <h2>Observar sistemas, diseñar soluciones y comunicar con imágenes</h2>
+        <p>La vertiente científica y tecnológica permite que el alumnado conecte la modelización matemática con fenómenos naturales, decisiones de sostenibilidad y soluciones de diseño.</p>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <article class="subject-card subject-ciencia">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-leaf"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Biología y Geología</p>
+            <h3>Agua, suelo, cultivos y equilibrio ambiental</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">El proyecto puede abrir líneas de observación sobre clima, recursos hídricos, biodiversidad del entorno y efectos ambientales del modelo agrícola intensivo.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Indagación científica escolar, interpretación de datos, explicación de sistemas naturales y análisis del impacto humano.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Formular preguntas, registrar observaciones, representar datos, extraer conclusiones y justificar prácticas sostenibles.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Cuaderno de campo y pequeño informe ambiental con propuestas de mejora.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-tech">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-chip"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Tecnología y Digitalización / Computación y Robótica</p>
+            <h3>Prototipos para regar, medir y decidir</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">La dimensión tecnológica encaja de forma natural con sensores de humedad simulados, cuadros de mando, hojas de cálculo, maquetas funcionales o rutinas de automatización del riego.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Resolución de problemas tecnológicos, pensamiento computacional, uso responsable de herramientas digitales y documentación del proceso.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Diseñar soluciones, probar prototipos, iterar mejoras, registrar decisiones técnicas y comunicar resultados con apoyo digital.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Maqueta de riego o panel de seguimiento digital del cultivo.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-art">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-ruler"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Educación Plástica, Visual y Audiovisual</p>
+            <h3>Teselados, infografías y señalética del proyecto</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">La relación entre geometría, patrimonio y comunicación visual permite diseñar mosaicos, paneles interpretativos, esquemas de riego o cartelería para una exposición final.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Observación estética, uso de elementos visuales, creación de proyectos gráficos y lectura crítica de imágenes.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Analizar referentes, justificar decisiones compositivas, experimentar con materiales y producir mensajes visuales claros y coherentes.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Galería de teselados e infografías para el pasillo o la web del centro.</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="crosscurr-section">
+    <div class="crosscurr-section__head">
+      <div>
+        <div class="crosscurr-step">3</div>
+        <h2>Crear cultura, moverse con sentido y debatir el bien común</h2>
+        <p>Las últimas conexiones sitúan el proyecto en el plano de la expresión artística, la acción corporal y la reflexión ética compartida sobre el territorio.</p>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <article class="subject-card subject-musica">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-note"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Música</p>
+            <h3>Patrones rítmicos, simetrías y paisaje sonoro</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Las fracciones y repeticiones del proyecto pueden convertirse en pulsos, ostinatos, estructuras rítmicas o paisajes sonoros inspirados en el agua, el trabajo agrícola y los mosaicos.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Escucha activa, análisis de patrones, creación colectiva y representación musical con intención expresiva.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Reconocer regularidades, coordinar interpretaciones grupales, componer secuencias sencillas y revisar el resultado artístico.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Pieza breve o base rítmica para acompañar la exposición final del proyecto.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-ef">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-move"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Educación Física</p>
+            <h3>Orientación, recorridos y retos de medida</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">Se pueden diseñar circuitos de orientación, estaciones cooperativas o retos de desplazamiento ligados a escalas, trayectorias, tiempos y distancias del entorno del proyecto.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Participación activa, toma de decisiones motrices, cooperación, hábitos saludables y gestión segura del entorno.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Planificar recorridos, regular el esfuerzo, colaborar en grupo y utilizar referencias espaciales con autonomía progresiva.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Gymkhana de orientación matemática por patios, planos o espacios del centro.</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="subject-card subject-valores">
+        <div class="subject-card__head">
+          <span class="subject-card__icon"><svg><use href="#icon-hands"></use></svg></span>
+          <div>
+            <p class="subject-card__eyebrow">Valores Cívicos y Éticos / Atención Educativa</p>
+            <h3>Agua, sostenibilidad y responsabilidad compartida</h3>
+          </div>
+        </div>
+        <p class="subject-card__idea">El proyecto ofrece dilemas auténticos sobre el uso del agua, el equilibrio entre producción y cuidado del entorno, y la responsabilidad ciudadana en la conservación del patrimonio común.</p>
+        <dl class="subject-card__meta">
+          <div>
+            <dt>Competencias específicas</dt>
+            <dd>Reflexión ética, deliberación argumentada, participación democrática y construcción de acuerdos orientados al bien común.</dd>
+          </div>
+          <div>
+            <dt>Criterios activables</dt>
+            <dd>Analizar situaciones problemáticas, justificar posiciones con razones, escuchar a otras personas y formular compromisos viables.</dd>
+          </div>
+          <div>
+            <dt>Producto</dt>
+            <dd>Manifiesto de aula o decálogo de cuidado del territorio y de los recursos.</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="coordination-panel">
+    <h2>Cómo convertir estas ideas en coordinación real</h2>
+    <p>La secuencia funciona mejor cuando cada departamento se suma con una evidencia breve, evaluable y bien calendarizada. No hace falta añadir tareas aisladas: basta con vincular una producción de cada materia a una fase ya existente del proyecto.</p>
+    <div class="coordination-steps">
+      <article class="coordination-step">
+        <strong>1. Elegir un momento del proyecto</strong>
+        <p>Identificad qué parte de la situación de aprendizaje necesita investigación, comunicación, diseño, debate o producto final.</p>
+      </article>
+      <article class="coordination-step">
+        <strong>2. Acordar la evidencia</strong>
+        <p>Definid una tarea breve por materia con sus competencias específicas, criterios observables e instrumento de evaluación compartido.</p>
+      </article>
+      <article class="coordination-step">
+        <strong>3. Integrar y devolver</strong>
+        <p>Reunid todas las evidencias en una exposición, portafolio o jornada final para que el alumnado perciba el sentido interdisciplinar del trabajo.</p>
+      </article>
+    </div>
+  </section>
+</main>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

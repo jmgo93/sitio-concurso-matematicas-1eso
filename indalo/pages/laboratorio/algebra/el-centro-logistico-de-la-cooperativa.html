@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: Suma de Polinomios (Completo)</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --bg-floor: #e0e0e0;
+            --belt: #555;
+            --pos-color: #27ae60;
+            --neg-color: #c0392b;
+            --highlight: #f1c40f;
+            --text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f4f6f7;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            user-select: none;
+        }
+
+        .app-container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border-top: 6px solid #8e44ad;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #fdfdfd;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 { margin: 0; color: #8e44ad; }
+        .subtitle { color: #7f8c8d; margin-top: 5px; }
+
+        /* PANTALLA DE PROBLEMA */
+        .problem-display {
+            font-size: 1.6rem;
+            margin: 20px auto;
+            background: #f9f9f9;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px dashed #ccc;
+            font-family: 'Times New Roman', serif;
+            display: table;
+        }
+
+        /* --- FASE 1: HOJA DE PEDIDO (SETUP) --- */
+        .setup-panel {
+            background: #e8f6f3;
+            padding: 20px;
+            margin: 0 20px 20px 20px;
+            border-radius: 10px;
+            border: 1px solid #d1f2eb;
+            text-align: center;
+            display: block; /* Visible por defecto */
+        }
+
+        .setup-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .order-form {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-top: 4px solid #8e44ad;
+        }
+
+        .form-title { font-weight: bold; margin-bottom: 10px; color: #555; text-transform: uppercase; font-size: 0.9rem; }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 5px 0;
+        }
+        
+        .input-group label { width: 30px; font-weight: bold; }
+        
+        .setup-input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+        }
+
+        .btn-generate {
+            background-color: #8e44ad;
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn-generate:hover { transform: scale(1.05); background-color: #71368a; }
+
+        /* --- FASE 2: WAREHOUSE (VISUAL) --- */
+        .warehouse {
+            position: relative;
+            height: 480px;
+            background-color: var(--bg-floor);
+            background-image: radial-gradient(#ccc 15%, transparent 16%), radial-gradient(#ccc 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            overflow: hidden;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* CINTAS */
+        .conveyor {
+            position: absolute;
+            top: 60px;
+            height: 70px;
+            background: repeating-linear-gradient(90deg, #444, #444 10px, #333 10px, #333 20px);
+            border: 2px solid #222;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .belt-left { left: -20px; width: 40%; border-radius: 0 10px 10px 0; }
+        .belt-right { right: -20px; width: 40%; border-radius: 10px 0 0 10px; }
+
+        .belt-label {
+            position: absolute;
+            top: -30px;
+            background: #333;
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ZONA MEZCLA */
+        .mixing-zone {
+            position: absolute;
+            top: 150px;
+            left: 10%;
+            width: 80%;
+            height: 140px;
+            border: 2px dashed #999;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+        .zone-label {
+            color: #999;
+            font-weight: bold;
+            font-size: 1.5rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* CONTENEDORES */
+        .bins-area {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .bin {
+            width: 30%;
+            height: 140px;
+            background: rgba(255,255,255,0.8);
+            border: 3px solid #7f8c8d;
+            border-radius: 0 0 10px 10px;
+            border-top: none;
+            position: relative;
+        }
+        .bin::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #7f8c8d;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3rem;
+        }
+
+        /* OBJETOS */
+        .item {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: rgba(255,255,255,0.9);
+            z-index: 100;
+        }
+        .item:hover { transform: scale(1.1) !important; z-index: 110; filter: brightness(1.1); }
+        
+        .obj-x2 { width: 50px; height: 50px; border-radius: 2px; background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent); background-size: 10px 10px; }
+        .obj-x { width: 30px; height: 50px; border-radius: 3px; border-top: 5px solid rgba(0,0,0,0.2); }
+        .obj-1 { width: 30px; height: 30px; border-radius: 50%; box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2); }
+
+        .positive { background-color: var(--pos-color); border: 2px solid #1e8449; }
+        .negative { background-color: var(--neg-color); border: 2px solid #922b21; }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .pop-anim { animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+        @keyframes poof {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; background: #ffff00; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        .poof-anim { animation: poof 0.4s forwards; pointer-events: none; }
+
+        /* CONTROL PANEL INFERIOR */
+        .control-panel {
+            padding: 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            color: white;
+            transition: all 0.2s;
+        }
+        .btn-merge { background-color: #e67e22; display: none; } /* Oculto al inicio */
+        .btn-merge:hover { background-color: #d35400; transform: scale(1.05); }
+        .btn-check { background-color: #27ae60; }
+        .btn-next { background-color: #7f8c8d; }
+
+        .answer-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .final-input {
+            width: 60px; padding: 8px; text-align: center; font-size: 1.2rem;
+            border: 2px solid #ccc; border-radius: 8px;
+        }
+
+        #feedback { font-weight: bold; min-height: 30px; margin-top: 10px; font-size: 1.1rem; }
+        .text-success { color: #27ae60; }
+        .text-error { color: #c0392b; }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="app-container">
+        <header>
+            <h1>🚛 Centro Logístico de Polinomios</h1>
+            <p class="subtitle">1. Traduce el pedido. &nbsp;|&nbsp; 2. Clasifica. &nbsp;|&nbsp; 3. Calcula el total.</p>
+        </header>
+
+        <div class="problem-display" id="problem-text">Cargando...</div>
+
+        <div class="setup-panel" id="setup-panel">
+            <p><strong>Paso 1: Hoja de Pedido</strong><br>Introduce los coeficientes para fabricar las cajas.</p>
+            
+            <div class="setup-grid">
+                <div class="order-form">
+                    <div class="form-title">Pedido A (Izquierda)</div>
+                    <div class="input-group">
+                        <label>$x^2$</label>
+                        <input type="number" id="in-a-x2" class="setup-input" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>$x$</label>
+                        <input type="number" id="in-a-x" class="setup-input" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>n</label>
+                        <input type="number" id="in-a-1" class="setup-input" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="order-form">
+                    <div class="form-title">Pedido B (Derecha)</div>
+                    <div class="input-group">
+                        <label>$x^2$</label>
+                        <input type="number" id="in-b-x2" class="setup-input" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>$x$</label>
+                        <input type="number" id="in-b-x" class="setup-input" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>n</label>
+                        <input type="number" id="in-b-1" class="setup-input" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <div id="setup-feedback" style="color: #c0392b; font-weight: bold; margin-bottom: 10px;"></div>
+            <button class="btn-generate" onclick="validateAndSpawn()">✅ Generar Pedido Visual</button>
+        </div>
+
+        <div class="warehouse" id="warehouse">
+            <div class="conveyor belt-left"><div class="belt-label">Pedido A</div></div>
+            <div class="conveyor belt-right"><div class="belt-label">Pedido B</div></div>
+
+            <div class="mixing-zone">
+                <div class="zone-label" id="zone-label">Esperando pedido...</div>
+            </div>
+
+            <div class="bins-area">
+                <div class="bin" data-label="x²" id="bin-x2"></div>
+                <div class="bin" data-label="x" id="bin-x"></div>
+                <div class="bin" data-label="n" id="bin-1"></div>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <button class="btn btn-merge" id="btn-merge" onclick="mergeItems()">⬇️ Fusionar Cargas</button>
+
+            <div class="answer-row" id="answer-section">
+                <span>Total:</span>
+                <input type="number" id="ans-x2" class="final-input" placeholder="0"> $x^2$ + 
+                <input type="number" id="ans-x" class="final-input" placeholder="0"> $x$ + 
+                <input type="number" id="ans-1" class="final-input" placeholder="0">
+                <button class="btn btn-check" onclick="checkAnswer()">Comprobar</button>
+            </div>
+
+            <div id="feedback"></div>
+            <button class="btn btn-next" onclick="newProblem()">🔄 Nuevo Pedido</button>
+        </div>
+    </div>
+
+    <script>
+        // VARIABLES GLOBALES
+        let currentProblem = {};
+        let itemsOnFloor = [];
+        let phase = 'setup'; // setup, arrival, sorting, result
+
+        const warehouse = document.getElementById('warehouse');
+
+        // INICIAR
+        function newProblem() {
+            // Limpieza
+            document.querySelectorAll('.item').forEach(e => e.remove());
+            itemsOnFloor = [];
+            resetUI();
+            
+            // Generar polinomios
+            currentProblem.a = randomPoly();
+            currentProblem.b = randomPoly();
+
+            // Texto MathJax
+            const polyA = formatPoly(currentProblem.a);
+            const polyB = formatPoly(currentProblem.b);
+            const textDiv = document.getElementById('problem-text');
+            textDiv.innerHTML = `$$ (${polyA}) + (${polyB}) $$`;
+            if(window.MathJax) MathJax.typesetPromise([textDiv]);
+
+            phase = 'setup';
+        }
+
+        function randomPoly() {
+            return {
+                x2: randInt(-2, 3), 
+                x: randInt(-3, 3),
+                n: randInt(-3, 3)
+            };
+        }
+        function randInt(min, max) {
+            let val = Math.floor(Math.random() * (max - min + 1)) + min;
+            return val === 0 ? 1 : val; 
+        }
+
+        function formatPoly(p) {
+            let s = "";
+            if (p.x2 !== 0) s += (p.x2===1?"x^2":p.x2===-1?"-x^2":p.x2+"x^2");
+            if (p.x !== 0) {
+                if (s!=="" && p.x>0) s+="+";
+                s += (p.x===1?"x":p.x===-1?"-x":p.x+"x");
+            }
+            if (p.n !== 0) {
+                if (s!=="" && p.n>0) s+="+";
+                s += p.n;
+            }
+            return s==="" ? "0" : s;
+        }
+
+        // --- LÓGICA DE FASE 1: VALIDACIÓN ---
+        function validateAndSpawn() {
+            if (phase !== 'setup') return;
+
+            // Leer inputs
+            const inAx2 = parseInt(document.getElementById('in-a-x2').value) || 0;
+            const inAx  = parseInt(document.getElementById('in-a-x').value) || 0;
+            const inA1  = parseInt(document.getElementById('in-a-1').value) || 0;
+
+            const inBx2 = parseInt(document.getElementById('in-b-x2').value) || 0;
+            const inBx  = parseInt(document.getElementById('in-b-x').value) || 0;
+            const inB1  = parseInt(document.getElementById('in-b-1').value) || 0;
+
+            const feedback = document.getElementById('setup-feedback');
+
+            // Comprobar
+            if (inAx2 === currentProblem.a.x2 && inAx === currentProblem.a.x && inA1 === currentProblem.a.n &&
+                inBx2 === currentProblem.b.x2 && inBx === currentProblem.b.x && inB1 === currentProblem.b.n) {
+                
+                // CORRECTO
+                feedback.innerHTML = "";
+                document.getElementById('setup-panel').style.display = 'none';
+                
+                // Spawn Items
+                spawnOrderedItems(currentProblem.a, 'left');
+                spawnOrderedItems(currentProblem.b, 'right');
+                
+                document.getElementById('zone-label').innerText = "Pulsa Fusionar para empezar";
+                document.getElementById('btn-merge').style.display = 'inline-block';
+                phase = 'arrival';
+
+            } else {
+                // INCORRECTO
+                feedback.innerHTML = "❌ Hay errores en la hoja de pedido. Revisa los signos y cantidades.";
+                // Pista visual: shake effect (simple)
+                const panel = document.querySelector('.setup-panel');
+                panel.style.transform = "translateX(5px)";
+                setTimeout(() => panel.style.transform = "translateX(0)", 100);
+            }
+        }
+
+
+        // --- LÓGICA DE VISUALIZACIÓN ---
+        function spawnOrderedItems(poly, side) {
+            const beltY = 70; 
+            let currentOffset = 0; 
+
+            const placeGroup = (count, type, spacing) => {
+                const abs = Math.abs(count);
+                const isNeg = count < 0;
+                
+                for(let i=0; i<abs; i++) {
+                    const item = document.createElement('div');
+                    item.className = `item obj-${type} ${isNeg ? 'negative' : 'positive'} pop-anim`; // Animación POP
+                    item.dataset.type = type;
+                    item.dataset.value = isNeg ? -1 : 1;
+                    
+                    let posX;
+                    if (side === 'left') posX = 350 - currentOffset; 
+                    else posX = 600 + currentOffset;
+
+                    item.style.left = posX + 'px';
+                    item.style.top = beltY + 'px';
+                    
+                    item.onclick = (e) => handleItemClick(e.target);
+                    warehouse.appendChild(item);
+                    itemsOnFloor.push({ el: item, state: 'belt', type: type });
+                    currentOffset += spacing; 
+                }
+                if (abs > 0) currentOffset += 30; 
+            };
+
+            placeGroup(poly.x2, 'x2', 60); 
+            placeGroup(poly.x, 'x', 40);
+            placeGroup(poly.n, '1', 40);
+        }
+
+        // FUSIÓN
+        function mergeItems() {
+            if (phase !== 'arrival') return;
+
+            const centerX = warehouse.clientWidth / 2;
+            const floorY = 200; 
+
+            itemsOnFloor.forEach(obj => {
+                const randX = (Math.random() * 500) - 250 + centerX;
+                const randY = (Math.random() * 100) + floorY;
+                const rot = (Math.random() * 40) - 20;
+
+                obj.el.style.transition = "all 0.8s cubic-bezier(0.25, 1, 0.5, 1)";
+                obj.el.style.left = randX + 'px';
+                obj.el.style.top = randY + 'px';
+                obj.el.style.transform = `rotate(${rot}deg)`;
+                
+                obj.state = 'floor';
+            });
+
+            document.getElementById('btn-merge').style.display = 'none';
+            document.getElementById('zone-label').innerText = "Haz clic en los objetos para ordenarlos";
+            document.getElementById('zone-label').style.color = "#e67e22";
+            phase = 'sorting';
+        }
+
+        // CLASIFICACIÓN
+        function handleItemClick(itemEl) {
+            if (phase !== 'sorting') return;
+            const objData = itemsOnFloor.find(o => o.el === itemEl);
+            if (!objData || objData.state !== 'floor') return;
+
+            let targetId = objData.type === 'x2' ? 'bin-x2' : objData.type === 'x' ? 'bin-x' : 'bin-1';
+            const bin = document.getElementById(targetId);
+            const rBin = bin.getBoundingClientRect();
+            const rHouse = warehouse.getBoundingClientRect();
+
+            const tX = (rBin.left - rHouse.left) + 20 + Math.random()*(rBin.width-60);
+            const tY = (rBin.top - rHouse.top) + 40 + Math.random()*(rBin.height-60);
+
+            itemEl.style.transition = "all 0.5s ease";
+            itemEl.style.left = tX + 'px';
+            itemEl.style.top = tY + 'px';
+            itemEl.style.transform = "rotate(0deg)";
+            itemEl.style.zIndex = 50;
+
+            objData.state = 'bin';
+            
+            setTimeout(() => checkAnnihilation(objData.type), 500);
+            checkCompletion();
+        }
+
+        // ANULACIÓN
+        function checkAnnihilation(type) {
+            const inBin = itemsOnFloor.filter(o => o.state==='bin' && o.type===type && !o.destroyed);
+            const pos = inBin.find(o => parseInt(o.el.dataset.value) === 1);
+            const neg = inBin.find(o => parseInt(o.el.dataset.value) === -1);
+
+            if (pos && neg) {
+                pos.destroyed = true; 
+                neg.destroyed = true;
+                pos.el.classList.add('poof-anim');
+                neg.el.classList.add('poof-anim');
+                setTimeout(() => { pos.el.remove(); neg.el.remove(); }, 400);
+            }
+        }
+
+        function checkCompletion() {
+            const floorItems = itemsOnFloor.filter(o => o.state === 'floor');
+            if (floorItems.length === 0) {
+                const ans = document.getElementById('answer-section');
+                ans.style.opacity = 1;
+                ans.style.pointerEvents = 'all';
+                document.getElementById('zone-label').innerText = "¡Clasificación completada!";
+                document.getElementById('zone-label').style.color = "#27ae60";
+            }
+        }
+
+        function checkAnswer() {
+            const rx2 = currentProblem.a.x2 + currentProblem.b.x2;
+            const rx = currentProblem.a.x + currentProblem.b.x;
+            const rn = currentProblem.a.n + currentProblem.b.n;
+            
+            const ux2 = parseInt(document.getElementById('ans-x2').value)||0;
+            const ux = parseInt(document.getElementById('ans-x').value)||0;
+            const un = parseInt(document.getElementById('ans-1').value)||0;
+
+            const fb = document.getElementById('feedback');
+            if (ux2===rx2 && ux===rx && un===rn) {
+                fb.innerHTML = "🏆 ¡Excelente! Pedido procesado correctamente.";
+                fb.className = "text-success";
+            } else {
+                fb.innerHTML = "⚠️ Revisa el total. ¿Has contado bien las sobras?";
+                fb.className = "text-error";
+            }
+        }
+
+        function resetUI() {
+            document.getElementById('setup-panel').style.display = 'block';
+            document.getElementById('btn-merge').style.display = 'none';
+            document.getElementById('zone-label').innerText = "Esperando pedido...";
+            document.getElementById('zone-label').style.color = "#999";
+            
+            document.getElementById('answer-section').style.opacity = 0.5;
+            document.getElementById('answer-section').style.pointerEvents = 'none';
+            
+            // Limpiar inputs
+            document.querySelectorAll('input').forEach(i => i.value = '');
+            document.getElementById('feedback').innerText = '';
+            document.getElementById('setup-feedback').innerText = '';
+        }
+
+        window.onload = newProblem;
+    </script>
+
+
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

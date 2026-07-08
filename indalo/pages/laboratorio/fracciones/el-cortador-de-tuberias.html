@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio: El Cortador de Tuberías</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --pipe-color: #3498db; /* Azul Tubería */
+            --cut-color: #e67e22;  /* Naranja Corte */
+            --bg: #fdfefe;
+            --panel: #ecf0f1;
+            --text: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .app-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-top: 6px solid var(--pipe-color);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        h1 { color: var(--pipe-color); margin: 0 0 5px 0; }
+        .subtitle { color: #7f8c8d; margin: 0; font-size: 0.95rem; }
+
+        /* PANEL DE CONTROLES */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-box {
+            background: var(--panel);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #bdc3c7;
+        }
+
+        .control-title {
+            font-weight: bold;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fraction-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .frac-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            font-size: 1.1rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+        }
+
+        .frac-bar {
+            width: 50px;
+            height: 2px;
+            background: #333;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* BOTÓN ACCIÓN */
+        .action-area {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn-cut {
+            background-color: var(--pipe-color);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 0 #217dbb;
+        }
+
+        .btn-cut:hover { transform: translateY(-2px); background-color: #5dade2; }
+        .btn-cut:active { transform: translateY(2px); box-shadow: none; }
+
+        /* VISUALIZACIÓN (WORKBENCH) */
+        .workbench {
+            position: relative;
+            background: #fafafa;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            height: 220px;
+            margin-bottom: 20px;
+            overflow: hidden; /* Cortar lo que salga */
+            padding: 20px;
+        }
+
+        /* Regla de fondo */
+        .ruler {
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 30px;
+            border-top: 1px solid #999;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        .tick { height: 10px; border-left: 1px solid #999; }
+        .tick-label { position: absolute; bottom: -20px; transform: translateX(-50%); }
+
+        /* Tuberías */
+        .pipe-container {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            height: 40px;
+            background: #e0e0e0; /* Fantasma del metro completo */
+            width: calc(100% - 40px); /* 100% visual width = 1 metro (u otra unidad base) */
+            border-radius: 20px;
+            opacity: 0.3;
+        }
+
+        .main-pipe {
+            height: 100%;
+            background: repeating-linear-gradient(45deg, var(--pipe-color), var(--pipe-color) 10px, #2980b9 10px, #2980b9 20px);
+            border-radius: 20px;
+            width: 0%; /* JS sets this */
+            transition: width 0.5s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .cuts-track {
+            position: absolute;
+            top: 110px;
+            left: 20px;
+            height: 40px;
+            display: flex;
+            width: calc(100% - 40px);
+        }
+
+        .cut-piece {
+            height: 100%;
+            background: var(--cut-color);
+            border-right: 2px solid white;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            opacity: 0; /* Para animación */
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            border-radius: 4px;
+        }
+
+        .cut-piece.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cut-piece.remainder {
+            background: #95a5a6;
+            border: 2px dashed #7f8c8d;
+            opacity: 0.6;
+        }
+
+        /* FEEDBACK */
+        .feedback-box {
+            text-align: center;
+            font-size: 1.1rem;
+            min-height: 80px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fdfefe;
+        }
+
+        .math-result {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-top: 10px;
+            font-family: 'Times New Roman', serif;
+        }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="app-container">
+        
+        <header>
+            <h1>✂️ El Cortador de Tuberías</h1>
+            <p class="subtitle">Instalación de Riego: Calcula cuántos goteros caben en la tubería principal.</p>
+        </header>
+
+        <div class="controls-grid">
+            
+            <div class="control-box">
+                <div class="control-title">
+                    <span>Tubería Principal (Total)</span>
+                    <span id="label-total">3/4 m</span>
+                </div>
+                <div class="fraction-input-group">
+                    <div class="frac-col">
+                        <input type="number" id="n1" value="3" min="1" max="12" onchange="updatePreview()">
+                        <div class="frac-bar"></div>
+                        <input type="number" id="d1" value="4" min="1" max="12" onchange="updatePreview()">
+                    </div>
+                </div>
+                <div class="slider-container">
+                    <small>Ajustar longitud:</small><br>
+                    <input type="range" id="slider-total" min="10" max="100" value="75" oninput="syncInputsFromSlider('total')">
+                </div>
+            </div>
+
+            <div class="control-box">
+                <div class="control-title">
+                    <span>Tamaño del Corte</span>
+                    <span id="label-cut">1/8 m</span>
+                </div>
+                <div class="fraction-input-group">
+                    <div class="frac-col">
+                        <input type="number" id="n2" value="1" min="1" max="12" onchange="updatePreview()">
+                        <div class="frac-bar"></div>
+                        <input type="number" id="d2" value="8" min="1" max="12" onchange="updatePreview()">
+                    </div>
+                </div>
+                <div class="slider-container">
+                    <small>Ajustar tamaño pieza:</small><br>
+                    <input type="range" id="slider-cut" min="5" max="50" value="12" oninput="syncInputsFromSlider('cut')">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="action-area">
+            <button class="btn-cut" onclick="performCut()">🔪 Cortar Tubería</button>
+        </div>
+
+        <div class="workbench">
+            
+            <div class="pipe-container">
+                <div class="main-pipe" id="visual-pipe" style="width: 75%;">
+                    <span id="pipe-text">Total</span>
+                </div>
+            </div>
+
+            <div class="cuts-track" id="cuts-track">
+                </div>
+
+            <div class="ruler">
+                <div class="tick"><span class="tick-label" style="left:0">0m</span></div>
+                <div class="tick"><span class="tick-label" style="left:50%">0.5m</span></div>
+                <div class="tick"><span class="tick-label" style="left:100%">1m</span></div>
+            </div>
+        </div>
+
+        <div class="feedback-box">
+            <div id="feedback-text">Configura las medidas y pulsa Cortar.</div>
+            <div id="math-display" class="math-result"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Estado inicial
+        let state = {
+            total: 0.75, // 3/4
+            cut: 0.125   // 1/8
+        };
+
+        // Actualizar vista previa (Barra azul) sin cortar
+        function updatePreview() {
+            // Leer inputs
+            const n1 = parseFloat(document.getElementById('n1').value);
+            const d1 = parseFloat(document.getElementById('d1').value);
+            const n2 = parseFloat(document.getElementById('n2').value);
+            const d2 = parseFloat(document.getElementById('d2').value);
+
+            // Validar
+            if (d1 === 0 || d2 === 0) return;
+
+            state.total = n1 / d1;
+            state.cut = n2 / d2;
+
+            // Limitar visualmente a 1.2m para que no se salga
+            const maxDisplay = 1.0; 
+            
+            // Actualizar etiquetas
+            document.getElementById('label-total').innerText = `${n1}/${d1} m`;
+            document.getElementById('label-cut').innerText = `${n2}/${d2} m`;
+
+            // Actualizar barra azul
+            const pipe = document.getElementById('visual-pipe');
+            let widthPct = (state.total / 1.0) * 100; // Porcentaje respecto a 1m
+            if (widthPct > 100) widthPct = 100; // Tope visual
+            
+            pipe.style.width = `${widthPct}%`;
+            
+            // Resetear cortes previos
+            document.getElementById('cuts-track').innerHTML = '';
+            document.getElementById('feedback-text').innerText = "Listo para cortar...";
+            document.getElementById('math-display').innerHTML = "";
+        }
+
+        // Sincronizar Sliders (Experiencia de usuario fluida)
+        // Simplificación: Los sliders ajustan porcentajes aproximados y buscan la fracción cercana más simple
+        // Para este prototipo, los sliders solo mueven el numerador manteniendo el denominador fijo para simplificar lógica visual
+        function syncInputsFromSlider(type) {
+            if (type === 'total') {
+                const val = document.getElementById('slider-total').value;
+                // Mapear 0-100 a denominador 12 por ejemplo para suavidad? 
+                // Mejor: Ajustar numerador de la fracción actual
+                const d1 = parseInt(document.getElementById('d1').value);
+                const newVal = (val / 100); 
+                const newN = Math.round(newVal * d1);
+                document.getElementById('n1').value = newN > 0 ? newN : 1;
+            } else {
+                const val = document.getElementById('slider-cut').value;
+                const d2 = parseInt(document.getElementById('d2').value);
+                const newVal = (val / 100);
+                const newN = Math.round(newVal * d2);
+                document.getElementById('n2').value = newN > 0 ? newN : 1;
+            }
+            updatePreview();
+        }
+
+        // Ejecutar Corte (Animación)
+        function performCut() {
+            const track = document.getElementById('cuts-track');
+            track.innerHTML = '';
+            
+            const n1 = parseInt(document.getElementById('n1').value);
+            const d1 = parseInt(document.getElementById('d1').value);
+            const n2 = parseInt(document.getElementById('n2').value);
+            const d2 = parseInt(document.getElementById('d2').value);
+
+            const totalVal = n1/d1;
+            const cutVal = n2/d2;
+
+            if (cutVal > totalVal) {
+                document.getElementById('feedback-text').innerHTML = "<span style='color:red'>⚠️ ¡El corte es más grande que la tubería!</span>";
+                return;
+            }
+
+            // Calcular piezas
+            const exactPieces = totalVal / cutVal;
+            const integerPieces = Math.floor(exactPieces);
+            const remainder = totalVal - (integerPieces * cutVal);
+            
+            // Visual Widths
+            // La barra azul mide (totalVal * 100)% del contenedor padre.
+            // Las piezas deben medir (cutVal * 100)% del contenedor padre.
+            // IMPORTANTE: El contenedor padre 'cuts-track' tiene el mismo ancho (1m) que 'pipe-container'.
+            
+            const pieceWidthPct = (cutVal * 100);
+            
+            // Generar piezas enteras
+            let delay = 0;
+            for(let i=0; i<integerPieces; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'cut-piece';
+                piece.style.width = `${pieceWidthPct}%`;
+                piece.innerText = `#${i+1}`;
+                track.appendChild(piece);
+
+                // Animación escalonada
+                setTimeout(() => {
+                    piece.classList.add('visible');
+                }, delay);
+                delay += 300;
+            }
+
+            // Generar resto si es significativo
+            if (remainder > 0.001) { // Tolerancia flotante
+                const remWidthPct = (remainder * 100);
+                const remPiece = document.createElement('div');
+                remPiece.className = 'cut-piece remainder';
+                remPiece.style.width = `${remWidthPct}%`;
+                remPiece.innerText = '?';
+                track.appendChild(remPiece);
+                
+                setTimeout(() => {
+                    remPiece.classList.add('visible');
+                }, delay);
+            }
+
+            // Feedback Matemático
+            setTimeout(() => {
+                let msg = `Caben <strong>${integerPieces}</strong> piezas completas.`;
+                if (remainder > 0.001) msg += " (Y sobra un trozo).";
+                else msg += " (¡División exacta!)";
+
+                document.getElementById('feedback-text').innerHTML = msg;
+
+                // Fórmula con MathJax
+                // (n1/d1) : (n2/d2) = res
+                // Mostramos fracción simplificada si es posible, o decimal
+                let fractionResult = "";
+                
+                // Algoritmo cruzado: (n1*d2) / (d1*n2)
+                const resNum = n1 * d2;
+                const resDen = d1 * n2;
+                
+                // Simplificar visualmente
+                const latex = `\\frac{${n1}}{${d1}} : \\frac{${n2}}{${d2}} = \\frac{${n1}\\cdot${d2}}{${d1}\\cdot${n2}} = \\frac{${resNum}}{${resDen}} \\approx ${exactPieces.toFixed(2)}`;
+                
+                const mathDiv = document.getElementById('math-display');
+                mathDiv.innerHTML = `$$ ${latex} $$`;
+                if(window.MathJax) MathJax.typesetPromise([mathDiv]);
+
+            }, delay + 200);
+
+        }
+
+        // Init
+        updatePreview();
+
+    </script>
+
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

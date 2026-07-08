@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen: Esquema Matemático Actualizado</title>
+
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: { renderActions: { addMenu: [] } }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #333333;
+            --border: #dddddd;
+            --accent-1: #e74c3c; /* Fracciones */
+            --accent-2: #27ae60; /* Proporción */
+            --accent-3: #2980b9; /* Álgebra */
+            --accent-4: #8e44ad; /* Polinomios */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        h1 { margin: 0; font-size: 1.5rem; color: #2c3e50; }
+        .print-btn {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .print-btn:hover { background-color: #2c3e50; }
+
+        /* GRID */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        /* TARJETAS */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-frac { background-color: var(--accent-1); }
+        .header-prop { background-color: var(--accent-2); }
+        .header-alg { background-color: var(--accent-3); }
+        .header-pol { background-color: var(--accent-4); }
+
+        .card-body { padding: 20px; }
+
+        /* CONCEPTOS */
+        .concept-block {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+        .concept-block:last-child { border-bottom: none; }
+
+        h4 {
+            margin: 0 0 10px 0;
+            color: #555;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            border-left: 3px solid #ccc;
+            padding-left: 10px;
+        }
+
+        .formula-box {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            border: 1px solid #eee;
+        }
+
+        ul { padding-left: 20px; margin: 5px 0; }
+        li { margin-bottom: 5px; color: #666; font-size: 0.9rem; }
+
+        /* TABLAS COMPARATIVAS */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .comparison-table th { background-color: #f2f2f2; }
+
+        /* IMPRESIÓN */
+        @media print {
+            body { background: white; padding: 0; }
+            .print-btn { display: none; }
+            .grid-container { display: block; }
+            .card { break-inside: avoid; margin-bottom: 20px; border: 1px solid #000; box-shadow: none; }
+            .card-header { color: black; background: #eee !important; border-bottom: 1px solid #000; }
+        }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script src="../../navigation.js" defer></script>
+<script src="../../../assets/site.js" defer></script>
+<script src="../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        
+        <header>
+            <h1>Resumen Matemático: Fracciones, Proporciones y Álgebra</h1>
+<button class="print-btn" onclick="window.print()">
+    🖨️ Imprimir Resumen
+</button>
+        </header>
+
+        <div class="grid-container">
+
+            <div class="card">
+                <div class="card-header header-frac">
+                    <span>1. Fracciones</span>
+                    <span>$\frac{a}{b}$</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-block">
+                        <h4>Concepto: Partes de un Todo</h4>
+                        <ul>
+                            <li><strong>Numerador (a):</strong> Partes que tomamos.</li>
+                            <li><strong>Denominador (b):</strong> Partes totales en las que se divide la unidad.</li>
+                            <li><em>Ejemplo:</em> $\frac{3}{4}$ de una pizza = Cortas en 4, comes 3.</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-block">
+                        <h4>Suma y Resta (El Muro Común)</h4>
+                        <ul>
+                            <li><strong>Regla de Oro:</strong> ¡Nunca sumes denominadores!</li>
+                            <li>Deben tener el mismo denominador (m.c.m.) para poder operar.</li>
+                        </ul>
+                        <div class="formula-box">
+                            Resta: $\frac{3}{4} - \frac{1}{3} \rightarrow \frac{9}{12} - \frac{4}{12} = \frac{5}{12}$
+                        </div>
+                    </div>
+
+                    <div class="concept-block">
+                        <h4>Multiplicación (Producto)</h4>
+                        <ul>
+                            <li><strong>Regla:</strong> Directa o en línea. Numerador $\times$ Numerador.</li>
+                            <li>Representa "la fracción de una fracción" (Área).</li>
+                        </ul>
+                        <div class="formula-box">
+                            $$ \frac{2}{3} \cdot \frac{4}{5} = \frac{2 \cdot 4}{3 \cdot 5} = \frac{8}{15} $$
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header header-prop">
+                    <span>2. Proporcionalidad</span>
+                    <span>$a~:b$</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-block">
+                        <h4>Comparativa: Directa vs Inversa</h4>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Comportamiento</th>
+                                <th>Ejemplo Real</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Directa</strong></td>
+                                <td>Si una sube, la otra <strong>sube</strong>. ($+$ $\rightarrow$ $+$)</td>
+                                <td>Kilos de fruta y Precio.<br>($ 2kg \rightarrow 4 \textrm{ euros}$, $ 4kg \rightarrow 8 \textrm{ euros}$)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inversa</strong></td>
+                                <td>Si una sube, la otra <strong>baja</strong>. ($+$ $\rightarrow$ $-$)</td>
+                                <td>Obreros y Tiempo.<br>($1 \text{ ob.} \rightarrow 4h$, $2 \text{ ob.} \rightarrow 2h$)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="concept-block">
+                        <h4>Cálculo (Regla de Tres)</h4>
+                        <ul>
+                            <li><strong>Directa:</strong> Multiplica en cruz, divide por el que queda solo.</li>
+                            <li><strong>Inversa:</strong> Multiplica en línea (el de arriba por el de arriba), divide por el de abajo.</li>
+                        </ul>
+                        <div class="formula-box">
+                            Inv: $ \begin{matrix} A \rightarrow B \\ C \rightarrow x \end{matrix} \implies x = \frac{A \cdot B}{C} $
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header header-alg">
+                    <span>3. Expresiones Algebraicas</span>
+                    <span>$2x$</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-block">
+                        <h4>Traductor: Español $\rightarrow$ Matemáticas</h4>
+                        <ul>
+                            <li><strong>Un número:</strong> $x$</li>
+                            <li><strong>El doble:</strong> $2x$</li>
+                            <li><strong>El cuadrado:</strong> $x^2$ (¡No es lo mismo que $2x$!)</li>
+                            <li><strong>El consecutivo:</strong> $x+1$</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-block">
+                        <h4>Monomios</h4>
+                        <ul>
+                            <li>Forma básica: $ax^n$ (Coeficiente, Variable, Grado).</li>
+                            <li><strong>Semejantes:</strong> Tienen la misma letra y exponente. Solo estos se pueden sumar.</li>
+                            <li><em>Ejemplo:</em> $3x$ y $5x$ son semejantes. $3x$ y $3x^2$ NO.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header header-pol">
+                    <span>4. Polinomios</span>
+                    <span>$P( ~x~~ )$</span>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="concept-block">
+                        <h4>Definición y Grado</h4>
+                        <ul>
+                            <li>Suma de varios monomios no semejantes.</li>
+                            <li><strong>Grado:</strong> El exponente más alto.</li>
+                            <li><em>Ej:</em> $P(x) = 2x^3 - 5x + 1$ (Grado 3).</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-block">
+                        <h4>Suma de Polinomios</h4>
+                        <ul>
+                            <li>Agrupar términos semejantes (familias).</li>
+                            <li>Se suman los coeficientes, la parte literal no cambia.</li>
+                        </ul>
+                        <div class="formula-box">
+                            $(2x^2 + 3x) + (x^2 - 2x) = 3x^2 + x$
+                        </div>
+                    </div>
+
+                    <div class="concept-block">
+                        <h4>Resta de Polinomios</h4>
+                        <ul>
+                            <li><strong>OJO:</strong> El signo menos delante de un paréntesis cambia TODOS los signos de dentro.</li>
+                        </ul>
+                        <div class="formula-box">
+                            $(4x) - (x - 2) = 4x - x + 2 = 3x + 2$
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+<script>
+    function printExternalFile(url) {
+        // 1. Crear un iframe invisible
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.right = '0';
+        iframe.style.bottom = '0';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = '0';
+        
+        // 2. Asignar la URL del archivo al iframe
+        iframe.src = url;
+
+        // 3. Esperar a que cargue y lanzar imprimir
+        iframe.onload = function() {
+            try {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            } catch (e) {
+                // Si falla (por ejemplo, por bloqueos del navegador), abrir en nueva pestaña
+                window.open(url, '_blank');
+            }
+            
+            // Opcional: Eliminar el iframe después de un tiempo para limpiar
+            setTimeout(function() {
+                document.body.removeChild(iframe);
+            }, 2000);
+        };
+
+        // 4. Añadir el iframe al documento para que empiece a cargar
+        document.body.appendChild(iframe);
+    }
+</script>
+
+
+
+    </body>
+</html>

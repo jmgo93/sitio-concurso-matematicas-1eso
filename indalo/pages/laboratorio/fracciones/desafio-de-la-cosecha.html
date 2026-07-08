@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaña: El Huerto Matemático</title>
+    
+    <script>
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+    </script>
+<script>
+    // Función que se ejecuta si falla el primer servidor
+    function cargarMathJaxAlternativo() {
+        console.warn("Cargando el motor matematico local...");
+        var script = document.createElement('script');
+        script.src = "../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+</script>
+<script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
+    <style>
+        :root {
+            --bg-color: #f0f3f4;
+            --primary: #2c3e50;
+            --color-land: #f1c40f; 
+            --color-water: #3498db; 
+            --color-crop: #27ae60;  
+            --panel-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* HEADER & HUD */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .level-badge {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            margin: 0 20px;
+            background: #eee;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--color-crop);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Barra de Tiempo (Solo Nivel 3) */
+        .timer-bar {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            background: #e74c3c;
+            width: 100%;
+            display: none; /* Oculto por defecto */
+        }
+
+        /* EL PEDIDO (TARGET) */
+        .order-panel {
+            background-color: #fff9c4;
+            border: 2px dashed #fbc02d;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .order-fraction {
+            font-size: 2.5rem;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        /* CONTROLES */
+        .controls-wrapper {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        button.btn-adjust {
+            width: 35px; height: 35px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        button.btn-adjust:hover { transform: scale(1.1); background: black; }
+
+        .number-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 40px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .control-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .lbl-land { color: #d35400; }
+        .lbl-water { color: #2980b9; }
+
+        /* ÁREA VISUAL */
+        .game-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .garden-container {
+            width: 300px;
+            height: 300px;
+            border: 4px solid #333;
+            display: grid;
+            background-color: white;
+            position: relative;
+            transition: all 0.3s;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cell {
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: background-color 0.2s;
+        }
+
+        .cell.land { background-color: var(--color-land); opacity: 0.5; }
+        .cell.water { background-color: var(--color-water); opacity: 0.5; }
+        .cell.crop { 
+            background-color: var(--color-crop) !important; 
+            opacity: 1 !important;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .cell.crop::after {
+            content: "🌱";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        /* PANEL DE ACCIÓN */
+        .action-panel {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .current-math {
+            font-size: 1.3rem; 
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-harvest {
+            background-color: var(--color-crop);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #1e8449;
+            transition: transform 0.1s, background 0.2s;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-harvest:active { transform: translateY(4px); box-shadow: none; }
+
+        /* MODALES (Overlays) */
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 100;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .overlay.active { opacity: 1; pointer-events: all; }
+
+        .overlay h2 { font-size: 2.5rem; margin-bottom: 10px; color: #f1c40f; }
+        .overlay p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; line-height: 1.5; }
+        
+        .btn-start-level {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 0 #c0392b;
+        }
+        .btn-start-level:hover { transform: scale(1.05); }
+
+        .feedback-msg { margin-top: 15px; font-weight: bold; min-height: 1.5em; text-align: center; }
+        .msg-error { color: #c0392b; }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        
+        <header>
+            <div class="level-badge" id="level-name">Nivel 1</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="timer-bar" id="timer-bar"></div>
+            </div>
+            <div style="font-weight:bold;">Pedidos: <span id="orders-count">0/3</span></div>
+        </header>
+
+        <div class="order-panel">
+            <div style="text-transform:uppercase; font-size:0.8rem; letter-spacing:1px; font-weight:bold; color:#f39c12;">Solicitud del Mercado</div>
+            <div id="target-display" class="order-fraction">$$ \frac{?}{?} $$</div>
+        </div>
+
+        <div class="game-layout">
+
+            <div class="controls-wrapper">
+                <div style="text-align:center;">
+                    <span class="control-label lbl-land">Ancho (Tierra)</span>
+                    <div class="input-group">
+                        <button class="btn-adjust" onclick="changeVal('n1', -1)">-</button>
+                        <span id="disp-n1" class="number-display">1</span>
+                        <button class="btn-adjust" onclick="changeVal('n1', 1)">+</button>
+                    </div>
+                    <div style="margin:5px; border-bottom:1px solid #ccc;"></div>
+                    <div class="input-group">
+                        <button class="btn-adjust" onclick="changeVal('d1', -1)">-</button>
+                        <span id="disp-d1" class="number-display">2</span>
+                        <button class="btn-adjust" onclick="changeVal('d1', 1)">+</button>
+                    </div>
+                </div>
+
+                <div style="font-size: 2rem; align-self: center; color:#999;">×</div>
+
+                <div style="text-align:center;">
+                    <span class="control-label lbl-water">Alto (Agua)</span>
+                    <div class="input-group">
+                        <button class="btn-adjust" onclick="changeVal('n2', -1)">-</button>
+                        <span id="disp-n2" class="number-display">1</span>
+                        <button class="btn-adjust" onclick="changeVal('n2', 1)">+</button>
+                    </div>
+                    <div style="margin:5px; border-bottom:1px solid #ccc;"></div>
+                    <div class="input-group">
+                        <button class="btn-adjust" onclick="changeVal('d2', -1)">-</button>
+                        <span id="disp-d2" class="number-display">2</span>
+                        <button class="btn-adjust" onclick="changeVal('d2', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visualization-area">
+                <div id="garden" class="garden-container"></div>
+            </div>
+
+            <div class="action-panel">
+                <div class="current-math" id="current-math">$$ \frac{1}{4} $$</div>
+                <button class="btn-harvest" onclick="checkOrder()">📦 Enviar Pedido</button>
+                <div id="feedback" class="feedback-msg"></div>
+            </div>
+
+        </div>
+
+        <div id="level-overlay" class="overlay active">
+            <h2 id="modal-title">Temporada 1: Primavera</h2>
+            <p id="modal-desc">Bienvenido al Huerto del Indalo. <br>Comienza con pedidos pequeños para calentar motores.</p>
+            <p style="font-size:0.9rem; color:#f39c12;">Objetivo: Completa 3 pedidos.</p>
+            <button class="btn-start-level" onclick="startLevel()">¡A trabajar!</button>
+        </div>
+
+    </div>
+
+    <script>
+        // CONFIGURACIÓN DE LA CAMPAÑA
+        const campaign = [
+            { 
+                name: "Nivel 1: Primavera", 
+                desc: "Entrenamiento básico. Números pequeños.",
+                goal: 3, 
+                maxGrid: 3, // Máximo denominador por lado (3x3 = 9 total)
+                timer: false 
+            },
+            { 
+                name: "Nivel 2: Verano", 
+                desc: "El negocio crece. Huertos más grandes.",
+                goal: 4, 
+                maxGrid: 5, // Hasta 5x5 = 25 total
+                timer: false 
+            },
+            { 
+                name: "Nivel 3: Otoño (Blitz)", 
+                desc: "¡Alerta de tormenta! Cosecha rápido antes de que se acabe el tiempo.",
+                goal: 5, 
+                maxGrid: 4, 
+                timer: 60 // Segundos totales para los 5 pedidos
+            },
+            { 
+                name: "Nivel 4: Invierno (Maestro)", 
+                desc: "Pedidos complejos de alta precisión.",
+                goal: 5, 
+                maxGrid: 6, // Hasta 6x6 = 36 total
+                timer: false 
+            }
+        ];
+
+        let currentLvlIdx = 0;
+        let ordersDone = 0;
+        let state = { n1: 1, d1: 2, n2: 1, d2: 2, targetN: 0, targetD: 0 };
+        let timerInterval;
+        let timeLeft;
+
+        // --- LÓGICA DE NIVELES ---
+
+        function showLevelModal() {
+            if (currentLvlIdx >= campaign.length) {
+                // VICTORIA FINAL
+                document.getElementById('modal-title').innerText = "🏆 ¡GRAN AGRICULTOR!";
+                document.getElementById('modal-desc').innerHTML = "Has completado todas las temporadas. <br>Eres un maestro de las fracciones.";
+                document.querySelector('.btn-start-level').innerText = "Reiniciar Campaña";
+                document.querySelector('.btn-start-level').onclick = () => location.reload();
+                document.getElementById('level-overlay').classList.add('active');
+                return;
+            }
+
+            const lvl = campaign[currentLvlIdx];
+            document.getElementById('modal-title').innerText = lvl.name;
+            document.getElementById('modal-desc').innerText = lvl.desc;
+            document.getElementById('level-overlay').classList.add('active');
+        }
+
+        function startLevel() {
+            document.getElementById('level-overlay').classList.remove('active');
+            ordersDone = 0;
+            updateHeader();
+
+            const lvl = campaign[currentLvlIdx];
+            
+            // Configurar Timer si existe
+            if (lvl.timer) {
+                document.getElementById('timer-bar').style.display = 'block';
+                timeLeft = lvl.timer;
+                startTimer();
+            } else {
+                document.getElementById('timer-bar').style.display = 'none';
+                clearInterval(timerInterval);
+            }
+
+            generateOrder();
+            // Resetear controles a mínimo
+            state.n1=1; state.d1=2; state.n2=1; state.d2=2;
+            updateUI();
+        }
+
+        function startTimer() {
+            const lvl = campaign[currentLvlIdx];
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                const pct = (timeLeft / lvl.timer) * 100;
+                document.getElementById('timer-bar').style.width = pct + '%';
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("¡Tiempo agotado! Inténtalo de nuevo.");
+                    startLevel(); // Reiniciar nivel
+                }
+            }, 100);
+        }
+
+        function updateHeader() {
+            const lvl = campaign[currentLvlIdx];
+            document.getElementById('level-name').innerText = lvl.name;
+            document.getElementById('orders-count').innerText = `${ordersDone}/${lvl.goal}`;
+            
+            const pct = (ordersDone / lvl.goal) * 100;
+            document.getElementById('progress-bar').style.width = pct + '%';
+        }
+
+        // --- LÓGICA DEL JUEGO ---
+
+        function generateOrder() {
+            const lvl = campaign[currentLvlIdx];
+            const max = lvl.maxGrid;
+
+            // Generar denominadores dentro del rango del nivel
+            const d1_rand = Math.floor(Math.random() * (max - 1)) + 2; 
+            const n1_rand = Math.floor(Math.random() * (d1_rand - 1)) + 1;
+
+            const d2_rand = Math.floor(Math.random() * (max - 1)) + 2; 
+            const n2_rand = Math.floor(Math.random() * (d2_rand - 1)) + 1;
+
+            state.targetN = n1_rand * n2_rand;
+            state.targetD = d1_rand * d2_rand;
+
+            // Renderizar
+            const latex = `\\frac{${state.targetN}}{${state.targetD}}`;
+            const el = document.getElementById('target-display');
+            el.innerHTML = `$$ \\text{Pedido: } ${latex} $$`;
+            if(window.MathJax) MathJax.typesetPromise([el]);
+            
+            document.getElementById('feedback').innerText = "";
+        }
+
+        function changeVal(key, delta) {
+            state[key] += delta;
+            
+            // Límites visuales (Hasta 8 para que quepa)
+            if (state[key] < 1) state[key] = 1;
+            if (state[key] > 8) state[key] = 8; 
+            
+            // Fracciones propias
+            if (key === 'n1' && state.n1 > state.d1) state.n1 = state.d1;
+            if (key === 'd1' && state.d1 < state.n1) state.d1 = state.n1;
+            if (key === 'n2' && state.n2 > state.d2) state.n2 = state.d2;
+            if (key === 'd2' && state.d2 < state.n2) state.d2 = state.n2;
+
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('disp-n1').innerText = state.n1;
+            document.getElementById('disp-d1').innerText = state.d1;
+            document.getElementById('disp-n2').innerText = state.n2;
+            document.getElementById('disp-d2').innerText = state.d2;
+
+            const currN = state.n1 * state.n2;
+            const currD = state.d1 * state.d2;
+            const el = document.getElementById('current-math');
+            el.innerHTML = `$$ \\text{Tienes: } \\frac{${currN}}{${currD}} $$`;
+            if(window.MathJax) MathJax.typesetPromise([el]);
+
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const garden = document.getElementById('garden');
+            garden.innerHTML = '';
+            garden.style.gridTemplateColumns = `repeat(${state.d1}, 1fr)`;
+            garden.style.gridTemplateRows = `repeat(${state.d2}, 1fr)`;
+
+            for (let row = 0; row < state.d2; row++) {
+                for (let col = 0; col < state.d1; col++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    const isLand = col < state.n1;
+                    const isWater = row < state.n2;
+
+                    if (isLand && isWater) cell.classList.add('crop');
+                    else if (isLand) cell.classList.add('land');
+                    else if (isWater) cell.classList.add('water');
+                    garden.appendChild(cell);
+                }
+            }
+        }
+
+        function checkOrder() {
+            const currN = state.n1 * state.n2;
+            const currD = state.d1 * state.d2;
+            const msg = document.getElementById('feedback');
+
+            if (currN === state.targetN && currD === state.targetD) {
+                // Éxito
+                ordersDone++;
+                updateHeader();
+
+                const lvl = campaign[currentLvlIdx];
+                
+                if (ordersDone >= lvl.goal) {
+                    // Nivel completado
+                    currentLvlIdx++;
+                    clearInterval(timerInterval); // Parar timer si había
+                    setTimeout(showLevelModal, 500);
+                } else {
+                    // Siguiente pedido
+                    msg.innerText = "¡Correcto!";
+                    msg.className = "feedback-msg msg-success";
+                    setTimeout(() => {
+                        generateOrder();
+                        state.n1=1; state.d1=2; state.n2=1; state.d2=2;
+                        updateUI();
+                    }, 800);
+                }
+
+            } else {
+                // Error
+                msg.className = "feedback-msg msg-error";
+                if (currD !== state.targetD) {
+                    msg.innerText = `Error: El tamaño (${currD}) no coincide con el pedido (${state.targetD}).`;
+                } else {
+                    msg.innerText = `Error: Plantas (${currN}) incorrectas. Pedían ${state.targetN}.`;
+                }
+            }
+        }
+    </script>
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

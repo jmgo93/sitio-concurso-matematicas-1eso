@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Interactivo</title>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}}</script>
+<script defer src="../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="(function(){var s=document.createElement('script');s.src='../../../assets/vendor/mathjax/es5/tex-mml-chtml.js';s.async=true;document.head.appendChild(s)})()"></script>
+<style>
+/* ============================================================
+   MOTOR CENTRAL — Estilos del sistema (no tocar)
+   ============================================================ */
+:root{
+  --bg:#f0f4ff;
+  --card:#ffffff;
+  --primary:#3b5bdb;
+  --primary-h:#2f4ac5;
+  --success:#2f9e44;
+  --danger:#e03131;
+  --warn:#f08c00;
+  --text:#1a1a2e;
+  --muted:#6c757d;
+  --border:#dee2e6;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-min-height: 100vh;padding:16px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}
+.app{max-width:860px;width:100%;background:var(--card);border-radius:var(--radius);box-shadow:0 8px 32px rgba(59,91,219,.13);overflow:hidden}
+
+/* Vistas */
+.view{display:none;padding:36px 32px;animation:fadeIn .35s ease}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Header */
+.ex-header{text-align:center;padding-bottom:24px;border-bottom:2px solid var(--border);margin-bottom:28px}
+.ex-header h1{color:var(--primary);font-size:2rem;margin-bottom:6px}
+.ex-header p{color:var(--muted);font-size:.95rem}
+
+/* Barra de progreso */
+.progress-bar-wrap{background:#e9ecef;border-radius:99px;height:10px;margin-bottom:8px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),#74c0fc);border-radius:99px;transition:width .4s ease}
+.progress-label{font-size:.82rem;color:var(--muted);text-align:right;margin-bottom:24px}
+
+/* Formulario login */
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-weight:600;margin-bottom:7px;font-size:.95rem}
+.form-group select,.form-group input{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;transition:border .2s}
+.form-group select:focus,.form-group input:focus{border-color:var(--primary);outline:none}
+
+/* Botones */
+.btn{display:block;width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:background .2s,transform .1s;margin-top:18px;letter-spacing:.01em}
+.btn:hover{background:var(--primary-h)}
+.btn:active{transform:scale(.98)}
+.btn-success{background:var(--success)}
+.btn-success:hover{background:#27843a}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:#fff}
+
+/* Panel de feedback por pregunta */
+.feedback-panel{display:none;margin-top:22px;padding:20px;border-radius:12px;border-left:5px solid;animation:fadeIn .3s ease}
+.feedback-panel.ok{border-color:var(--success);background:#ebfbee}
+.feedback-panel.ko{border-color:var(--danger);background:#fff5f5}
+.feedback-panel h3{font-size:1.1rem;margin-bottom:8px}
+.feedback-panel p{font-size:.92rem;color:var(--text);line-height:1.5}
+.feedback-panel .correct-ans{font-weight:700;color:var(--success)}
+
+/* Área de controles post-respuesta */
+.post-answer-controls{display:none;margin-top:18px;display:none;gap:12px;flex-direction:column}
+@media(min-width:480px){.post-answer-controls{flex-direction:row}}
+
+/* Resumen final */
+.score-big{text-align:center;font-size:4.5rem;font-weight:800;color:var(--primary);line-height:1;margin:18px 0 6px}
+.score-label{text-align:center;font-size:1.1rem;color:var(--muted);margin-bottom:28px}
+.summary-item{padding:14px 18px;border-radius:10px;margin-bottom:12px;border-left:5px solid;background:#f8f9fa}
+.sum-ok{border-color:var(--success)}
+.sum-ko{border-color:var(--danger)}
+.sum-ok .tag{color:var(--success)}
+.sum-ko .tag{color:var(--danger)}
+.summary-item small{color:var(--muted);font-size:.82rem}
+
+/* Loading overlay */
+.overlay{display:none;position:fixed;inset:0;background:rgba(255,255,255,.88);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-size:1.1rem;font-weight:600;color:var(--primary)}
+.spinner{width:44px;height:44px;border:4px solid #dbe4ff;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.err-msg{color:var(--danger);text-align:center;font-weight:600;margin-top:14px;display:none}
+
+/* Sección tag en pregunta */
+.sec-badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.78rem;font-weight:700;margin-bottom:12px}
+.sec-new{background:#e7f5ff;color:#1971c2}
+.sec-retry{background:#fff3bf;color:#e67700}
+.sec-done{background:#d3f9d8;color:#2f9e44}
+
+/* Badge de puntos en feedback */
+.pts-badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin-left:8px;vertical-align:middle}
+.pts-full{background:#d3f9d8;color:#2f9e44}
+.pts-half{background:#fff3bf;color:#e67700}
+.pts-zero{background:#f1f3f5;color:#868e96}
+
+/* Tabla resumen por secciones */
+.sec-summary{background:#f8f9fa;border-radius:10px;padding:16px 18px;margin-bottom:20px;border:1px solid var(--border)}
+.sec-summary h3{font-size:1rem;color:var(--primary);margin:0 0 12px}
+.sec-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.sec-name{font-size:.85rem;font-weight:600;min-width:160px;color:var(--text)}
+.sec-pts{font-size:.82rem;color:var(--muted);min-width:80px;text-align:right}
+.sec-bar{flex:1;min-width:80px;height:8px;background:#e9ecef;border-radius:99px;overflow:hidden}
+.sec-bar-fill{height:100%;border-radius:99px;transition:width .6s ease}
+
+/* Sección tag en cabecera pregunta */
+#q-section-tag{text-align:center;margin-bottom:10px;min-height:24px}
+
+/* Dificultad badge */
+.diff-badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.78rem;font-weight:700;margin-left:6px}
+.diff-facil{background:#d3f9d8;color:#2f9e44}
+.diff-normal{background:#dbe4ff;color:#3b5bdb}
+.diff-dificil{background:#ffe3e3;color:#e03131}
+
+/* Motivador overlay */
+.motivador-ov{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .25s}
+.motivador-ov.show{opacity:1}
+.motivador-card{background:#fff;border-radius:20px;padding:28px 40px;text-align:center;box-shadow:0 12px 40px rgba(59,91,219,.22);transform:scale(.8);transition:transform .25s}
+.motivador-ov.show .motivador-card{transform:scale(1)}
+.motivador-emoji{font-size:3.5rem;line-height:1;margin-bottom:10px}
+.motivador-msg{font-size:1.3rem;font-weight:700;color:var(--primary)}
+
+/* Resumen metadatos */
+.summary-meta{color:var(--muted);font-size:.78rem;display:inline-block;margin-top:2px}
+.rev-btn{margin-top:8px;padding:5px 14px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:.8rem;cursor:pointer;color:var(--muted);transition:.2s}
+.rev-btn:hover{background:var(--bg);color:var(--text)}
+.rev-panel{display:none;margin-top:10px;padding:14px;background:var(--bg);border-radius:10px;border:1px solid var(--border);pointer-events:none}
+.rev-panel *{pointer-events:none}
+</style>
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script src="../../navigation.js" defer></script>
+<script src="../../../assets/site.js" defer></script>
+<script src="../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+<div class="overlay" id="overlay"><div class="spinner"></div>Procesando respuesta…</div>
+
+<div class="motivador-ov" id="motivador-overlay">
+  <div class="motivador-card">
+    <div class="motivador-emoji" id="motivador-emoji">🎉</div>
+    <div class="motivador-msg"  id="motivador-msg">¡Excelente!</div>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- ═══════════════ VISTA: LOGIN ═══════════════ -->
+  <div class="view active" id="view-login">
+    <div class="ex-header">
+      <h1>🏛️ Examen Interactivo</h1>
+      <p>Versión local de demostración.</p>
+      <div class="contest-local-note">Esta versión no envía información a formularios externos. Los resultados se muestran y, si el navegador lo permite, se guardan únicamente en este dispositivo.</div>
+    </div>
+    <div class="form-group">
+      <label>Curso</label>
+      <select id="login-curso">
+        <option value="">— Selecciona —</option>
+        <option value="1ºA">1ºA</option>
+        <option value="1ºB">1ºB</option>
+        <option value="1ºC">1ºC</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Usuario</label>
+      <select id="login-usuario"><option value="">— Selecciona tu ID —</option></select>
+    </div>
+    <div class="form-group">
+      <label>Código local <span style="font-weight:400;color:var(--muted)">(puedes escribir cualquier identificador breve)</span></label>
+      <input type="text" id="login-pin" placeholder="Escribe un código breve para esta sesión" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Nivel de dificultad</label>
+      <select id="login-dificultad">
+        <option value="facil">🟢 Fácil — números pequeños</option>
+        <option value="normal" selected>🔵 Normal</option>
+        <option value="dificil">🔴 Difícil — negativos y fracciones</option>
+      </select>
+    </div>
+    <button class="btn" onclick="ENGINE.startExam()">Comenzar Examen →</button>
+    <p class="err-msg" id="login-error">Faltan datos. Completa curso, usuario y código local.</p>
+  </div>
+
+  <!-- ═══════════════ VISTA: PREGUNTA ═══════════════ -->
+  <div class="view" id="view-question">
+    <div class="ex-header">
+      <h1 id="q-title">Pregunta</h1>
+      <p>Estudiante: <strong id="q-student"></strong></p>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <p class="progress-label" style="margin:0" id="progress-label">Pregunta 1 de N</p>
+      <p style="font-size:.78rem;color:var(--muted);margin:0">⏱ <span id="timer-display">0s</span></p>
+    </div>
+    <div id="q-section-tag"></div>
+
+    <!-- Aquí se inyecta el bloque activo -->
+    <div id="block-host"></div>
+
+    <!-- Feedback inmediato -->
+    <div class="feedback-panel" id="feedback-panel">
+      <h3 id="fb-title"></h3>
+      <p id="fb-body"></p>
+    </div>
+
+    <!-- Controles post-respuesta -->
+    <div class="post-answer-controls" id="post-controls">
+      <button class="btn btn-outline" style="flex:1" onclick="ENGINE.retry()">🔁 Intentar de nuevo</button>
+      <button class="btn btn-success" style="flex:1" onclick="ENGINE.nextQuestion()">Siguiente pregunta →</button>
+    </div>
+
+    <!-- Botón de responder (antes de responder) -->
+    <button class="btn" id="btn-submit-q" onclick="ENGINE.submitQuestion()">Comprobar respuesta ✓</button>
+  </div>
+
+  <!-- ═══════════════ VISTA: RESUMEN FINAL ═══════════════ -->
+  <div class="view" id="view-summary">
+    <div class="ex-header">
+      <h1>Resultados del Examen</h1>
+      <p>Los resultados se muestran solo en este navegador.</p>
+    </div>
+    <div class="score-big" id="sum-score">—</div>
+    <p class="score-label" style="font-size:.9rem;color:var(--muted)">puntos totales</p>
+    <p class="score-label">Nota sobre 10: <strong id="sum-grade" style="font-size:1.4rem">—</strong></p>
+    <div id="sum-list"></div>
+  </div>
+
+</div>
+
+</div><!-- /app -->
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN — Edita sólo esta sección
+   ============================================================ */
+const CONFIG = {
+  formURL: null,
+  entries: {
+    curso:   "entry.1272697446",
+    usuario: "entry.1732386891",
+    reto:    "entry.1658035125",
+    nota:    "entry.1887063697",
+    R1:      "entry.752903819",   // PIN
+    R2:      "entry.2135174129",  // Respuesta alumno
+    R3:      "entry.1548908344",  // Feedback completo
+    R4:      "entry.441549043"    // Resumen final
+  },
+  examName: "Examen Modular v2",
+  maxUsers: 30,
+
+  /* SECCIONES — cada bloque pertenece a una sección por índice (0-based).
+     Varios bloques pueden compartir sección: la sección puntúa con el
+     MEJOR intento registrado (1er acierto = puntos completos,
+     acierto en reintento = puntos con penalización).
+     Los puntos de todas las secciones suman 10.
+     ─────────────────────────────────────────────────────────────────
+     blockSections[i] = nombre de la sección del bloque i
+     sectionPoints[nombre] = puntos máximos de esa sección           */
+  blockSections: [
+    'Fracciones visuales',   // Bloque 0: Muro Nazarí
+    'Fracciones numéricas',  // Bloque 1: Suma fracciones
+    'Álgebra básica',        // Bloque 2: Laboratorio algebraico
+    'Lenguaje algebraico',   // Bloque 3: Traductor
+    'Resolución ec.',        // Bloque 4: Caja Fuerte simple
+    'Resolución ec.',        // Bloque 5: Laberinto (misma sección)
+    'Detección errores',     // Bloque 6: Detective
+    'Balanza',               // Bloque 7: Balanza
+    'Problemas contexto',    // Bloque 8: Contexto
+    'Resolución avanzada',   // Bloque 9: Caja Fuerte v2
+    'Río algebraico',        // Bloque 10: Río
+  ],
+  // Puntos por sección (deben sumar 10)
+  sectionPoints: {
+    'Fracciones visuales':  1,
+    'Fracciones numéricas': 1,
+    'Álgebra básica':       1,
+    'Lenguaje algebraico':  1,
+    'Resolución ec.':       1.5,
+    'Detección errores':    1,
+    'Balanza':              1,
+    'Problemas contexto':   1,
+    'Resolución avanzada':  0.75,
+    'Río algebraico':       0.75,
+  },
+  retryPenalty: 0.5   // Factor multiplicador para acierto en reintento (0.5 = mitad de puntos)
+};
+
+/* ============================================================
+   MENSAJES MOTIVADORES
+   ============================================================ */
+const MOTIVADORES = [
+  {e:'🎉', m:'¡Excelente! Sigue así.'},
+  {e:'⭐', m:'¡Muy bien! Eres un crack.'},
+  {e:'🚀', m:'¡Correcto! A por la siguiente.'},
+  {e:'💡', m:'¡Bien pensado!'},
+  {e:'🏆', m:'¡Perfecto! Tú puedes.'},
+  {e:'🎯', m:'¡Diana! Respuesta exacta.'},
+  {e:'💪', m:'¡Así se hace!'},
+  {e:'✨', m:'¡Genial! Avanzando.'}
+];
+
+/* ============================================================
+   MOTOR CENTRAL
+   ============================================================ */
+const ENGINE = (function(){
+  let session   = { curso:'', usuario:'', pin:'', dificultad:'normal' };
+  let blocks    = [];
+  let current   = 0;
+  let results   = [];      // { desc, userAns, correctAns, isOk, secs, attempts, section, pts }
+  let answered  = false;
+  let snapshots = [];
+  let qAttempts = 0;       // reintentos en la pregunta actual
+  let qStartTime= 0;
+  let timerInterval = null;
+
+  /* ── sectionBest: mejor resultado por sección (primera vez que se responde) ── */
+  let sectionBest = {};    // { [sectionName]: { answered: bool, isOk: bool, attempts: int } }
+
+  /* ────────────────────────────────────────────────────────────────────
+     HELPERS
+  ──────────────────────────────────────────────────────────────────── */
+  function showView(id){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+  }
+  function overlay(show){ document.getElementById('overlay').style.display = show?'flex':'none'; }
+
+  /* ── Timer ── */
+  function startTimer(){
+    qStartTime = Date.now();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(()=>{
+      const s = Math.floor((Date.now()-qStartTime)/1000);
+      const el = document.getElementById('timer-display');
+      if(el) el.textContent = s<60 ? s+'s' : Math.floor(s/60)+'m '+(s%60)+'s';
+    }, 1000);
+  }
+  function stopTimer(){ clearInterval(timerInterval); return Math.floor((Date.now()-qStartTime)/1000); }
+
+  /* ── Motivador ── */
+  function showMotivador(onDone){
+    const m = MOTIVADORES[Math.floor(Math.random()*MOTIVADORES.length)];
+    const ov = document.getElementById('motivador-overlay');
+    document.getElementById('motivador-emoji').textContent = m.e;
+    document.getElementById('motivador-msg').textContent   = m.m;
+    ov.classList.add('show');
+    setTimeout(()=>{ ov.classList.remove('show'); onDone(); }, 1600);
+  }
+
+  /* ── Botón submit: restaurar handler limpio ── */
+  function resetSubmitBtn(){
+    const btn = document.getElementById('btn-submit-q');
+    btn.onclick = submitQuestion;
+    btn.style.display = 'block';
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     LOGIN
+  ──────────────────────────────────────────────────────────────────── */
+  function startExam(){
+    const c   = document.getElementById('login-curso').value;
+    const u   = document.getElementById('login-usuario').value;
+    const p   = document.getElementById('login-pin').value.trim();
+    const dif = document.getElementById('login-dificultad').value;
+    const err = document.getElementById('login-error');
+    if(!c||!u||!p){ err.style.display='block'; return; }
+    err.style.display='none';
+
+    const diffLabels  = {facil:'🟢 Fácil', normal:'🔵 Normal', dificil:'🔴 Difícil'};
+    const diffClasses = {facil:'diff-facil', normal:'diff-normal', dificil:'diff-dificil'};
+    session = {curso:c, usuario:u, pin:p, dificultad:dif};
+
+    document.getElementById('q-student').innerHTML =
+      `${u} (${c}) &nbsp;<span class="diff-badge ${diffClasses[dif]}">${diffLabels[dif]}</span>`;
+
+    results      = [];
+    snapshots    = [];
+    sectionBest  = {};
+    current      = 0;
+    loadQuestion(0);
+    showView('view-question');
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     CARGA DE PREGUNTA
+  ──────────────────────────────────────────────────────────────────── */
+  function loadQuestion(idx){
+    answered  = false;
+    startTimer();
+
+    const host = document.getElementById('block-host');
+    host.innerHTML = '';
+    document.getElementById('feedback-panel').style.display = 'none';
+    document.getElementById('feedback-panel').className = 'feedback-panel';
+    document.getElementById('post-controls').style.display = 'none';
+    resetSubmitBtn();
+
+    const total = blocks.length;
+    document.getElementById('progress-fill').style.width = (idx/total*100).toFixed(0)+'%';
+    document.getElementById('progress-label').innerText  = `Pregunta ${idx+1} de ${total}`;
+    document.getElementById('q-title').innerText         = `Pregunta ${idx+1}`;
+
+    // Mostrar badge de sección y puntos
+    const sec  = CONFIG.blockSections[idx] || '—';
+    const pts  = CONFIG.sectionPoints[sec]  || 0;
+    const secBest = sectionBest[sec];
+    const secTag  = secBest
+      ? (secBest.isOk
+          ? `<span class="sec-badge sec-done">✅ ${sec} — ya resuelta</span>`
+          : `<span class="sec-badge sec-retry">🔁 ${sec} — reintentando (−${Math.round((1-CONFIG.retryPenalty)*100)}%)</span>`)
+      : `<span class="sec-badge sec-new">📌 ${sec} · ${pts} pt${pts!==1?'s':''}</span>`;
+    document.getElementById('q-section-tag').innerHTML = secTag;
+
+    const b    = blocks[idx];
+    const node = b.render();
+    host.appendChild(node);
+
+    if(window.MathJax && MathJax.typesetPromise){
+      MathJax.typesetPromise([host]).catch(e=>console.warn(e));
+    }
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     COMPROBAR RESPUESTA
+  ──────────────────────────────────────────────────────────────────── */
+  function submitQuestion(){
+    if(answered) return;
+    const secs = stopTimer();
+    const b    = blocks[current];
+    const userAns    = b.getUserAnswer();
+    const correctAns = b.getCorrectAnswer();
+    const desc       = b.getDescription();
+    const isOk = typeof b.isCorrect === 'function'
+      ? b.isCorrect(userAns, correctAns)
+      : userAns.trim().toLowerCase() === correctAns.trim().toLowerCase();
+
+    answered = true;
+
+    // ── Calcular puntos según historial de sección ──────────────────
+    const sec     = CONFIG.blockSections[current] || '—';
+    const maxPts  = CONFIG.sectionPoints[sec] || 0;
+    let   earnPts = 0;
+    const secBest = sectionBest[sec];
+
+    if(isOk){
+      if(!secBest){
+        // Primera vez que se responde esta sección: puntos completos
+        earnPts = maxPts;
+        sectionBest[sec] = { isOk:true, attempts: qAttempts+1 };
+      } else if(!secBest.isOk){
+        // Reintento con acierto: puntos penalizados
+        earnPts = parseFloat((maxPts * CONFIG.retryPenalty).toFixed(2));
+        sectionBest[sec].isOk     = true;
+        sectionBest[sec].attempts = qAttempts+1;
+      } else {
+        // Sección ya resuelta correctamente: 0 pts adicionales
+        earnPts = 0;
+      }
+    } else {
+      if(!secBest) sectionBest[sec] = { isOk:false, attempts: qAttempts+1 };
+    }
+
+    // ── Snapshot para revisión ──────────────────────────────────────
+    const hostClone = document.getElementById('block-host').cloneNode(true);
+    snapshots.push(hostClone);
+
+    // ── Feedback visual ─────────────────────────────────────────────
+    const panel = document.getElementById('feedback-panel');
+    panel.style.display = 'block';
+    panel.className     = 'feedback-panel ' + (isOk?'ok':'ko');
+
+    let ptsMsg = '';
+    if(isOk && earnPts===maxPts)       ptsMsg = `<span class="pts-badge pts-full">+${earnPts} pts</span>`;
+    else if(isOk && earnPts>0)         ptsMsg = `<span class="pts-badge pts-half">+${earnPts} pts (reintento)</span>`;
+    else if(isOk && earnPts===0)       ptsMsg = `<span class="pts-badge pts-zero">Sección ya puntuada</span>`;
+    else if(!isOk && secBest?.isOk)    ptsMsg = `<span class="pts-badge pts-zero">Sección ya resuelta</span>`;
+
+    document.getElementById('fb-title').innerHTML =
+      (isOk ? '✅ ¡Correcto! ' : '❌ Incorrecto ') + ptsMsg;
+    document.getElementById('fb-body').innerHTML = isOk
+      ? `Tu respuesta <strong>${userAns}</strong> es correcta.`
+      : `Tu respuesta: <strong>${userAns}</strong> &nbsp;|&nbsp; Respuesta correcta: <span class="correct-ans">${correctAns}</span>`;
+
+    document.getElementById('btn-submit-q').style.display = 'none';
+
+    // ── Mostrar botones post-respuesta ──────────────────────────────
+    // "Intentar de nuevo" solo si la sección aún no está resuelta
+    const canRetry = !(secBest?.isOk);
+    const retryBtn = document.querySelector('#post-controls .btn-outline');
+    if(retryBtn) retryBtn.style.display = canRetry ? '' : 'none';
+    document.getElementById('post-controls').style.display = 'flex';
+
+    // ── Guardar resultado ───────────────────────────────────────────
+    results.push({ desc, userAns, correctAns, isOk, secs,
+                   attempts: qAttempts+1, section: sec, pts: earnPts });
+
+    sendToGoogle(current+1, userAns, correctAns, desc, isOk, secs, qAttempts+1, earnPts);
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     REINTENTAR
+  ──────────────────────────────────────────────────────────────────── */
+  function retry(){
+    qAttempts++;
+    loadQuestion(current);
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     SIGUIENTE PREGUNTA
+  ──────────────────────────────────────────────────────────────────── */
+  function nextQuestion(){
+    const lastOk = results.length>0 && results[results.length-1].isOk;
+    current++;
+    if(current >= blocks.length){
+      showSummary();
+    } else {
+      // Reset intentos para la nueva pregunta
+      qAttempts = 0;
+      if(lastOk) showMotivador(()=>loadQuestion(current));
+      else        loadQuestion(current);
+    }
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     RESUMEN FINAL
+  ──────────────────────────────────────────────────────────────────── */
+  function showSummary(){
+    // Calcular nota total como suma de puntos por sección
+    const totalPts = Object.values(CONFIG.sectionPoints).reduce((a,b)=>a+b, 0);
+    let earnedPts  = 0;
+    // Agrupar resultados por sección (tomar el mejor por sección)
+    const secResults = {};
+    results.forEach(r=>{
+      if(!secResults[r.section] || r.pts > secResults[r.section].pts){
+        secResults[r.section] = r;
+      }
+    });
+    Object.values(secResults).forEach(r=>{ earnedPts += r.pts||0; });
+    const nota10   = Math.min(10, (earnedPts/totalPts*10));
+    const notaFmt  = nota10.toFixed(2).replace('.',',');
+
+    document.getElementById('sum-score').innerText = `${earnedPts.toFixed(2)} / ${totalPts}`;
+    document.getElementById('sum-grade').innerText = notaFmt;
+
+    // Tabla de secciones
+    let secHtml = '<div class="sec-summary"><h3>Puntuación por secciones</h3>';
+    Object.entries(CONFIG.sectionPoints).forEach(([sec, maxP])=>{
+      const best = secResults[sec];
+      const ep   = best ? (best.pts||0) : 0;
+      const pct  = maxP>0 ? Math.round(ep/maxP*100) : 0;
+      const bar  = `<div class="sec-bar"><div class="sec-bar-fill" style="width:${pct}%;background:${pct===100?'var(--success)':pct>0?'#f08c00':'#dee2e6'}"></div></div>`;
+      secHtml += `<div class="sec-row">
+        <span class="sec-name">${sec}</span>
+        <span class="sec-pts">${ep} / ${maxP} pts</span>
+        ${bar}
+      </div>`;
+    });
+    secHtml += '</div>';
+
+    // Lista de respuestas
+    let html = secHtml + '<h3 style="margin:18px 0 10px;color:var(--text)">Detalle de respuestas</h3>';
+    results.forEach((r,i)=>{
+      const cls  = r.isOk?'sum-ok':'sum-ko';
+      const tag  = r.isOk?'✅ Correcto':'❌ Incorrecto';
+      const meta = `⏱ ${r.secs}s &nbsp;|&nbsp; 🔁 ${r.attempts} intento${r.attempts>1?'s':''} &nbsp;|&nbsp; +${r.pts} pts`;
+      html += `<div class="summary-item ${cls}">
+        <strong>P${i+1}: ${r.desc}</strong>
+        <span class="tag" style="float:right">${tag}</span><br>
+        <small>Tu respuesta: ${r.userAns}</small><br>
+        <small class="summary-meta">${meta}</small>
+        <br><button class="rev-btn" onclick="ENGINE.toggleReview(${i})">👁 Ver ejercicio</button>
+        <div class="rev-panel" id="rev-panel-${i}"></div>
+      </div>`;
+    });
+    document.getElementById('sum-list').innerHTML = html;
+    showView('view-summary');
+    sendSummaryToGoogle(earnedPts, totalPts, notaFmt, nota10);
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     REVISIÓN DE EJERCICIO
+  ──────────────────────────────────────────────────────────────────── */
+  function toggleReview(idx){
+    const panel = document.getElementById(`rev-panel-${idx}`);
+    if(panel.style.display==='block'){ panel.style.display='none'; return; }
+    if(!panel.innerHTML && snapshots[idx]){
+      panel.appendChild(snapshots[idx].cloneNode(true));
+      const r  = results[idx];
+      const fb = document.createElement('div');
+      fb.className  = 'feedback-panel '+(r.isOk?'ok':'ko');
+      fb.style.display  = 'block';
+      fb.style.marginTop= '8px';
+      fb.style.pointerEvents = 'none';
+      fb.innerHTML = `<strong>${r.isOk?'✅ Correcto':'❌ Incorrecto'}</strong> &nbsp; +${r.pts} pts<br>
+        Tu respuesta: ${r.userAns}${!r.isOk?' &nbsp;|&nbsp; Correcta: <strong>'+r.correctAns+'</strong>':''}`;
+      panel.appendChild(fb);
+      if(window.MathJax) MathJax.typesetPromise([panel]).catch(()=>{});
+    }
+    panel.style.display = 'block';
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     ENVÍO A GOOGLE FORMS — por pregunta
+  ──────────────────────────────────────────────────────────────────── */
+  function sendToGoogle(qNum, userAns, correctAns, desc, isOk, secs, attempts, pts){
+  overlay(false);
+  try {
+    const key = 'ltdi-contest-exam-attempts';
+    const previous = JSON.parse(localStorage.getItem(key) || '[]');
+    previous.push({
+      savedAt: new Date().toISOString(),
+      question: qNum,
+      description: desc,
+      section: CONFIG.blockSections[qNum - 1] || '',
+      userAns,
+      correctAns,
+      isOk,
+      secs,
+      attempts,
+      pts,
+      dificultad: session.dificultad,
+      usuario: session.usuario,
+      curso: session.curso
+    });
+    localStorage.setItem(key, JSON.stringify(previous.slice(-200)));
+  } catch (error) {
+    console.warn('No se pudo guardar el intento localmente.', error);
+  }
+}
+
+  /* ────────────────────────────────────────────────────────────────────
+     ENVÍO RESUMEN FINAL
+  ──────────────────────────────────────────────────────────────────── */
+  function sendSummaryToGoogle(earnedPts, totalPts, notaFmt, nota10){
+  try {
+    const key = 'ltdi-contest-exam-summaries';
+    const previous = JSON.parse(localStorage.getItem(key) || '[]');
+    previous.push({
+      savedAt: new Date().toISOString(),
+      usuario: session.usuario,
+      curso: session.curso,
+      dificultad: session.dificultad,
+      earnedPts,
+      totalPts,
+      notaFmt,
+      nota10
+    });
+    localStorage.setItem(key, JSON.stringify(previous.slice(-50)));
+  } catch (error) {
+    console.warn('No se pudo guardar el resumen localmente.', error);
+  }
+}
+
+  /* ────────────────────────────────────────────────────────────────────
+     API PÚBLICA
+  ──────────────────────────────────────────────────────────────────── */
+  function registerBlock(b){ blocks.push(b); }
+  function getDificultad(){ return session.dificultad; }
+  function getDifficulty(){ return session.dificultad; }
+
+  function init(){
+    const sel = document.getElementById('login-usuario');
+    for(let i=1;i<=CONFIG.maxUsers;i++){
+      const id='EST'+i.toString().padStart(2,'0');
+      sel.innerHTML+=`<option value="${id}">${id}</option>`;
+    }
+  }
+
+  return { init, startExam, submitQuestion, retry, nextQuestion,
+           registerBlock, getDificultad, getDifficulty, toggleReview };
+})();
+
+window.addEventListener('DOMContentLoaded', ENGINE.init);
+</script>
+
+
+<!-- ============================================================
+     BLOQUE 1: MURO NAZARÍ (Suma de Fracciones)
+     Módulo autocontenido. Pega más bloques después de este cierre.
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  // Datos del bloque (se regeneran en cada render / reintento)
+  _state: {},
+
+  render: function(){
+    // Generar datos aleatorios frescos
+    const dif = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
+    const denomMax = dif==='facil'?6 : dif==='dificil'?14 : 10;
+    const denom = Math.floor(Math.random()*(denomMax-3))+4;
+    const num1  = Math.floor(Math.random()*(denom-2))+1;
+    const num2  = Math.floor(Math.random()*(denom-num1))+1;
+    this._state = { denom, num1, num2, white:0, green:0 };
+
+    // Crear DOM del bloque
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <style>
+        .muro-wrap{background:#fdf6ec;border:2px solid #e0d5c5;border-left:6px solid #c0711a;border-radius:12px;padding:22px;font-family:inherit}
+        .muro-title{font-weight:700;color:#a05a10;margin-bottom:4px}
+        .muro-hint{font-size:.85rem;color:#7a6040;margin-bottom:14px}
+        .muro-formula{font-size:1.3rem;text-align:center;margin:12px 0;font-weight:700;color:#2c3e50}
+        .muro-palette{display:flex;justify-content:center;gap:14px;margin-bottom:14px}
+        .muro-btn{width:38px;height:38px;border-radius:50%;border:3px solid transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.2s;box-shadow:0 2px 5px rgba(0,0,0,.12)}
+        .muro-btn:hover{transform:scale(1.1)}
+        .muro-btn.sel{transform:scale(1.2);border-color:#2c3e50;box-shadow:0 0 8px rgba(0,0,0,.3)}
+        .muro-btn.b-white{background:#fff;border:2px solid #ccc}
+        .muro-btn.b-green{background:#27ae60}
+        .muro-btn.b-erase{background:#e74c3c;color:#fff}
+        .muro-grid-wrap{display:flex;justify-content:center;margin:12px 0}
+        .muro-grid{display:grid;gap:5px;background:#aaa;padding:6px;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+        .muro-tile{width:44px;height:44px;background:#ecf0f1;border-radius:3px;cursor:pointer;transition:.15s}
+        .muro-tile:hover{filter:brightness(.93)}
+        .muro-tile.white{background:#fff;border:1px solid #ddd}
+        .muro-tile.green{background:#27ae60}
+      </style>
+      <div class="muro-wrap">
+        <div class="muro-title">🕌 Muro Nazarí — Suma de Fracciones</div>
+        <div class="muro-hint">Pinta las teselas para representar la suma indicada.</div>
+        <div class="muro-formula" id="muro-formula-${denom}"></div>
+        <div class="muro-palette">
+          <div class="muro-btn b-white sel" data-c="white" title="Blanco"></div>
+          <div class="muro-btn b-green" data-c="green" title="Verde"></div>
+          <div class="muro-btn b-erase" data-c="erase" title="Borrar">✕</div>
+        </div>
+        <div class="muro-grid-wrap">
+          <div class="muro-grid" id="muro-grid-${denom}" style="grid-template-columns:repeat(${Math.ceil(Math.sqrt(denom))},44px)"></div>
+        </div>
+      </div>`;
+
+    // Fórmula
+    const fEl = wrap.querySelector(`#muro-formula-${denom}`);
+    fEl.innerHTML = `$$\\frac{${num1}}{${denom}}\\text{ Blanco }+\\frac{${num2}}{${denom}}\\text{ Verde}$$`;
+
+    // Tiles
+    const grid = wrap.querySelector(`#muro-grid-${denom}`);
+    for(let i=0;i<denom;i++){
+      const t=document.createElement('div');
+      t.className='muro-tile';
+      grid.appendChild(t);
+    }
+
+    // Paleta
+    let selColor='white';
+    const btns=wrap.querySelectorAll('.muro-btn');
+    btns.forEach(b=>{
+      b.addEventListener('click',()=>{
+        btns.forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel');
+        selColor=b.dataset.c;
+      });
+    });
+
+    // Pintar tiles
+    const state = this._state;
+    wrap.querySelectorAll('.muro-tile').forEach(t=>{
+      t.addEventListener('click',()=>{
+        t.classList.remove('white','green');
+        if(selColor!=='erase') t.classList.add(selColor);
+        state.white=grid.querySelectorAll('.white').length;
+        state.green=grid.querySelectorAll('.green').length;
+      });
+    });
+
+    return wrap;
+  },
+
+  getUserAnswer: function(){
+    const s=this._state;
+    return `B:${s.white} V:${s.green}`;
+  },
+  getCorrectAnswer: function(){
+    const s=this._state;
+    return `B:${s.num1} V:${s.num2}`;
+  },
+  getDescription: function(){
+    const s=this._state;
+    return `Suma visual: ${s.num1}/${s.denom} + ${s.num2}/${s.denom}`;
+  }
+});
+</script>
+
+
+<!-- ============================================================
+     BLOQUE 2: EJEMPLO — FRACCIONES NUMÉRICAS (input texto)
+     Puedes añadir más bloques con ENGINE.registerBlock({...})
+     siguiendo exactamente el mismo contrato de interfaz:
+       render()         → devuelve HTMLElement
+       getUserAnswer()  → string con la respuesta del alumno
+       getCorrectAnswer()→ string con la respuesta correcta
+       getDescription() → string descriptivo (aparece en resumen)
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+
+  render: function(){
+    const dif2 = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
+    const maxN = dif2==='facil'?4 : dif2==='dificil'?12 : 8;
+    const a = Math.floor(Math.random()*maxN)+1;
+    const b = Math.floor(Math.random()*maxN)+2;
+    const c = Math.floor(Math.random()*maxN)+1;
+    const d = Math.floor(Math.random()*maxN)+2;
+    // Resultado: a/b + c/d = (a*d + c*b)/(b*d)
+    const num = a*d + c*b;
+    const den = b*d;
+    // Simplificar
+    function gcd(x,y){return y===0?x:gcd(y,x%y)}
+    const g = gcd(Math.abs(num),Math.abs(den));
+    const rNum=num/g, rDen=den/g;
+    const correct = rDen===1 ? `${rNum}` : `${rNum}/${rDen}`;
+    this._state = { a,b,c,d,correct };
+
+    const uid = Date.now();
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <style>
+        .frac-wrap{background:#f0f4ff;border:2px solid #c5d0f5;border-left:6px solid #3b5bdb;border-radius:12px;padding:22px}
+        .frac-title{font-weight:700;color:#2f4ac5;margin-bottom:4px}
+        .frac-hint{font-size:.85rem;color:#5a6a9a;margin-bottom:16px}
+        .frac-formula{font-size:1.5rem;text-align:center;margin:14px 0;font-weight:700;color:#1a1a2e}
+        .frac-input-row{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:16px}
+        .frac-input-row input{width:130px;padding:10px 14px;font-size:1.1rem;border:2px solid #c5d0f5;border-radius:8px;text-align:center}
+        .frac-input-row input:focus{border-color:#3b5bdb;outline:none}
+        .frac-input-row label{font-weight:600;color:#3b5bdb}
+      </style>
+      <div class="frac-wrap">
+        <div class="frac-title">➕ Suma de Fracciones</div>
+        <div class="frac-hint">Escribe el resultado simplificado. Si es entero, escribe sólo el número. Si es fracción, usa la barra: <strong>3/4</strong></div>
+        <div class="frac-formula" id="ff-${uid}">$$\\frac{${a}}{${b}} + \\frac{${c}}{${d}} = \\;?$$</div>
+        <div class="frac-input-row">
+          <label>Resultado =</label>
+          <input type="text" id="frac-ans-${uid}" placeholder="p. ej. 3/4">
+        </div>
+      </div>`;
+    this._uid = uid;
+    return wrap;
+  },
+
+  getUserAnswer: function(){
+    const el = document.getElementById('frac-ans-'+this._uid);
+    return el ? el.value.trim().replace(' ','') : '';
+  },
+  getCorrectAnswer: function(){ return this._state.correct },
+  getDescription:  function(){
+    const s=this._state;
+    return `${s.a}/${s.b} + ${s.c}/${s.d} = ?`;
+  }
+});
+</script>
+
+
+<!-- ============================================================
+     BLOQUE 3: LABORATORIO ALGEBRAICO (Suma de Monomios y Binomios)
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid = 'alg' + Date.now();
+    this._uid = uid;
+
+    // ── Helpers ──────────────────────────────────────────
+    const dif3 = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
+    const algRange = dif3==='facil'?3 : dif3==='dificil'?8 : 5;
+    function rand(){ let n=Math.floor(Math.random()*(algRange*2+1))-algRange; return n===0?1:n; }
+
+    function fmtTerm(coef, isX){
+      if(coef===0) return '';
+      if(isX){
+        if(coef===1)  return 'x';
+        if(coef===-1) return '-x';
+        return coef+'x';
+      }
+      return ''+coef;
+    }
+
+    function fmtBinom(cx, cc){
+      const tx=fmtTerm(cx,true), tc=fmtTerm(cc,false);
+      if(tx && tc) return cc>0 ? `${tx} + ${tc}` : `${tx} - ${Math.abs(cc)}`;
+      return tx||tc||'0';
+    }
+
+    // ── Generar problema ──────────────────────────────────
+    const type = Math.floor(Math.random()*3);
+    let latex='', corrX=0, corrC=0, desc='';
+
+    if(type===0){
+      const a=rand(), b=rand();
+      latex = (fmtTerm(a,true)+' + '+fmtTerm(b,true)).replace('+ -','- ');
+      corrX=a+b; corrC=0;
+      desc=`Monomios: ${fmtTerm(a,true)} + ${fmtTerm(b,true)}`;
+    } else if(type===1){
+      const a=rand(), b=rand(), c=rand();
+      latex = `${fmtTerm(a,true)} + (${fmtBinom(b,c)})`;
+      corrX=a+b; corrC=c;
+      desc=`Mono+Binom: ${fmtTerm(a,true)} + (${fmtBinom(b,c)})`;
+    } else {
+      const a=rand(), b=rand(), c=rand(), d=rand();
+      latex = `(${fmtBinom(a,b)}) + (${fmtBinom(c,d)})`;
+      corrX=a+c; corrC=b+d;
+      desc=`Binomios: (${fmtBinom(a,b)}) + (${fmtBinom(c,d)})`;
+    }
+
+    this._state = { corrX, corrC, desc, uid };
+
+    // ── DOM ───────────────────────────────────────────────
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <style>
+        .alg-wrap{background:#f5f3ff;border:2px solid #c4b5fd;border-left:6px solid #7c3aed;border-radius:12px;padding:22px;font-family:inherit}
+        .alg-title{font-weight:700;color:#6d28d9;margin-bottom:4px;font-size:1rem}
+        .alg-hint{font-size:.85rem;color:#7c6faa;margin-bottom:14px}
+        .alg-formula{font-size:1.4rem;text-align:center;margin:14px 0;color:#1e1b4b;min-height:52px}
+        .alg-inputs{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+        .alg-group{display:flex;flex-direction:column;align-items:center;background:#ede9fe;padding:14px 18px;border-radius:10px;border:1px solid #c4b5fd}
+        .alg-group label{font-size:.78rem;font-weight:700;color:#6d28d9;text-transform:uppercase;margin-bottom:8px;letter-spacing:.03em}
+        .alg-group-inner{display:flex;align-items:center;gap:6px}
+        .alg-group input{width:58px;padding:9px;font-size:1.15rem;text-align:center;border:2px solid #c4b5fd;border-radius:8px;font-weight:700;color:#1e1b4b;background:#fff}
+        .alg-group input:focus{border-color:#7c3aed;outline:none}
+        .alg-x{font-size:1.3rem;font-weight:700;font-style:italic;color:#7c3aed}
+        .alg-plus{font-size:1.4rem;font-weight:700;color:#a78bfa;align-self:center}
+      </style>
+      <div class="alg-wrap">
+        <div class="alg-title">🧬 Laboratorio Algebraico — Simplifica la expresión</div>
+        <div class="alg-hint">Agrupa los términos semejantes y escribe el resultado como <strong>ax + b</strong></div>
+        <div class="alg-formula" id="${uid}-formula">$$${latex}$$</div>
+        <div class="alg-inputs">
+          <div class="alg-group">
+            <label>Coef. de x</label>
+            <div class="alg-group-inner">
+              <input type="number" id="${uid}-x" placeholder="0">
+              <span class="alg-x">x</span>
+            </div>
+          </div>
+          <span class="alg-plus">+</span>
+          <div class="alg-group">
+            <label>Término ind.</label>
+            <div class="alg-group-inner">
+              <input type="number" id="${uid}-c" placeholder="0">
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    // MathJax
+    const fEl = wrap.querySelector(`#${uid}-formula`);
+    if(window.MathJax && MathJax.typesetPromise){
+      setTimeout(()=>MathJax.typesetPromise([fEl]).catch(e=>console.warn(e)), 50);
+    }
+
+    return wrap;
+  },
+
+  getUserAnswer: function(){
+    const uid = this._uid;
+    const xVal = document.getElementById(uid+'-x');
+    const cVal = document.getElementById(uid+'-c');
+    const x = xVal ? (parseInt(xVal.value)||0) : 0;
+    const c = cVal ? (parseInt(cVal.value)||0) : 0;
+    return `${x}x + ${c}`;
+  },
+
+  getCorrectAnswer: function(){
+    const s = this._state;
+    return `${s.corrX}x + ${s.corrC}`;
+  },
+
+  getDescription: function(){
+    return this._state.desc || 'Álgebra: simplifica la expresión';
+  }
+});
+</script>
+
+
+<!-- ============================================================
+     BLOQUE 4: TRADUCTOR ALGEBRAICO (frase → expresión con teclado virtual)
+     Evaluación algebraica numérica via isCorrect()
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid = 'trad'+Date.now();
+    this._uid = uid;
+
+    const TEMPLATES = [
+      {text:"Un número cualquiera",          target:"x"},
+      {text:"El doble de un número",         target:"2*x"},
+      {text:"El triple de un número",        target:"3*x"},
+      {text:"La mitad de un número",         target:"x/2"},
+      {text:"El cuadrado de un número",      target:"x**2"},
+      {text:"Un número aumentado en {N}",    target:"x+{N}"},
+      {text:"Un número disminuido en {N}",   target:"x-{N}"},
+      {text:"El doble de un número, más {N}",target:"2*x+{N}"},
+      {text:"El doble de la suma de un número y {N}", target:"2*(x+{N})"},
+      {text:"El cuadrado de un número menos {N}", target:"x**2-{N}"},
+      {text:"La suma de un número y su doble", target:"x+2*x"}
+    ];
+    const WORDS = ['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'];
+    const tpl = TEMPLATES[Math.floor(Math.random()*TEMPLATES.length)];
+    const N   = Math.floor(Math.random()*9)+1;
+    const phrase  = tpl.text.replace(/{N}/g, WORDS[N]);
+    const target  = tpl.target.replace(/{N}/g, N);
+
+    this._state = { target, phrase, uid };
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <style>
+        .trad-wrap{background:#1e1e2f;border:2px solid #6c5ce7;border-left:6px solid #00d2d3;border-radius:12px;overflow:hidden;font-family:inherit}
+        .trad-hdr{background:linear-gradient(135deg,#00d2d3,#0984e3);padding:18px 16px;text-align:center}
+        .trad-hdr-sub{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:#fff;opacity:.9;margin-bottom:6px}
+        .trad-phrase{font-size:1.35rem;font-weight:600;color:#fff;line-height:1.4}
+        .trad-screen{background:#111;padding:14px;text-align:center;border-bottom:2px solid #353b48;min-height:54px;display:flex;align-items:center;justify-content:center}
+        .trad-disp{font-family:"Cambria Math","Times New Roman",serif;font-size:2rem;letter-spacing:2px;color:#00d2d3;min-width:60px}
+        .trad-disp i{color:#ff9ff3;font-style:italic;margin:0 1px}
+        .trad-kbd{background:#353b48;padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+        .trad-k{background:#2f3640;border:1px solid rgba(255,255,255,.05);border-radius:7px;padding:11px 0;font-size:1.2rem;font-weight:700;color:#fff;cursor:pointer;transition:.1s;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.3);user-select:none}
+        .trad-k:active{transform:translateY(3px);box-shadow:none}
+        .trad-k.op{color:#feca57;background:#3d3d3d}
+        .trad-k.vr{color:#ff9ff3;background:#3d3d3d}
+        .trad-k.dl{background:#e74c3c;color:#fff}
+      </style>
+      <div class="trad-wrap">
+        <div class="trad-hdr">
+          <div class="trad-hdr-sub">🔤 Traductor Algebraico — Traduce la frase:</div>
+          <div class="trad-phrase">${phrase}</div>
+        </div>
+        <div class="trad-screen"><div class="trad-disp" id="${uid}-d"></div></div>
+        <div class="trad-kbd">
+          <div class="trad-k" data-v="7">7</div><div class="trad-k" data-v="8">8</div><div class="trad-k" data-v="9">9</div><div class="trad-k op" data-v="+">+</div>
+          <div class="trad-k" data-v="4">4</div><div class="trad-k" data-v="5">5</div><div class="trad-k" data-v="6">6</div><div class="trad-k op" data-v="-">-</div>
+          <div class="trad-k" data-v="1">1</div><div class="trad-k" data-v="2">2</div><div class="trad-k" data-v="3">3</div><div class="trad-k op" data-v="·">·</div>
+          <div class="trad-k op" data-v="(">(</div><div class="trad-k" data-v="0">0</div><div class="trad-k op" data-v=")">)</div><div class="trad-k op" data-v="/">/</div>
+          <div class="trad-k vr" data-v="x" style="grid-column:span 2">x</div>
+          <div class="trad-k op" data-v="²">x²</div>
+          <div class="trad-k dl" data-v="__del">⌫</div>
+        </div>
+      </div>`;
+
+    let expr = '';
+    const disp = wrap.querySelector(`#${uid}-d`);
+    const st   = this._state;
+    wrap.querySelectorAll('.trad-k').forEach(k=>{
+      k.addEventListener('click',()=>{
+        if(k.dataset.v==='__del') expr=expr.slice(0,-1);
+        else expr+=k.dataset.v;
+        st.expr = expr;
+        disp.innerHTML = expr.replace(/x/g,'<i>x</i>');
+      });
+    });
+
+    return wrap;
+  },
+
+  // Evaluador algebraico numérico
+  _evalExpr: function(exprStr, xVal){
+    let p = exprStr.replace(/·/g,'*').replace(/²/g,'**2')
+                   .replace(/(\d)x/g,'$1*x').replace(/(\d)\(/g,'$1*(')
+                   .replace(/x\(/g,'x*(').replace(/\)x/g,')*x')
+                   .replace(/x/g,`(${xVal})`);
+    try{ const r=new Function('return '+p)(); return (isNaN(r)||!isFinite(r))?null:r; }
+    catch(e){ return null; }
+  },
+
+  isCorrect: function(userAns, correctAns){
+    const t1=3.5, t2=-7.2;
+    const u1=this._evalExpr(userAns,t1), u2=this._evalExpr(userAns,t2);
+    const c1=this._evalExpr(this._state.target,t1), c2=this._evalExpr(this._state.target,t2);
+    return u1!==null && u2!==null &&
+           Math.abs(u1-c1)<0.0001 && Math.abs(u2-c2)<0.0001;
+  },
+
+  getUserAnswer:   function(){ return this._state.expr||'(vacío)'; },
+  getCorrectAnswer:function(){ return this._state.target; },
+  getDescription:  function(){ return 'Traductor: '+this._state.phrase; }
+});
+</script>
+
+<!-- ============================================================
+     BLOQUE 5: CAJA FUERTE MATEMÁTICA (elegir el valor de x correcto)
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid = 'caja'+Date.now();
+    this._uid = uid;
+
+    const difC = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
+    const xRange = difC==='facil'?4 : difC==='dificil'?10 : 6;
+    const corrX = (()=>{ let x=Math.floor(Math.random()*(xRange*2+1))-xRange; return x===0?3:x; })();
+    const aMax = difC==='facil'?3 : difC==='dificil'?6 : 4;
+    const a = (Math.floor(Math.random()*aMax)+2)*(difC==='facil'?1:Math.random()>.5?1:-1);
+    const b = (Math.floor(Math.random()*15)+1)*(difC==='facil'?1:Math.random()>.5?1:-1);
+    const c = a*corrX+b;
+    let w1=corrX+(Math.random()>.5?1:-1);
+    let w2=-corrX; if(w2===corrX||w2===w1) w2=corrX+2;
+    const keys=[corrX,w1,w2].sort(()=>Math.random()-.5);
+    const sign=n=>n<0?`- ${Math.abs(n)}`:`+ ${n}`;
+
+    this._state = { a,b,c,corrX, keys, selected:null,
+      desc:`${a}x ${sign(b)} = ${c}` };
+    const st = this._state;
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <style>
+        .caja-wrap{background:#2f3640;border:4px solid #485460;border-radius:14px;overflow:hidden;font-family:inherit}
+        .caja-screen{background:#000;border-bottom:3px solid #485460;padding:18px;text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center;position:relative}
+        .caja-lock{position:absolute;top:10px;right:14px;font-size:1.8rem}
+        .caja-eq{font-size:2rem;color:#0fb9b1;font-family:"Times New Roman",serif}
+        .caja-keys{padding:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;background:#353b48}
+        .caja-key{background:linear-gradient(145deg,#dcdde1,#718093);border:2px solid #2f3640;color:#1e272e;padding:12px 22px;font-size:1.3rem;font-weight:700;border-radius:8px;cursor:pointer;transition:.2s;box-shadow:0 4px 0 #485460;font-family:"Courier New",monospace}
+        .caja-key:hover{transform:translateY(2px);box-shadow:0 2px 0 #485460}
+        .caja-key.sel{border-color:#0fb9b1;box-shadow:0 0 12px #0fb9b1}
+        .caja-hint{text-align:center;padding:10px;font-size:.85rem;color:#a4b0be;background:#2f3640}
+      </style>
+      <div class="caja-wrap">
+        <div class="caja-screen">
+          <div class="caja-lock">🔒</div>
+          <div class="caja-eq" id="${uid}-eq">$$${a}x ${sign(b)} = ${c}$$</div>
+        </div>
+        <div class="caja-keys" id="${uid}-keys"></div>
+        <div class="caja-hint">Selecciona el valor de x que hace verdadera la igualdad</div>
+      </div>`;
+
+    const eqEl   = wrap.querySelector(`#${uid}-eq`);
+    const keysEl = wrap.querySelector(`#${uid}-keys`);
+
+    keys.forEach(kv=>{
+      const btn=document.createElement('button');
+      btn.className='caja-key';
+      btn.textContent=`x = ${kv}`;
+      btn.addEventListener('click',()=>{
+        st.selected=kv;
+        keysEl.querySelectorAll('.caja-key').forEach(b=>b.classList.remove('sel'));
+        btn.classList.add('sel');
+        eqEl.innerHTML=`$$${a}(${kv}) ${sign(b)} = ${c}$$`;
+        if(window.MathJax) MathJax.typesetPromise([eqEl]).catch(()=>{});
+      });
+      keysEl.appendChild(btn);
+    });
+
+    setTimeout(()=>{
+      if(window.MathJax) MathJax.typesetPromise([eqEl]).catch(()=>{});
+    },50);
+
+    return wrap;
+  },
+
+  getUserAnswer:   function(){ const s=this._state; return s.selected!==null?`x = ${s.selected}`:'(sin selección)'; },
+  getCorrectAnswer:function(){ return `x = ${this._state.corrX}`; },
+  getDescription:  function(){ return `Caja Fuerte: ${this._state.desc}`; },
+  isCorrect: function(u,c){ const p=s=>{const m=s.match(/x\s*=\s*(-?[\d.]+)/);return m?parseFloat(m[1]):NaN;}; return Math.abs(p(u)-p(c))<0.01; }
+});
+</script>
+
+<!-- ============================================================
+     BLOQUE 6: LABERINTO DE PUERTAS (resolver ecuación ax+b=cx+d paso a paso)
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid = 'lab'+Date.now();
+    this._uid = uid;
+
+    const difL = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
+    const xSol = difL==='facil'
+      ? Math.floor(Math.random()*5)+1
+      : Math.floor(Math.random()*(difL==='dificil'?21:11))-(difL==='dificil'?10:5);
+    let a=Math.floor(Math.random()*(difL==='facil'?5:9))-(difL==='facil'?0:4); if(a===0)a=2;
+    let c=Math.floor(Math.random()*(difL==='facil'?3:9))-(difL==='facil'?0:4); if(c===0)c=-1; if(a===c)c=a-2;
+    let b=Math.floor(Math.random()*(difL==='facil'?9:21))-(difL==='facil'?0:10); if(b===0)b=3;
+    const d=(a*xSol)+b-(c*xSol);
+
+    const fmt=(coeff,isFirst,hasX)=>{
+      if(coeff===0) return '';
+      let s='',abs=Math.abs(coeff);
+      s+=coeff<0?(isFirst?'-':' - '):(isFirst?'':' + ');
+      if(hasX){s+=abs===1?'x':`${abs}x`;}else{s+=abs;}
+      return s;
+    };
+
+    this._state={a,b,c,d,xSol,room:1,solved:false,
+      desc:`Laberinto: ${fmt(a,true,true)}${fmt(b,false,false)} = ${fmt(c,true,true)}${fmt(d,false,false)}`};
+    const st=this._state;
+
+    const wrap=document.createElement('div');
+    wrap.innerHTML=`
+      <style>
+        .labm-wrap{background:#1a1a24;border:3px solid #4a4a5a;border-radius:12px;overflow:hidden;font-family:inherit}
+        .labm-wall{background:#111;border-bottom:2px solid #4a4a5a;padding:16px;text-align:center}
+        .labm-room{color:#f1c40f;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+        .labm-eq{font-size:1.9rem;color:#fff;font-family:"Times New Roman",serif;min-height:50px}
+        .labm-doors{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:14px;background:#2b2b36}
+        .labm-door{background:#5c3a21;border:3px solid #3a2210;border-radius:10px 10px 0 0;padding:26px 12px;width:130px;cursor:pointer;transition:.3s;box-shadow:inset 0 0 10px rgba(0,0,0,.4);position:relative;text-align:center}
+        .labm-door:hover{background:#7b4f2d;transform:translateY(-8px)}
+        .labm-door::before{content:"";position:absolute;top:50%;right:10px;width:9px;height:9px;background:#111;border-radius:50%;border:2px solid #888}
+        .labm-door span{color:#f1c40f;font-size:.95rem;font-weight:700;pointer-events:none;text-shadow:1px 1px 2px rgba(0,0,0,.8)}
+        .labm-fb{padding:9px 14px;text-align:center;font-size:.88rem;font-weight:600;min-height:34px;background:#1a1a24;color:#a0a0b0}
+        .labm-fb.ok{color:#2ecc71}.labm-fb.err{color:#e74c3c}
+      </style>
+      <div class="labm-wrap">
+        <div class="labm-wall">
+          <div class="labm-room" id="${uid}-room">Sala 1</div>
+          <div class="labm-eq" id="${uid}-eq"></div>
+        </div>
+        <div class="labm-doors" id="${uid}-doors"></div>
+        <div class="labm-fb" id="${uid}-fb">Elige la operación que simplifica la ecuación</div>
+      </div>`;
+
+    const render=()=>{
+      const eqEl=wrap.querySelector(`#${uid}-eq`);
+      const doorsEl=wrap.querySelector(`#${uid}-doors`);
+      const fbEl=wrap.querySelector(`#${uid}-fb`);
+      const roomEl=wrap.querySelector(`#${uid}-room`);
+      if(!eqEl) return;
+      const ls=fmt(st.a,true,true)+fmt(st.b,false,false)||'0';
+      const rs=fmt(st.c,true,true)+fmt(st.d,false,false)||'0';
+      eqEl.innerHTML=`$$${ls} = ${rs}$$`;
+      if(window.MathJax) setTimeout(()=>MathJax.typesetPromise([eqEl]).catch(()=>{}),30);
+      if(st.solved){doorsEl.innerHTML='';return;}
+      let correct,w1,w2;
+      if(st.c!==0){
+        const txt=st.c>0?`Restar ${st.c}x`:`Sumar ${Math.abs(st.c)}x`;
+        correct={text:txt,action:'x',val:-st.c};
+        w1={text:st.c>0?`Sumar ${st.c}x`:`Restar ${Math.abs(st.c)}x`,hint:'Esa operación duplica el problema.'};
+        w2={text:`Dividir entre ${st.a}`,hint:'Primero agrupa las incógnitas.'};
+      } else if(st.b!==0){
+        const txt=st.b>0?`Restar ${st.b}`:`Sumar ${Math.abs(st.b)}`;
+        correct={text:txt,action:'num',val:-st.b};
+        w1={text:st.b>0?`Sumar ${st.b}`:`Restar ${Math.abs(st.b)}`,hint:'Cuidado con el signo.'};
+        w2={text:`Dividir entre ${st.a}`,hint:'Aún hay constantes que mover.'};
+      } else {
+        correct={text:`Dividir entre ${st.a}`,action:'div',val:st.a};
+        w1={text:st.a>0?`Restar ${st.a}`:`Sumar ${Math.abs(st.a)}`,hint:'El coeficiente multiplica, no suma.'};
+        w2={text:`Multiplicar por ${Math.abs(st.a)}`,hint:'Eso haría el coeficiente mayor.'};
+      }
+      const doors=[{...correct,isCorrect:true},{...w1,isCorrect:false},{...w2,isCorrect:false}].sort(()=>Math.random()-.5);
+      doorsEl.innerHTML='';
+      doors.forEach(dd=>{
+        const btn=document.createElement('div');
+        btn.className='labm-door';
+        btn.innerHTML=`<span>${dd.text}</span>`;
+        btn.addEventListener('click',()=>{
+          if(dd.isCorrect){
+            if(dd.action==='x'){st.a+=dd.val;st.c+=dd.val;}
+            else if(dd.action==='num'){st.b+=dd.val;st.d+=dd.val;}
+            else if(dd.action==='div'){st.a/=dd.val;st.b/=dd.val;st.c/=dd.val;st.d/=dd.val;}
+            st.room++;
+            if(roomEl) roomEl.innerText=`Sala ${st.room}`;
+            if(st.a===1&&st.b===0&&st.c===0){st.solved=true;if(fbEl){fbEl.className='labm-fb ok';fbEl.innerText=`🎉 ¡Resuelto! x = ${st.d}`;}}
+            else{if(fbEl){fbEl.className='labm-fb ok';fbEl.innerText='¡Correcto! Siguiente sala...';}}
+            render();
+          } else {
+            if(fbEl){fbEl.className='labm-fb err';fbEl.innerText=`🔒 ${dd.hint}`;}
+          }
+        });
+        doorsEl.appendChild(btn);
+      });
+    };
+    render();
+    return wrap;
+  },
+
+  getUserAnswer:   function(){ const s=this._state; return s.solved?`x = ${s.d}`:'(no completado)'; },
+  getCorrectAnswer:function(){ return `x = ${this._state.xSol}`; },
+  getDescription:  function(){ return this._state.desc; }
+});
+</script>
+
+<!-- ============================================================
+     BLOQUE 7: DETECTIVE DE ERRORES
+     Click en el paso dispara evaluación inmediata sin botón externo
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid='det'+Date.now();
+    this._uid=uid;
+
+    const fmt=(coeff,isFirst=false,hasX=true)=>{
+      if(coeff===0) return '';
+      let s='',abs=Math.abs(coeff);
+      s+=coeff<0?(isFirst?'-':' - '):(isFirst?'':' + ');
+      if(hasX){s+=abs===1?'x':`${abs}x`;}else{s+=abs;}
+      return s;
+    };
+
+    const X=Math.floor(Math.random()*9)-4;
+    let A=Math.floor(Math.random()*6)+2; if(Math.random()>.5)A*=-1;
+    let C=Math.floor(Math.random()*4)+1; if(Math.random()>.5)C*=-1;
+    while(A===C||A-C===1||A-C===-1){C=Math.floor(Math.random()*4)+1;if(Math.random()>.5)C*=-1;}
+    let B=Math.floor(Math.random()*8)+2; if(Math.random()>.5)B*=-1;
+    const D=(A*X)+B-(C*X);
+
+    const r=Math.random();
+    let errStep=r<0.3?0:r<0.55?1:r<0.8?2:3;
+    let errExp='';
+
+    const steps=[];
+    steps.push({num:'Planteamiento',math:`${fmt(A,true,true)}${fmt(B,false,false)} = ${fmt(C,true,true)}${fmt(D,false,false)}`});
+
+    let cA=A,cB=B,cC=C,cD=D;
+    if(errStep===1){cA=A+C;errExp=`Al pasar ${fmt(C,true,true)} al otro lado, no cambió el signo.`;}
+    else cA=A-C;
+    cC=0;
+    steps.push({num:'Paso 1',math:`${fmt(cA,true,true)}${fmt(cB,false,false)} = ${fmt(cD,true,false)}`});
+
+    if(errStep===2){cD=cD+cB;errExp=`Al pasar la constante al otro lado, no cambió el signo de ${cB}.`;}
+    else cD=cD-cB;
+    cB=0;
+    steps.push({num:'Paso 2',math:`${fmt(cA,true,true)} = ${fmt(cD,true,false)}`});
+
+    let finalX;
+    if(errStep===3){
+      if(Math.random()>.5){finalX=cD/-cA;errExp=`Dividió con signo incorrecto en el coeficiente ${cA}.`;}
+      else{finalX=cD-cA;errExp=`El ${cA} multiplica, debe pasar dividiendo, no restando.`;}
+      if(!Number.isInteger(finalX))finalX=parseFloat(finalX.toFixed(1));
+    } else {
+      finalX=cD/cA;
+      if(!Number.isInteger(finalX))finalX=parseFloat(finalX.toFixed(2));
+    }
+    steps.push({num:'Paso 3',math:`x = ${finalX}`});
+
+    this._state={errStep,errExp,steps,selected:null,locked:false,
+      desc:`Detective: ${errStep===0?'desarrollo correcto':'error en Paso '+errStep}`};
+    const st=this._state;
+
+    const wrap=document.createElement('div');
+    wrap.innerHTML=`
+      <style>
+        .det-wrap{background:#f9ede3;border-radius:10px;padding:26px 22px;font-family:inherit;
+          background-image:linear-gradient(#e5d9c5 1px,transparent 1px);background-size:100% 30px;
+          line-height:30px;position:relative;border:2px solid #c0a080;box-shadow:6px 6px 14px rgba(0,0,0,.18);overflow:hidden}
+        .det-wrap::before{content:"CONFIDENCIAL";position:absolute;top:12px;right:-16px;background:#c0392b;
+          color:#fff;padding:4px 24px;font-weight:700;transform:rotate(45deg);letter-spacing:2px;
+          font-size:.72rem;box-shadow:1px 1px 4px rgba(0,0,0,.3)}
+        .det-title{font-family:"Courier New",monospace;font-size:1.3rem;font-weight:700;margin-bottom:4px}
+        .det-hint{font-style:italic;color:#555;font-size:.83rem;margin-bottom:14px;font-family:"Courier New",monospace}
+        .det-step{padding:8px 10px;margin:7px 0;border-radius:7px;cursor:pointer;border:2px solid transparent;
+          display:flex;align-items:center;background:rgba(255,255,255,.4);transition:.2s}
+        .det-step:hover{border-color:#2980b9;background:rgba(41,128,185,.1);transform:translateX(7px)}
+        .det-snum{font-size:.8rem;font-weight:700;color:#888;margin-right:14px;width:90px;flex-shrink:0}
+        .det-smath{flex-grow:1;font-family:"Times New Roman",serif;font-size:1.15rem}
+        .det-step0{cursor:default!important;background:transparent!important;border:none!important}
+        .det-step0:hover{transform:none!important}
+        .det-ok-btn{display:block;width:100%;padding:12px;margin-top:14px;background:transparent;
+          border:3px dashed #27ae60;color:#27ae60;font-size:1rem;font-weight:700;cursor:pointer;
+          border-radius:7px;transition:.2s;font-family:"Courier New",monospace}
+        .det-ok-btn:hover{background:#27ae60;color:#fff}
+        .det-locked .det-step{pointer-events:none;opacity:.7}
+        .det-locked .det-ok-btn{pointer-events:none;opacity:.7}
+      </style>
+      <div class="det-wrap" id="${uid}-wrap">
+        <div class="det-title">📁 Expediente Algebraico</div>
+        <div class="det-hint">Haz clic en el PRIMER paso erróneo. Si todo es correcto, pulsa el botón verde.</div>
+        <div id="${uid}-steps"></div>
+        <button class="det-ok-btn" id="${uid}-ok">✅ Todo correcto. Cerrar caso.</button>
+      </div>`;
+
+    // Sustituir los escapes unicode directamente
+    
+    const stepsEl=wrap.querySelector(`#${uid}-steps`);
+    const okBtn=wrap.querySelector(`#${uid}-ok`);
+    const wrapEl=wrap.querySelector(`#${uid}-wrap`);
+
+    // Función que evalúa inmediatamente al hacer click
+    const evaluate=(selected)=>{
+      if(st.locked) return;
+      st.locked=true;
+      st.selected=selected;
+      wrapEl.classList.add('det-locked');
+
+      const isOk=(selected===st.errStep);
+      // Marcar visualmente el paso pulsado
+      const rows=stepsEl.querySelectorAll('.det-step:not(.det-step0)');
+      rows.forEach((row,i)=>{
+        if(i+1===selected){
+          row.style.background=isOk?'rgba(39,174,96,.2)':'rgba(192,57,43,.2)';
+          row.style.borderColor=isOk?'#27ae60':'#c0392b';
+        }
+      });
+      if(selected===0) okBtn.style.background=isOk?'#27ae60':'#c0392b';
+
+      // Disparar ENGINE.submitQuestion() directamente — el btn puede estar oculto
+      // Añadir explicación del error en el bloque antes de que el motor muestre feedback
+      if(!isOk && st.errExp){
+        const expEl = document.createElement('div');
+        expEl.style.cssText='margin-top:10px;padding:10px 14px;background:rgba(192,57,43,.1);border-left:4px solid #c0392b;border-radius:6px;font-size:.85rem;color:#922b21';
+        expEl.innerHTML='<strong>El error:</strong> '+st.errExp;
+        wrapEl.appendChild(expEl);
+      }
+      ENGINE.submitQuestion();
+    };
+
+    steps.forEach((s,i)=>{
+      const row=document.createElement('div');
+      row.className='det-step'+(i===0?' det-step0':'');
+      row.innerHTML=`<div class="det-snum">${s.num}</div><div class="det-smath" id="${uid}-sm${i}">$$${s.math}$$</div>`;
+      if(i>0) row.addEventListener('click',()=>evaluate(i));
+      stepsEl.appendChild(row);
+    });
+    okBtn.addEventListener('click',()=>evaluate(0));
+
+    setTimeout(()=>{
+      if(window.MathJax) MathJax.typesetPromise([stepsEl]).catch(()=>{});
+    },60);
+
+    return wrap;
+  },
+
+  getUserAnswer:   function(){ const s=this._state; if(s.selected===null) return '(sin respuesta)'; return s.selected===0?'Sin error':`Error en Paso ${s.selected}`; },
+  getCorrectAnswer:function(){ const s=this._state; return s.errStep===0?'Sin error':`Error en Paso ${s.errStep}`; },
+  getDescription:  function(){ return this._state.desc; }
+});
+</script>
+
+
+
+<!-- ============================================================
+     BLOQUE 8: BALANZA ALGEBRAICA (despejar x aplicando operaciones)
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid = 'bal'+Date.now();
+    this._uid = uid;
+
+    // Generar ecuación: ax + b = c  con solución entera o en cuartos
+    const difB = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
+    const xVal = difB==='facil'
+      ? Math.floor(Math.random()*5)+1
+      : difB==='dificil' ? (Math.floor(Math.random()*17)-8)/4
+      : (Math.floor(Math.random()*9)-4);
+    const a = difB==='facil'?Math.floor(Math.random()*2)+1:Math.floor(Math.random()*3)+1;
+    let b = difB==='facil'
+      ? Math.floor(Math.random()*6)+1
+      : (Math.floor(Math.random()*33)-16)/4;
+    if(a===1 && b===0) b=2;
+    const c = a*(xVal===0?1:xVal)+b;
+
+    this._state = { a, b, c, solved:false, uid,
+      origA:a, origB:b, origC:c,
+      xSol: (a*(xVal===0?1:xVal)+b-b)/a  // = xVal o 1 si xVal=0
+    };
+    // recalculate xSol properly
+    this._state.xSol = (xVal===0) ? (c-b)/a : xVal;
+    const st = this._state;
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+<style>
+  .bal-wrap{background:#fff;border:2px solid #d6eaf8;border-left:6px solid #2980b9;border-radius:12px;overflow:hidden;font-family:inherit}
+  .bal-header{background:#eaf2f8;padding:12px 16px;text-align:center;border-bottom:1px solid #d6eaf8}
+  .bal-title{font-weight:700;color:#2980b9;font-size:1rem;margin-bottom:2px}
+  .bal-sub{font-size:.8rem;color:#7f8c8d}
+  .bal-legend{display:flex;justify-content:center;gap:12px;padding:8px;background:#f8f9fa;border-bottom:1px solid #e0e0e0;flex-wrap:wrap;font-size:.8rem}
+  .bal-li{display:flex;align-items:center;gap:5px}
+  .bal-zone{height:220px;position:relative;background:#eaf2f8;border-bottom:1px solid #d6eaf8;overflow:hidden}
+  .bal-beam{width:60%;height:7px;background:#2c3e50;position:absolute;top:80px;left:20%;transition:transform .5s ease-in-out;border-radius:4px}
+  .bal-fulcrum{width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:110px solid #7f8c8d;position:absolute;bottom:30px;left:50%;transform:translateX(-50%)}
+  .bal-pan{width:100px;height:80px;position:absolute;top:0}
+  .bal-pan.L{left:0}.bal-pan.R{right:0}
+  .bal-cable{width:2px;height:100%;background:#2c3e50;margin:0 auto}
+  .bal-base{width:120px;height:16px;background:#34495e;border-radius:0 0 40px 40px;position:absolute;bottom:-16px;left:50%;transform:translateX(-50%)}
+  .bal-items{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:120px;display:flex;flex-wrap:wrap-reverse;justify-content:center;gap:2px;padding-bottom:8px}
+  .bal-boxx{width:30px;height:30px;background:#e67e22;border:2px solid #d35400;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;border-radius:4px;font-family:"Courier New",monospace;font-size:.85rem}
+  .bal-wp{width:18px;height:18px;border-radius:50%;color:#fff;font-size:.65rem;display:flex;align-items:center;justify-content:center;box-shadow:1px 1px 0 rgba(0,0,0,.2)}
+  .bal-wh{width:13px;height:13px;border-radius:50%;color:#fff;font-size:.5rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .bal-wq{width:9px;height:9px;border-radius:50%}
+  .bal-pos{background:#2980b9;border:1px solid #1a5276}.bal-neg{background:#e74c3c;border:1px solid #922b21}
+  .bal-eq{text-align:center;font-size:1.6rem;font-weight:700;padding:8px;border:2px dashed #ccc;border-radius:8px;margin:10px 16px;font-family:"Times New Roman",serif;background:#fff}
+  .bal-ctrl{background:#ecf0f1;padding:12px 16px;text-align:center}
+  .bal-ctrl p{margin:0 0 8px;font-weight:700;font-size:.9rem;color:#2c3e50}
+  .bal-row{display:flex;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+  .bal-ag{display:flex;gap:8px;background:#fff;padding:8px 12px;border-radius:50px;box-shadow:0 2px 5px rgba(0,0,0,.06);align-items:center}
+  .bal-ag select,.bal-ag input{padding:7px;font-size:.95rem;border:1px solid #bdc3c7;border-radius:6px}
+  .bal-ag input{width:75px;text-align:center}
+  .bal-btn{padding:8px 20px;font-size:.95rem;border:none;border-radius:50px;cursor:pointer;font-weight:700;color:#fff;transition:.2s;background:#2980b9}
+  .bal-btn:hover{background:#1f618d}
+  .bal-fb{font-weight:700;min-height:1.4em;font-size:.9rem;padding:4px 0}
+  .bal-fb.ok{color:#27ae60}.bal-fb.err{color:#c0392b}.bal-fb.info{color:#2980b9}
+</style>
+<div class="bal-wrap">
+  <div class="bal-header">
+    <div class="bal-title">⚖️ Balanza Algebraica — Aísla la x</div>
+    <div class="bal-sub">Aplica la misma operación a ambos platillos hasta despejar x</div>
+  </div>
+  <div class="bal-legend">
+    <div class="bal-li"><div class="bal-boxx" style="width:20px;height:20px;font-size:.7rem">x</div> Incógnita</div>
+    <div class="bal-li"><div class="bal-wp bal-pos">1</div> +1</div>
+    <div class="bal-li"><div class="bal-wp bal-neg">-1</div> -1</div>
+    <div class="bal-li"><div class="bal-wh bal-pos">.5</div> +0.5</div>
+    <div class="bal-li"><div class="bal-wq bal-pos"></div> +0.25</div>
+  </div>
+  <div class="bal-zone">
+    <div class="bal-beam" id="${uid}-beam">
+      <div class="bal-pan L"><div class="bal-cable"></div><div class="bal-base"></div><div class="bal-items" id="${uid}-L"></div></div>
+      <div class="bal-pan R"><div class="bal-cable"></div><div class="bal-base"></div><div class="bal-items" id="${uid}-R"></div></div>
+    </div>
+    <div class="bal-fulcrum"></div>
+  </div>
+  <div class="bal-eq" id="${uid}-eq"></div>
+  <div class="bal-ctrl">
+    <p>Aplica la misma operación a AMBOS platillos:</p>
+    <div class="bal-row">
+      <div class="bal-ag">
+        <select id="${uid}-op"><option value="sub">➖ Restar</option><option value="add">➕ Sumar</option><option value="div">➗ Dividir</option><option value="mul">✖️ Multiplicar</option></select>
+        <input type="number" id="${uid}-val" placeholder="Valor" step="0.25">
+      </div>
+      <button class="bal-btn" id="${uid}-apply">Aplicar</button>
+    </div>
+    <div class="bal-fb info" id="${uid}-fb">Introduce una operación para simplificar la ecuación.</div>
+  </div>
+</div>`;
+
+    // ── render helpers ────────────────────────────────────────────
+    const eqEl   = wrap.querySelector(`#${uid}-eq`);
+    const fbEl   = wrap.querySelector(`#${uid}-fb`);
+    const beamEl = wrap.querySelector(`#${uid}-beam`);
+
+    const renderItems=(contId,numX,numUnits)=>{
+      const cont=wrap.querySelector(`#${contId}`);
+      cont.innerHTML='';
+      const absX=Math.abs(numX);
+      for(let i=0;i<absX;i++){
+        const b=document.createElement('div');b.className='bal-boxx';
+        b.textContent=numX<0?'-x':'x';cont.appendChild(b);
+      }
+      const abs=Math.abs(numUnits),full=Math.floor(abs),rem=Math.round((abs-full)*100)/100,neg=numUnits<0;
+      for(let i=0;i<full;i++){
+        const w=document.createElement('div');w.className='bal-wp '+(neg?'bal-neg':'bal-pos');
+        w.textContent=neg?'-1':'1';cont.appendChild(w);
+      }
+      if(rem===0.25||rem===0.75){const w=document.createElement('div');w.className='bal-wq '+(neg?'bal-neg':'bal-pos');cont.appendChild(w);}
+      if(rem===0.5||rem===0.75){const w=document.createElement('div');w.className='bal-wh '+(neg?'bal-neg':'bal-pos');w.textContent=neg?'-.5':'.5';cont.appendChild(w);}
+    };
+
+    const renderEq=()=>{
+      let s='';
+      if(st.a===1)s+='x'; else if(st.a===-1)s+='-x'; else if(st.a!==0)s+=`${st.a}x`;
+      if(st.b>0){if(st.a!==0)s+=` + ${st.b}`;else s+=`${st.b}`;}
+      else if(st.b<0){if(st.a!==0)s+=` - ${Math.abs(st.b)}`;else s+=`${st.b}`;}
+      else if(st.b===0&&st.a===0)s+='0';
+      s+=` = ${st.c}`;
+      eqEl.innerHTML=`$$${s}$$`;
+      if(window.MathJax) MathJax.typesetPromise([eqEl]).catch(()=>{});
+      renderItems(`${uid}-L`,st.a,st.b);
+      renderItems(`${uid}-R`,0,st.c);
+    };
+
+    const winAnim=()=>{
+      beamEl.style.transform='rotate(2deg)';
+      setTimeout(()=>beamEl.style.transform='rotate(-2deg)',200);
+      setTimeout(()=>beamEl.style.transform='rotate(0deg)',400);
+    };
+
+    // ── apply operation ───────────────────────────────────────────
+    wrap.querySelector(`#${uid}-apply`).addEventListener('click',()=>{
+      if(st.solved) return;
+      const op=wrap.querySelector(`#${uid}-op`).value;
+      const val=parseFloat(wrap.querySelector(`#${uid}-val`).value);
+      if(isNaN(val)||val===0){fbEl.className='bal-fb err';fbEl.textContent='Introduce un número válido distinto de 0.';return;}
+
+      if(op==='sub'){st.b-=val;st.c-=val;}
+      else if(op==='add'){st.b+=val;st.c+=val;}
+      else if(op==='div'){st.a/=val;st.b/=val;st.c/=val;}
+      else if(op==='mul'){st.a*=val;st.b*=val;st.c*=val;}
+
+      // Round to avoid float drift
+      st.a=Math.round(st.a*1000)/1000;
+      st.b=Math.round(st.b*1000)/1000;
+      st.c=Math.round(st.c*1000)/1000;
+
+      wrap.querySelector(`#${uid}-val`).value='';
+      fbEl.className='bal-fb info';fbEl.textContent='Operación aplicada.';
+      renderEq();
+
+      // Check solved: a=1, b=0
+      if(st.a===1&&st.b===0){
+        st.solved=true;
+        fbEl.className='bal-fb ok';
+        fbEl.textContent=`🎉 ¡Ecuación resuelta! x = ${st.c}. Ahora pulsa "Comprobar respuesta".`;
+        winAnim();
+      }
+    });
+
+    renderEq();
+    return wrap;
+  },
+
+  getUserAnswer:   function(){ const s=this._state; return s.solved?`x = ${s.c}`:'(no resuelto)'; },
+  getCorrectAnswer:function(){ return `x = ${this._state.xSol}`; },
+  getDescription:  function(){
+    const s=this._state;
+    const sign=s.origB>=0?`+ ${s.origB}`:`- ${Math.abs(s.origB)}`;
+    return `Balanza: ${s.origA}x ${sign} = ${s.origC}`;
+  },
+  // Tolerancia numérica para decimales (0.25 etc.)
+  isCorrect: function(userAns, correctAns){
+    const parse=s=>{const m=s.match(/x\s*=\s*(-?[\d.]+)/);return m?parseFloat(m[1]):NaN;};
+    const u=parse(userAns), c=parse(correctAns);
+    return !isNaN(u)&&!isNaN(c)&&Math.abs(u-c)<0.01;
+  }
+});
+</script>
+
+
+<script>/* ── Helper global para números aleatorios enteros ── */
+function _ri(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+</script>
+<!-- ============================================================
+     BLOQUE 9: PLANTEAR ECUACIONES (problema real → ecuación)
+     El alumno LEE un problema y ESCRIBE la ecuación que lo modela.
+     NO hay que resolver: solo plantear correctamente.
+     Niveles graduados según dificultad del motor.
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid:   null,
+
+  /* ══════════════════════════════════════════════════════════════
+     BANCO DE PROBLEMAS POR NIVEL
+     Cada problema nombra explícitamente "siendo x …" para que
+     el alumno sepa exactamente qué representa la incógnita y
+     solo tenga que traducir el enunciado a símbolos.
+
+     Cada entrada:
+       cat    → emoji + categoría
+       vars() → genera números aleatorios
+       text() → HTML del enunciado (usa <strong> y menciona x)
+       target → expresión del lado izquierdo  (= rhs)
+       rhs    → lado derecho fijo
+       hint   → pista si la pide
+  ══════════════════════════════════════════════════════════════ */
+  _banks: {
+
+    /* ── FÁCIL: una sola operación, x en papel protagonista ─── */
+    facil: [
+      {
+        cat: '🚌 Transporte',
+        vars(){ const p=_ri(3,8), t=_ri(2,6), d=p*t; return {p,t,d}; },
+        text({p,t,d}){ return `Un autobús lleva <strong>${p} pasajeros</strong> por viaje.<br>
+          Siendo <strong>x el número de viajes</strong>, ha transportado <strong>${d} pasajeros</strong> en total.<br>
+          Escribe la ecuación.`; },
+        target({p}){ return `${p}*x`; },
+        rhs({d}){ return d; },
+        hint: 'Pasajeros por viaje × número de viajes = total.'
+      },
+      {
+        cat: '🍎 Mercado',
+        vars(){ const u=_ri(4,12), pu=_ri(2,9), tot=u*pu; return {u,pu,tot}; },
+        text({u,pu,tot}){ return `Una cesta tiene <strong>${u} manzanas</strong>.<br>
+          Siendo <strong>x el precio de cada manzana</strong>, la cesta cuesta <strong>${tot}€</strong> en total.<br>
+          Escribe la ecuación.`; },
+        target({u}){ return `${u}*x`; },
+        rhs({tot}){ return tot; },
+        hint: 'Precio unitario × cantidad = total.'
+      },
+      {
+        cat: '📏 Geometría',
+        vars(){ const l=_ri(3,15), p=4*l; return {l,p}; },
+        text({p}){ return `El perímetro de un cuadrado mide <strong>${p} cm</strong>.<br>
+          Siendo <strong>x la longitud de un lado</strong>, escribe la ecuación que relaciona el lado con el perímetro.`; },
+        target(){ return `4*x`; },
+        rhs({p}){ return p; },
+        hint: 'Un cuadrado tiene 4 lados iguales: P = 4·lado.'
+      },
+      {
+        cat: '🏃 Atletismo',
+        vars(){ const v=_ri(4,12), t=_ri(2,6), d=v*t; return {v,t,d}; },
+        text({t,d}){ return `Una corredora mantiene velocidad constante durante <strong>${t} horas</strong>
+          y recorre <strong>${d} km</strong>.<br>
+          Siendo <strong>x su velocidad en km/h</strong>, escribe la ecuación.`; },
+        target({t}){ return `${t}*x`; },
+        rhs({d}){ return d; },
+        hint: 'Distancia = velocidad × tiempo.'
+      },
+      {
+        cat: '🎟️ Entradas',
+        vars(){ const n=_ri(3,8), pe=_ri(5,15), tot=n*pe; return {n,pe,tot}; },
+        text({n,tot}){ return `${n} amigos van al cine y pagan <strong>${tot}€</strong> en total.<br>
+          Siendo <strong>x el precio de una entrada</strong>, escribe la ecuación.`; },
+        target({n}){ return `${n}*x`; },
+        rhs({tot}){ return tot; },
+        hint: 'Precio × número de entradas = total.'
+      },
+      {
+        cat: '🚲 Ciclismo',
+        vars(){ const km=_ri(30,120), h=_ri(2,5), v=km/h; return {km,h,v}; },
+        text({km,h}){ return `Un ciclista recorre <strong>${km} km</strong> en <strong>${h} horas</strong>.<br>
+          Siendo <strong>x su velocidad media en km/h</strong>, escribe la ecuación.`; },
+        target({h}){ return `${h}*x`; },
+        rhs({km}){ return km; },
+        hint: 'Velocidad × tiempo = distancia.'
+      },
+    ],
+
+    /* ── NORMAL: término independiente + término con x ───────── */
+    normal: [
+      {
+        cat: '🪙 Ahorro',
+        vars(){ const ya=_ri(20,80), sem=_ri(5,20), s=_ri(4,10), meta=ya+sem*s; return {ya,sem,meta}; },
+        text({ya,sem,meta}){ return `María tiene <strong>${ya}€ ahorrados</strong> y cada semana ahorra <strong>${sem}€</strong> más.<br>
+          Siendo <strong>x el número de semanas</strong>, quiere llegar a <strong>${meta}€</strong>.<br>
+          Escribe la ecuación.`; },
+        target({ya,sem}){ return `${ya}+${sem}*x`; },
+        rhs({meta}){ return meta; },
+        hint: 'Ahorro inicial + ahorro semanal × semanas = meta.'
+      },
+      {
+        cat: '🚗 Gasolinera',
+        vars(){ const base=_ri(10,25), pL=_ri(1,2), L=_ri(10,40), tot=base+pL*L; return {base,pL,L,tot}; },
+        text({base,pL,tot}){ return `Repostar tiene una tarifa fija de <strong>${base}€</strong> más <strong>${pL}€ por litro</strong>.<br>
+          Siendo <strong>x los litros repostados</strong>, la factura total fue <strong>${tot}€</strong>.<br>
+          Escribe la ecuación.`; },
+        target({base,pL}){ return `${base}+${pL}*x`; },
+        rhs({tot}){ return tot; },
+        hint: 'Tarifa fija + precio por litro × litros = total.'
+      },
+      {
+        cat: '📦 Almacén',
+        vars(){ const extra=_ri(2,8), pc=_ri(3,10), n=_ri(2,7), tot=extra+pc*n; return {extra,pc,tot}; },
+        text({extra,pc,tot}){ return `Un almacén tiene <strong>${extra} paquetes sueltos</strong> y varias cajas
+          con <strong>${pc} paquetes</strong> cada una.<br>
+          Siendo <strong>x el número de cajas</strong>, hay <strong>${tot} paquetes</strong> en total.<br>
+          Escribe la ecuación.`; },
+        target({extra,pc}){ return `${extra}+${pc}*x`; },
+        rhs({tot}){ return tot; },
+        hint: 'Paquetes sueltos + paquetes por caja × número de cajas = total.'
+      },
+      {
+        cat: '🏊 Piscina',
+        vars(){ const llena=_ri(3,8), fuga=_ri(1,3), h=_ri(2,5), rest=(llena-fuga)*h; return {llena,fuga,h,rest}; },
+        text({llena,fuga,rest}){ return `Una piscina se llena a <strong>${llena} m³/h</strong> pero pierde <strong>${fuga} m³/h</strong> por una fuga.<br>
+          Siendo <strong>x el número de horas</strong>, hay <strong>${rest} m³</strong> acumulados.<br>
+          Escribe la ecuación.`; },
+        target({llena,fuga}){ return `(${llena}-${fuga})*x`; },
+        rhs({rest}){ return rest; },
+        hint: '(Entrada − fuga) × horas = agua acumulada.'
+      },
+      {
+        cat: '🎂 Cumpleaños',
+        vars(){ const ahora=_ri(8,18), futura=ahora+_ri(3,10); return {ahora,futura}; },
+        text({ahora,futura}){ return `Pedro tiene ahora <strong>${ahora} años</strong>.<br>
+          Siendo <strong>x los años que faltan</strong>, tendrá <strong>${futura} años</strong>.<br>
+          Escribe la ecuación.`; },
+        target({ahora}){ return `${ahora}+x`; },
+        rhs({futura}){ return futura; },
+        hint: 'Edad actual + años que pasan = edad futura.'
+      },
+      {
+        cat: '📱 Plan de datos',
+        vars(){ const base=_ri(5,15), pGB=_ri(2,5), GB=_ri(3,10), tot=base+pGB*GB; return {base,pGB,tot}; },
+        text({base,pGB,tot}){ return `Un plan de móvil cuesta <strong>${base}€/mes</strong> de cuota fija
+          más <strong>${pGB}€ por cada GB extra</strong>.<br>
+          Siendo <strong>x los GB extra consumidos</strong>, la factura fue <strong>${tot}€</strong>.<br>
+          Escribe la ecuación.`; },
+        target({base,pGB}){ return `${base}+${pGB}*x`; },
+        rhs({tot}){ return tot; },
+        hint: 'Cuota fija + precio por GB × GB consumidos = factura.'
+      },
+    ],
+
+    /* ── DIFÍCIL: dos términos con x, paréntesis, relaciones ─── */
+    dificil: [
+      {
+        cat: '👥 Edades',
+        vars(){ const dif=_ri(2,10), luis=_ri(8,20), suma=2*luis+dif; return {dif,luis,suma}; },
+        text({dif,suma}){ return `Ana tiene <strong>${dif} años más que Luis</strong>.<br>
+          Siendo <strong>x la edad de Luis</strong>, la suma de las edades de ambos es <strong>${suma}</strong>.<br>
+          Escribe la ecuación (la edad de Ana también se expresa con x).`; },
+        target({dif}){ return `x+(x+${dif})`; },
+        rhs({suma}){ return suma; },
+        hint: 'Luis = x, Ana = x + diferencia. Suma ambas edades.'
+      },
+      {
+        cat: '💶 Reparto desigual',
+        vars(){ const k=_ri(2,4), b=_ri(5,20), xv=_ri(10,30), tot=xv+(k*xv+b); return {k,b,tot}; },
+        text({k,b,tot}){ return `Se reparten <strong>${tot}€</strong> entre dos personas.<br>
+          Siendo <strong>x la parte menor</strong>, la parte mayor es <strong>${k} veces x más ${b}€</strong>.<br>
+          Escribe la ecuación con las dos partes.`; },
+        target({k,b}){ return `x+(${k}*x+${b})`; },
+        rhs({tot}){ return tot; },
+        hint: 'Parte menor + parte mayor = total. Parte mayor = k·x + extra.'
+      },
+      {
+        cat: '🚂 Trenes opuestos',
+        vars(){ const v1=_ri(60,110), v2=_ri(40,90), t=_ri(1,4), d=(v1+v2)*t; return {v1,v2,t,d}; },
+        text({v1,v2,d}){ return `Dos trenes salen en sentidos opuestos desde la misma estación:
+          uno a <strong>${v1} km/h</strong> y otro a <strong>${v2} km/h</strong>.<br>
+          Siendo <strong>x el número de horas</strong> transcurridas, están separados <strong>${d} km</strong>.<br>
+          Escribe la ecuación.`; },
+        target({v1,v2}){ return `(${v1}+${v2})*x`; },
+        rhs({d}){ return d; },
+        hint: 'Distancia total = (v₁ + v₂) × tiempo. Los trenes se alejan sumando velocidades.'
+      },
+      {
+        cat: '🏗️ Dos cuadrillas',
+        vars(){ const r1=_ri(2,6), r2=_ri(1,4), d=_ri(3,8), obra=(r1+r2)*d; return {r1,r2,d,obra}; },
+        text({r1,r2,obra}){ return `Dos cuadrillas trabajan juntas: la primera hace <strong>${r1} m²/día</strong>
+          y la segunda <strong>${r2} m²/día</strong>.<br>
+          Siendo <strong>x el número de días</strong> que trabajan juntas, terminan <strong>${obra} m²</strong>.<br>
+          Escribe la ecuación.`; },
+        target({r1,r2}){ return `(${r1}+${r2})*x`; },
+        rhs({obra}){ return obra; },
+        hint: '(Ritmo 1 + Ritmo 2) × días = obra total.'
+      },
+      {
+        cat: '🏡 Alquiler',
+        vars(){ const dep=_ri(200,600), men=_ri(300,700), m=_ri(3,12), tot=dep+men*m; return {dep,men,m,tot}; },
+        text({dep,men,tot}){ return `Alquilar un piso requiere pagar una fianza de <strong>${dep}€</strong>
+          más una mensualidad de <strong>${men}€</strong>.<br>
+          Siendo <strong>x el número de mensualidades</strong> pagadas, el total abonado es <strong>${tot}€</strong>.<br>
+          Escribe la ecuación.`; },
+        target({dep,men}){ return `${dep}+${men}*x`; },
+        rhs({tot}){ return tot; },
+        hint: 'Fianza + mensualidad × número de meses = total pagado.'
+      },
+      {
+        cat: '⚗️ Mezcla de precios',
+        vars(){ const p1=_ri(3,8), p2=_ri(10,20), n=_ri(2,6), tot=p1*n+p2*n; return {p1,p2,n,tot}; },
+        text({p1,p2,tot}){ return `Se compran dos tipos de producto: uno a <strong>${p1}€/kg</strong>
+          y otro a <strong>${p2}€/kg</strong>.<br>
+          Siendo <strong>x los kg de cada tipo</strong> (misma cantidad de ambos), el gasto total es <strong>${tot}€</strong>.<br>
+          Escribe la ecuación.`; },
+        target({p1,p2}){ return `(${p1}+${p2})*x`; },
+        rhs({tot}){ return tot; },
+        hint: '(Precio 1 + Precio 2) × cantidad = gasto total.'
+      },
+    ]
+  },
+
+  /* ══════════════════════════════════════════════════════════════
+     RENDER
+  ══════════════════════════════════════════════════════════════ */
+  render(){
+    const uid  = 'ctx'+Date.now();
+    this._uid  = uid;
+    const dif  = (typeof ENGINE.getDifficulty==='function')
+                  ? ENGINE.getDifficulty() : 'normal';
+    const bank = this._banks[dif] || this._banks.normal;
+    const tpl  = bank[Math.floor(Math.random()*bank.length)];
+    const vars = tpl.vars();
+    const tgt  = tpl.target(vars);
+    const rhs  = tpl.rhs(vars);
+
+    this._state = { tgt, rhs, vars, expr:'', desc:`Plantear (${dif}): ${tpl.cat}` };
+    const st = this._state;
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+<style>
+  .ctx-wrap{background:#fff;border:2px solid #74c0fc;border-left:6px solid #1971c2;border-radius:12px;overflow:hidden;font-family:inherit}
+  .ctx-top{background:linear-gradient(135deg,#1971c2,#6741d9);padding:18px 20px;color:#fff}
+  .ctx-cat{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;opacity:.8;margin-bottom:6px}
+  .ctx-prob{font-size:1rem;line-height:1.75;font-weight:400}
+  .ctx-prob strong{font-weight:700;color:#ffd43b}
+  .ctx-mid{padding:16px 18px 10px}
+  .ctx-instr{font-size:.82rem;color:#495057;margin-bottom:8px;font-weight:600}
+  .ctx-rhs-pill{display:inline-block;background:#e7f5ff;border:1.5px solid #74c0fc;border-radius:6px;padding:4px 12px;font-size:1rem;font-weight:700;color:#1971c2;margin-bottom:10px}
+  .ctx-screen{background:#1e1e2f;border-radius:8px;padding:11px 16px;text-align:center;min-height:52px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+  .ctx-disp{font-family:"Cambria Math","Times New Roman",serif;font-size:1.95rem;letter-spacing:2px;color:#00d2d3;min-width:60px}
+  .ctx-disp i{color:#ff9ff3;font-style:italic;margin:0 1px}
+  .ctx-rhs-live{color:#74c0fc;font-size:1.35rem;margin-left:8px}
+  .ctx-kbd{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:#353b48;padding:9px;border-radius:8px}
+  .ctx-k{background:#2f3640;border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:9px 0;font-size:1.05rem;font-weight:700;color:#fff;cursor:pointer;transition:.1s;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 rgba(0,0,0,.3);user-select:none}
+  .ctx-k:active{transform:translateY(2px);box-shadow:none}
+  .ctx-k.op{color:#feca57;background:#3d3d3d}
+  .ctx-k.vr{color:#ff9ff3;background:#3d3d3d}
+  .ctx-k.dl{background:#e74c3c;color:#fff}
+  .ctx-k.cl{background:#636e72;color:#fff}
+  .ctx-footer{padding:8px 18px 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .ctx-hint-btn{background:transparent;border:1px dashed #adb5bd;color:#868e96;padding:4px 12px;border-radius:6px;font-size:.78rem;cursor:pointer;transition:.2s}
+  .ctx-hint-btn:hover{background:#f1f3f5;color:#495057}
+  .ctx-hintbox{display:none;margin:0 18px 10px;padding:9px 13px;background:#fff9db;border:1px solid #ffd43b;border-radius:8px;font-size:.82rem;color:#7c4a00;line-height:1.55}
+  .ctx-tip{font-size:.72rem;color:#adb5bd}
+</style>
+<div class="ctx-wrap">
+  <div class="ctx-top">
+    <div class="ctx-cat">${tpl.cat}</div>
+    <div class="ctx-prob" id="${uid}-prob"></div>
+  </div>
+  <div class="ctx-mid">
+    <div class="ctx-instr">Escribe el <strong>lado izquierdo</strong> de la ecuación — el lado derecho ya está fijo:</div>
+    <div class="ctx-rhs-pill">= ${rhs}</div>
+    <div class="ctx-screen">
+      <div class="ctx-disp" id="${uid}-disp"><span style="color:#4d5f7a;font-size:1.1rem">escribe aquí…</span></div>
+    </div>
+    <div class="ctx-kbd" id="${uid}-kbd"></div>
+  </div>
+  <div class="ctx-hintbox" id="${uid}-hintbox">${tpl.hint}</div>
+  <div class="ctx-footer">
+    <button class="ctx-hint-btn" id="${uid}-hintbtn">💡 Pista</button>
+    <span class="ctx-tip">Usa x para la incógnita · ej: <em>3*x+5</em></span>
+  </div>
+</div>`;
+
+    wrap.querySelector(`#${uid}-prob`).innerHTML = tpl.text(vars);
+
+    const disp = wrap.querySelector(`#${uid}-disp`);
+    const updateDisp = () => {
+      disp.innerHTML = st.expr
+        ? st.expr.replace(/x/g,'<i>x</i>') + `<span class="ctx-rhs-live"> = ${rhs}</span>`
+        : '<span style="color:#4d5f7a;font-size:1.1rem">escribe aquí…</span>';
+    };
+
+    const keyDefs = [
+      {v:'7'},{v:'8'},{v:'9'},{v:'+',c:'op'},
+      {v:'4'},{v:'5'},{v:'6'},{v:'-',c:'op'},
+      {v:'1'},{v:'2'},{v:'3'},{v:'·',c:'op'},
+      {v:'(',c:'op'},{v:'0'},{v:')',c:'op'},{v:'/',c:'op'},
+      {v:'x',c:'vr',span:2},{v:'²',c:'op'},
+      {v:'__del',label:'⌫',c:'dl'},{v:'__clr',label:'C',c:'cl'}
+    ];
+    const kbdEl = wrap.querySelector(`#${uid}-kbd`);
+    keyDefs.forEach(k=>{
+      const btn=document.createElement('div');
+      btn.className='ctx-k'+(k.c?' '+k.c:'');
+      if(k.span) btn.style.gridColumn='span '+k.span;
+      btn.textContent=k.label||k.v;
+      btn.addEventListener('click',()=>{
+        if(k.v==='__del')      st.expr=st.expr.slice(0,-1);
+        else if(k.v==='__clr') st.expr='';
+        else                   st.expr+=k.v;
+        updateDisp();
+      });
+      kbdEl.appendChild(btn);
+    });
+
+    wrap.querySelector(`#${uid}-hintbtn`).addEventListener('click',()=>{
+      const hb=wrap.querySelector(`#${uid}-hintbox`);
+      hb.style.display=hb.style.display==='block'?'none':'block';
+    });
+
+    return wrap;
+  },
+
+  _evalExpr(expr, xv){
+    let p=expr.replace(/·/g,'*').replace(/²/g,'**2')
+              .replace(/(\d)x/g,'$1*x').replace(/(\d)\(/g,'$1*(')
+              .replace(/x\(/g,'x*(').replace(/\)x/g,')*x')
+              .replace(/x/g,`(${xv})`);
+    try{ const r=new Function('return '+p)(); return(isNaN(r)||!isFinite(r))?null:r; }
+    catch(e){ return null; }
+  },
+
+  isCorrect(userAns){
+    const t1=3.7, t2=-5.3;
+    const u1=this._evalExpr(userAns,t1), u2=this._evalExpr(userAns,t2);
+    const c1=this._evalExpr(this._state.tgt,t1), c2=this._evalExpr(this._state.tgt,t2);
+    return u1!==null&&u2!==null&&Math.abs(u1-c1)<0.001&&Math.abs(u2-c2)<0.001;
+  },
+
+  getUserAnswer(){    return this._state.expr||'(vacío)'; },
+  getCorrectAnswer(){ return this._state.tgt; },
+  getDescription(){   return this._state.desc; }
+});
+</script>
+
+<!-- ============================================================
+     BLOQUE 10: CAJA FUERTE — ESCÁNER DE SOLUCIONES
+     Selecciona la llave (valor de x) que abre la caja.
+     Muestra verificación visual paso a paso.
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid: null,
+
+  render: function(){
+    const uid = 'cf2'+Date.now();
+    this._uid = uid;
+
+    const corrX = (()=>{ let x=Math.floor(Math.random()*11)-5; return x===0?3:x; })();
+    const a = (Math.floor(Math.random()*4)+2)*(Math.random()>.5?1:-1);
+    const b = (Math.floor(Math.random()*15)+1)*(Math.random()>.5?1:-1);
+    const c = a*corrX+b;
+    const sign = n => n<0?`- ${Math.abs(n)}`:`+ ${n}`;
+    let w1=corrX+(Math.random()>.5?1:-1);
+    let w2=-corrX; if(w2===corrX||w2===w1) w2=corrX+2;
+    const keys=[corrX,w1,w2].sort(()=>Math.random()-.5);
+
+    this._state = { a,b,c,corrX,keys,selected:null,solved:false,
+      desc:`Caja Fuerte: ${a}x ${sign(b)} = ${c}` };
+    const st = this._state;
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+<style>
+  .cf2-wrap{background:#2f3640;border:4px solid #485460;border-radius:14px;overflow:hidden;font-family:inherit}
+  .cf2-screen{background:#000;border-bottom:3px solid #485460;padding:18px;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:border-color .4s,box-shadow .4s}
+  .cf2-lock{position:absolute;top:10px;right:14px;font-size:1.8rem;transition:.3s}
+  .cf2-eq{font-size:1.9rem;color:#0fb9b1;transition:color .3s;font-family:"Times New Roman",serif;min-height:48px}
+  .cf2-keys{padding:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;background:#353b48}
+  .cf2-key{background:linear-gradient(145deg,#dcdde1,#718093);border:2px solid #2f3640;color:#1e272e;padding:12px 22px;font-size:1.3rem;font-weight:700;border-radius:8px;cursor:pointer;transition:.2s;box-shadow:0 4px 0 #485460;font-family:"Courier New",monospace}
+  .cf2-key:hover{transform:translateY(2px);box-shadow:0 2px 0 #485460}
+  .cf2-key.sel{border-color:#0fb9b1;box-shadow:0 0 12px #0fb9b1}
+  .cf2-hint{text-align:center;padding:10px;font-size:.85rem;color:#a4b0be;background:#2f3640}
+  .cf2-shake{animation:cf2shake .5s cubic-bezier(.36,.07,.19,.97) both}
+  @keyframes cf2shake{10%,90%{transform:translate3d(-2px,0,0)}20%,80%{transform:translate3d(4px,0,0)}30%,50%,70%{transform:translate3d(-8px,0,0)}40%,60%{transform:translate3d(8px,0,0)}}
+  .cf2-unlock{animation:cf2unlock 1s ease-out forwards}
+  @keyframes cf2unlock{0%{box-shadow:inset 0 0 15px rgba(255,255,255,.1)}50%{box-shadow:inset 0 0 40px #20bf6b,0 0 20px #20bf6b;border-color:#20bf6b}100%{box-shadow:inset 0 0 15px rgba(255,255,255,.1);border-color:#20bf6b}}
+</style>
+<div class="cf2-wrap">
+  <div class="cf2-screen" id="${uid}-screen">
+    <div class="cf2-lock" id="${uid}-lock">🔒</div>
+    <div class="cf2-eq"   id="${uid}-eq"></div>
+  </div>
+  <div class="cf2-keys"  id="${uid}-keys"></div>
+  <div class="cf2-hint">Selecciona el valor de x que hace verdadera la igualdad</div>
+</div>`;
+
+    const eqEl     = wrap.querySelector(`#${uid}-eq`);
+    const screenEl = wrap.querySelector(`#${uid}-screen`);
+    const lockEl   = wrap.querySelector(`#${uid}-lock`);
+    const keysEl   = wrap.querySelector(`#${uid}-keys`);
+
+    const renderEq = (selVal) => {
+      let s = selVal===null
+        ? `${a}x ${sign(b)} = ${c}`
+        : `${a}(${selVal}) ${sign(b)} = ${c}`;
+      eqEl.innerHTML = `$$${s}$$`;
+      if(window.MathJax) MathJax.typesetPromise([eqEl]).catch(()=>{});
+    };
+
+    keys.forEach(kv=>{
+      const btn=document.createElement('button');
+      btn.className='cf2-key';
+      btn.textContent=`x = ${kv}`;
+      btn.addEventListener('click',()=>{
+        if(st.solved) return;
+        st.selected=kv;
+        keysEl.querySelectorAll('.cf2-key').forEach(b=>b.classList.remove('sel'));
+        btn.classList.add('sel');
+        renderEq(kv);
+
+        // Verificación visual interna (no envía al motor — eso lo hace el botón ENGINE)
+        const lv = a*kv+b;
+        const ok = lv===c;
+        setTimeout(()=>{
+          const mid = a*kv;
+          let s2 = `${mid} ${sign(b)} = ${c}`;
+          eqEl.innerHTML = `$$${s2}$$<br><small style="color:#a4b0be;font-size:.9rem">↓</small><br>$$${lv} ${ok?'=':'\\neq'} ${c}$$`;
+          if(window.MathJax) MathJax.typesetPromise([eqEl]).catch(()=>{});
+          if(ok){
+            eqEl.style.color='#20bf6b';
+            lockEl.textContent='🔓';
+            screenEl.classList.add('cf2-unlock');
+            st.solved=true;
+          } else {
+            eqEl.style.color='#eb3b5a';
+            screenEl.classList.remove('cf2-shake');
+            void screenEl.offsetWidth;
+            screenEl.classList.add('cf2-shake');
+            setTimeout(()=>{
+              st.selected=null;
+              keysEl.querySelectorAll('.cf2-key').forEach(b=>b.classList.remove('sel'));
+              eqEl.style.color='#0fb9b1';
+              renderEq(null);
+            },2000);
+          }
+        },300);
+      });
+      keysEl.appendChild(btn);
+    });
+
+    renderEq(null);
+    return wrap;
+  },
+
+  getUserAnswer:   function(){ const s=this._state; return s.selected!==null?`x = ${s.selected}`:'(sin selección)'; },
+  getCorrectAnswer:function(){ return `x = ${this._state.corrX}`; },
+  getDescription:  function(){ return this._state.desc; }
+});
+</script>
+
+
+<!-- ============================================================
+     BLOQUE 11: RÍO DE LAS ECUACIONES
+     Fichas en dos orillas. Clic para cruzar (cambia signo) o fusionar.
+     Cuando queda 1x a un lado y N al otro → "Despejar" → resultado.
+     Evaluable: la respuesta es el x final tras despejar.
+     ============================================================ -->
+<script>
+ENGINE.registerBlock({
+  _state: {},
+  _uid:   null,
+
+  render: function(){
+    const uid = 'rio'+Date.now();
+    this._uid = uid;
+
+    // Generar ecuación ax + b = cx + d con solución entera
+    const xSol = Math.floor(Math.random()*9)-4;
+    let a=Math.floor(Math.random()*4)+2; if(Math.random()>.5)a*=-1;
+    let c=Math.floor(Math.random()*3)+1; if(Math.random()>.5)c*=-1; if(a===c)c=a>0?a-1:a+1;
+    let n1=Math.floor(Math.random()*10)+1; if(Math.random()>.5)n1*=-1;
+    let n2=Math.floor(Math.random()*10)+1; if(Math.random()>.5)n2*=-1;
+    const rNum = (a*xSol)+n1+n2-(c*xSol);
+
+    this._state = {
+      xSol, a, c, n1, n2, rNum,
+      terms:[], tctr:0, selId:null, animating:false,
+      finalX:null, solved:false,
+      desc:`Río: ${a}x ${n1>=0?'+':''} ${n1} ${n2>=0?'+':''} ${n2} = ${c>=0?'':''} ${c}x ${rNum>=0?'+':''} ${rNum}`
+    };
+    const st = this._state;
+
+    // ── DOM ──────────────────────────────────────────────────────────────
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+<style>
+  .rio-wrap{background:#fff;border:3px solid #4a69bd;border-radius:14px;overflow:hidden;font-family:inherit}
+  .rio-header{background:#4a69bd;padding:12px 16px;color:#fff;font-weight:700;font-size:.95rem;text-align:center}
+  .rio-sub{font-size:.78rem;opacity:.85;margin-top:3px;font-weight:400}
+  .rio-scene{display:flex;height:260px;position:relative;background:#e0d3b8;overflow:hidden}
+  .rio-bank{flex:1;padding:14px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:10px;position:relative;z-index:2;transition:background .2s,box-shadow .2s;cursor:default}
+  .rio-bank.target{background:rgba(241,196,15,.25);box-shadow:inset 0 0 12px rgba(241,196,15,.6);cursor:pointer}
+  .rio-river{width:100px;background:#4a69bd;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    box-shadow:inset 8px 0 12px rgba(0,0,0,.2),inset -8px 0 12px rgba(0,0,0,.2);
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(255,255,255,.12) 18px,rgba(255,255,255,.12) 36px);
+    animation:rioflow 2.5s linear infinite}
+  @keyframes rioflow{to{background-position:0 72px}}
+  .rio-bridge{background:rgba(255,255,255,.9);padding:8px 16px;border-radius:7px;font-weight:700;font-size:1.8rem;color:#2c3e50;box-shadow:0 3px 8px rgba(0,0,0,.3);text-align:center}
+  .rio-term{padding:9px 15px;border-radius:7px;font-size:1.25rem;font-weight:700;color:#fff;cursor:pointer;user-select:none;box-shadow:0 4px 0 rgba(0,0,0,.2);transition:transform .15s,filter .15s,box-shadow .15s;border:3px solid transparent}
+  .rio-term-x{background:#e58e26}.rio-term-n{background:#8e44ad;border-radius:50px}
+  .rio-term-pos{border-color:#2ecc71;box-shadow:0 0 10px rgba(46,204,113,.6),0 4px 0 rgba(0,0,0,.2)}
+  .rio-term-neg{border-color:#e74c3c;box-shadow:0 0 10px rgba(231,76,60,.6),0 4px 0 rgba(0,0,0,.2)}
+  .rio-term:hover{transform:translateY(-3px);filter:brightness(1.1)}
+  .rio-term.rio-sel{transform:scale(1.1) translateY(-4px);box-shadow:0 0 16px #f1c40f,0 8px 0 rgba(0,0,0,.2);border-color:#f1c40f;animation:riosel .9s infinite alternate}
+  @keyframes riosel{from{filter:brightness(1)}to{filter:brightness(1.3)}}
+  .rio-term.rio-merge{box-shadow:0 0 14px #27ae60;border-color:#27ae60;animation:riomrg .8s infinite alternate}
+  @keyframes riomrg{from{box-shadow:0 0 8px #27ae60}to{box-shadow:0 0 22px #27ae60}}
+  .rio-ctrl{background:#f0f4ff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .rio-fb{font-size:.82rem;font-weight:600;color:#4a69bd;flex:1;min-width:160px}
+  .rio-fb.ok{color:#27ae60}.rio-fb.err{color:#e74c3c}
+  .rio-btn-solve{padding:8px 20px;background:#27ae60;color:#fff;border:none;border-radius:50px;font-weight:700;font-size:.9rem;cursor:pointer;display:none;transition:.2s}
+  .rio-btn-solve:hover{background:#219a52}
+  .rio-solve-scene{display:none;height:140px;background:#fff;border-top:2px solid #e0e0e0;align-items:center;justify-content:center;position:relative;font-size:2.8rem;font-weight:700;color:#2c3e50}
+  .rio-final{opacity:0;transition:opacity .8s;color:#27ae60;text-shadow:1px 1px 8px rgba(39,174,96,.3)}
+  .rio-fly{position:fixed!important;z-index:500!important;pointer-events:none;margin:0!important;transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+</style>
+<div class="rio-wrap">
+  <div class="rio-header">🏞️ El Río de las Ecuaciones
+    <div class="rio-sub">Clic en una ficha → clic en la orilla opuesta para cruzarla (cambia signo) · clic en ficha igual para fusionar</div>
+  </div>
+  <div class="rio-scene">
+    <div class="rio-bank" id="${uid}-BL"></div>
+    <div class="rio-river"><div class="rio-bridge">=</div></div>
+    <div class="rio-bank" id="${uid}-BR"></div>
+  </div>
+  <div class="rio-solve-scene" id="${uid}-solve">
+    <div class="rio-final" id="${uid}-final"></div>
+  </div>
+  <div class="rio-ctrl">
+    <div class="rio-fb" id="${uid}-fb">Selecciona una ficha para empezar.</div>
+    <button class="rio-btn-solve" id="${uid}-btnsolve">🔑 Despejar x</button>
+  </div>
+</div>`;
+
+    // ── State helpers ─────────────────────────────────────────────────────
+    const addT=(type,val,side)=>{ if(val!==0) st.terms.push({id:st.tctr++,type,val,side}); };
+    const fmtT=(val,type)=>{ const s=val<0?'-':'+'; const a2=Math.abs(val); return `${s} ${type==='x'?(a2===1?'x':`${a2}x`):a2}`; };
+    const sgnCls=v=>v>=0?'rio-term-pos':'rio-term-neg';
+
+    addT('x',a,'left'); addT('x',c,'right');
+    addT('num',n1,'left'); addT('num',n2,'left');
+    addT('num',rNum,'right');
+
+    // ── Render ────────────────────────────────────────────────────────────
+    const renderAll=()=>{
+      const BL=wrap.querySelector(`#${uid}-BL`);
+      const BR=wrap.querySelector(`#${uid}-BR`);
+      BL.innerHTML=''; BR.innerHTML='';
+      BL.classList.remove('target'); BR.classList.remove('target');
+
+      const sel=st.terms.find(t=>t.id===st.selId);
+      if(sel){
+        const opp = sel.side==='left'?BR:BL;
+        opp.classList.add('target');
+        opp.onclick=()=>crossRiver(sel);
+        const sameBank = sel.side==='left'?BL:BR;
+        sameBank.onclick=null;
+      } else {
+        BL.onclick=null; BR.onclick=null;
+      }
+
+      st.terms.forEach(t=>{
+        const el=document.createElement('div');
+        el.className=`rio-term ${t.type==='x'?'rio-term-x':'rio-term-n'} ${sgnCls(t.val)}`;
+        if(t.id===st.selId) el.classList.add('rio-sel');
+        else if(sel && t.side===sel.side && t.type===sel.type && t.id!==sel.id) el.classList.add('rio-merge');
+        el.textContent=fmtT(t.val,t.type);
+        el.id=`${uid}-t${t.id}`;
+        el.addEventListener('click',e=>{ e.stopPropagation(); handleClick(t.id); });
+        (t.side==='left'?BL:BR).appendChild(el);
+      });
+      checkReady();
+    };
+
+    const setFb=(msg,cls='')=>{
+      const fb=wrap.querySelector(`#${uid}-fb`);
+      fb.textContent=msg; fb.className='rio-fb'+(cls?' '+cls:'');
+    };
+
+    const checkReady=()=>{
+      const btn=wrap.querySelector(`#${uid}-btnsolve`);
+      const lx=st.terms.filter(t=>t.side==='left'&&t.type==='x');
+      const rx=st.terms.filter(t=>t.side==='right'&&t.type==='x');
+      const ln=st.terms.filter(t=>t.side==='left'&&t.type==='num');
+      const rn=st.terms.filter(t=>t.side==='right'&&t.type==='num');
+      const simp=st.terms.length<=2;
+      const sep=(ln.length===0&&rx.length===0)||(lx.length===0&&rn.length===0);
+      if(simp&&sep&&st.terms.length>0){
+        btn.style.display='inline-block';
+        setFb('¡Listo! Pulsa Despejar x.','ok');
+      } else {
+        btn.style.display='none';
+      }
+    };
+
+    // ── Interactions ─────────────────────────────────────────────────────
+    const handleClick=(id)=>{
+      if(st.animating) return;
+      if(st.selId===null){ st.selId=id; setFb('Seleccionado. Clic en orilla opuesta para cruzar, o en ficha igual para fusionar.'); }
+      else if(st.selId===id){ st.selId=null; setFb('Selección cancelada.'); }
+      else {
+        const sel=st.terms.find(t=>t.id===st.selId);
+        const tgt=st.terms.find(t=>t.id===id);
+        if(!sel||!tgt) return;
+        if(sel.side===tgt.side && sel.type===tgt.type){ mergeFly(sel,tgt); return; }
+        else if(sel.side===tgt.side){ setFb('No puedes fusionar x con números.','err'); }
+        else { st.selId=id; }
+      }
+      renderAll();
+    };
+
+    const crossRiver=(sel)=>{
+      if(st.animating) return;
+      st.animating=true; st.selId=null;
+      const el=wrap.querySelector(`#${uid}-t${sel.id}`);
+      if(!el){ st.animating=false; return; }
+      const r0=el.getBoundingClientRect();
+
+      sel.side=sel.side==='left'?'right':'left';
+      sel.val=-sel.val;
+      renderAll();
+      const elNew=wrap.querySelector(`#${uid}-t${sel.id}`);
+      if(!elNew){ st.animating=false; return; }
+      elNew.style.opacity='0';
+      const r1=elNew.getBoundingClientRect();
+
+      const clone=el.cloneNode(true);
+      clone.classList.add('rio-fly');
+      clone.className=clone.className.replace(/rio-term-(pos|neg)/,sgnCls(sel.val));
+      clone.textContent=fmtT(sel.val,sel.type);
+      document.body.appendChild(clone);
+      clone.style.cssText+=`;left:${r0.left}px;top:${r0.top}px;width:${r0.width}px;height:${r0.height}px`;
+      requestAnimationFrame(()=>{
+        clone.style.left=r1.left+'px'; clone.style.top=r1.top+'px';
+      });
+      setTimeout(()=>{ clone.remove(); elNew.style.opacity='1'; st.animating=false; setFb('Cruzado. Signo cambiado.'); checkReady(); },750);
+    };
+
+    const mergeFly=(src,tgt)=>{
+      if(st.animating) return;
+      st.animating=true; st.selId=null;
+      const elS=wrap.querySelector(`#${uid}-t${src.id}`);
+      const elT=wrap.querySelector(`#${uid}-t${tgt.id}`);
+      if(!elS||!elT){ st.animating=false; return; }
+      const r0=elS.getBoundingClientRect();
+      const r1=elT.getBoundingClientRect();
+      elS.style.opacity='0';
+      const clone=elS.cloneNode(true);
+      clone.classList.add('rio-fly');
+      document.body.appendChild(clone);
+      clone.style.cssText+=`;left:${r0.left}px;top:${r0.top}px;width:${r0.width}px;height:${r0.height}px;opacity:1`;
+      requestAnimationFrame(()=>{ clone.style.left=r1.left+'px'; clone.style.top=r1.top+'px'; clone.style.opacity='0'; });
+      setTimeout(()=>{
+        clone.remove();
+        tgt.val+=src.val;
+        st.terms=st.terms.filter(t=>t.id!==src.id);
+        if(tgt.val===0) st.terms=st.terms.filter(t=>t.id!==tgt.id);
+        st.animating=false;
+        setFb('Fusionados.');
+        renderAll();
+      },600);
+    };
+
+    // ── Despejar ──────────────────────────────────────────────────────────
+    wrap.querySelector(`#${uid}-btnsolve`).addEventListener('click',()=>{
+      const xT=st.terms.find(t=>t.type==='x');
+      const nT=st.terms.find(t=>t.type==='num');
+      if(!xT) return;
+      const nv=nT?nT.val:0, coeff=xT.val;
+      const res=Math.round((nv/coeff)*1000)/1000;
+      st.finalX=res; st.solved=true;
+
+      const scene=wrap.querySelector('.rio-scene');
+      const solve=wrap.querySelector(`#${uid}-solve`);
+      const final=wrap.querySelector(`#${uid}-final`);
+      scene.style.display='none';
+      solve.style.display='flex';
+      final.textContent=`x = ${res}`;
+      wrap.querySelector(`#${uid}-btnsolve`).style.display='none';
+      setTimeout(()=>{ final.style.opacity='1'; setFb(`¡Resuelto! x = ${res}. Pulsa "Comprobar respuesta".`,'ok'); },200);
+    });
+
+    renderAll();
+    return wrap;
+  },
+
+  getUserAnswer:   function(){ const s=this._state; return s.solved?`x = ${s.finalX}`:'(no completado)'; },
+  getCorrectAnswer:function(){ return `x = ${this._state.xSol}`; },
+  getDescription:  function(){ return this._state.desc; },
+  isCorrect: function(userAns, correctAns){
+    const p=s=>{const m=s.match(/x\s*=\s*(-?[\d.]+)/);return m?parseFloat(m[1]):NaN;};
+    const u=p(userAns),c=p(correctAns);
+    return !isNaN(u)&&!isNaN(c)&&Math.abs(u-c)<0.01;
+  }
+});
+</script>
+
+
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

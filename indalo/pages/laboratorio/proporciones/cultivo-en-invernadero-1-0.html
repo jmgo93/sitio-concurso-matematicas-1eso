@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Arquitecto de Invernaderos</title>
+    <style>
+        :root {
+            --soil: #8d6e63;
+            --soil-dark: #6d4c41;
+            --glass: #e0f7fa;
+            --frame: #546e7a;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --error: #c0392b;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f1f8e9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CABECERA Y PEDIDO */
+        header {
+            background: #2e7d32;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .order-ticket {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            margin: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .ratio-display {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        /* ZONA DE JUEGO */
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* EL INVERNADERO (GRID) */
+        .greenhouse-frame {
+            background: var(--glass);
+            padding: 15px;
+            border: 10px solid var(--frame);
+            border-radius: 10px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5x4 = 20 huecos */
+            gap: 5px;
+            width: 350px; /* Tamaño fijo para escritorio */
+        }
+
+        .plot {
+            aspect-ratio: 1;
+            background-color: var(--soil);
+            border: 2px solid var(--soil-dark);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            transition: all 0.1s;
+            user-select: none;
+        }
+
+        .plot:hover { filter: brightness(1.1); }
+        .plot:active { transform: scale(0.95); }
+
+        /* HERRAMIENTAS (SEMILLAS) */
+        .tools {
+            display: flex;
+            gap: 20px;
+            background: #eee;
+            padding: 10px 30px;
+            border-radius: 50px;
+        }
+
+        .seed-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .seed-btn.selected {
+            background: white;
+            border-color: #2e7d32;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .seed-icon { font-size: 2rem; }
+        .seed-name { font-weight: bold; font-size: 0.9rem; }
+
+        /* BARRAS DE PROGRESO (VISUALIZACIÓN DE PROPORCIÓN) */
+        .stats-panel {
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .stat-row {
+            margin-bottom: 10px;
+        }
+
+        .progress-track {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s;
+        }
+
+        /* BOTONES DE ACCIÓN */
+        .actions {
+            margin: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .btn-check { background: var(--success); color: white; }
+        .btn-check:hover { background: #219150; }
+
+        .btn-reset { background: var(--warning); color: white; }
+
+        /* FEEDBACK */
+        #message {
+            margin: 0 20px 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        .msg-success { background: #dcedc8; color: #33691e; }
+        .msg-error { background: #ffccbc; color: #bf360c; }
+
+    </style>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
+</head>
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>La Tierra del Indalo</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-container">
+    <header>
+        <h2>🍅 Invernadero Matemático</h2>
+        <p style="margin:0; opacity: 0.9;">Completa el cultivo respetando la proporción.</p>
+    </header>
+
+    <div class="order-ticket">
+        <div>
+            <div style="text-transform: uppercase; font-size: 0.8rem; color:#7f8c8d;">Orden de Producción:</div>
+            <div id="ratio-text" class="ratio-display">Cargando...</div>
+        </div>
+        <div style="text-align: right; font-size: 0.9rem;">
+            Espacio Total: <strong>20 parcelas</strong>
+        </div>
+    </div>
+
+    <div class="game-area">
+        
+        <div class="tools">
+            <div class="seed-btn selected" id="tool-A" onclick="selectTool('A')">
+                <span class="seed-icon" id="icon-A">🍅</span>
+                <span class="seed-name" id="name-A">Tomate</span>
+            </div>
+            <div class="seed-btn" id="tool-B" onclick="selectTool('B')">
+                <span class="seed-icon" id="icon-B">🫑</span>
+                <span class="seed-name" id="name-B">Pimiento</span>
+            </div>
+            <div class="seed-btn" onclick="selectTool('eraser')">
+                <span class="seed-icon">🕳️</span>
+                <span class="seed-name">Borrar</span>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stat-row">
+                <div style="display:flex; justify-content:space-between;">
+                    <span id="label-stat-A">Tomates: 0</span>
+                    <span id="target-stat-A" style="color:#7f8c8d; font-size:0.9rem;">Meta: ?</span>
+                </div>
+                <div class="progress-track"><div id="bar-A" class="progress-fill" style="background:#e74c3c;"></div></div>
+            </div>
+            <div class="stat-row">
+                <div style="display:flex; justify-content:space-between;">
+                    <span id="label-stat-B">Pimientos: 0</span>
+                    <span id="target-stat-B" style="color:#7f8c8d; font-size:0.9rem;">Meta: ?</span>
+                </div>
+                <div class="progress-track"><div id="bar-B" class="progress-fill" style="background:#2ecc71;"></div></div>
+            </div>
+        </div>
+
+        <div class="greenhouse-frame">
+            <div id="grid" class="grid"></div>
+        </div>
+
+    </div>
+
+    <div id="message"></div>
+
+    <div class="actions">
+        <button class="btn-check" onclick="checkSolution()">✅ Enviar Cosecha</button>
+        <button class="btn-reset" onclick="initGame()">🔄 Nuevo Pedido</button>
+    </div>
+
+</div>
+
+<script>
+    // Configuración de Cultivos
+    const CROPS = [
+        { name: "Tomate", icon: "🍅", color: "#e74c3c" },
+        { name: "Pimiento", icon: "🫑", color: "#2ecc71" },
+        { name: "Berenjena", icon: "🍆", color: "#8e44ad" },
+        { name: "Calabacín", icon: "🥒", color: "#16a085" },
+        { name: "Sandía", icon: "🍉", color: "#e84393" },
+        { name: "Melón", icon: "🍈", color: "#f1c40f" }
+    ];
+
+    const TOTAL_PLOTS = 20; // Tamaño fijo del invernadero
+
+    // Estado del juego
+    let state = {
+        cropA: null,
+        cropB: null,
+        ratioA: 0,
+        ratioB: 0,
+        targetA: 0,
+        targetB: 0,
+        selectedTool: 'A', // 'A', 'B' o 'eraser'
+        gridState: [] // Array de 20 posiciones
+    };
+
+    function initGame() {
+        // 1. Limpiar UI
+        document.getElementById('message').style.display = 'none';
+        state.gridState = new Array(TOTAL_PLOTS).fill(null);
+        createGrid();
+
+        // 2. Elegir dos cultivos aleatorios diferentes
+        let idxA = Math.floor(Math.random() * CROPS.length);
+        let idxB = idxA;
+        while(idxB === idxA) idxB = Math.floor(Math.random() * CROPS.length);
+
+        state.cropA = CROPS[idxA];
+        state.cropB = CROPS[idxB];
+
+        // 3. Actualizar herramientas visuales
+        document.getElementById('icon-A').innerText = state.cropA.icon;
+        document.getElementById('name-A').innerText = state.cropA.name;
+        document.getElementById('bar-A').style.backgroundColor = state.cropA.color;
+
+        document.getElementById('icon-B').innerText = state.cropB.icon;
+        document.getElementById('name-B').innerText = state.cropB.name;
+        document.getElementById('bar-B').style.backgroundColor = state.cropB.color;
+
+        // 4. Generar Proporción Válida
+        // Necesitamos que (ratioA + ratioB) sea divisor de 20.
+        // Divisores de 20: 1, 2, 4, 5, 10, 20.
+        // Sumas posibles: 
+        // Suma 2 (1:1)
+        // Suma 4 (1:3, 3:1)
+        // Suma 5 (1:4, 2:3, 3:2, 4:1)
+        // Suma 10 (3:7, 7:3...) -> Más difícil
+        
+        const possibleSums = [2, 4, 5]; 
+        const sum = possibleSums[Math.floor(Math.random() * possibleSums.length)];
+        
+        state.ratioA = Math.floor(Math.random() * (sum - 1)) + 1;
+        state.ratioB = sum - state.ratioA;
+
+        // Calcular Objetivos Reales (Solución)
+        // Ejemplo: Ratio 2:3 en 20 huecos. Suma=5. Multiplicador=20/5=4.
+        // TargetA = 2 * 4 = 8. TargetB = 3 * 4 = 12.
+        const multiplier = TOTAL_PLOTS / sum;
+        state.targetA = state.ratioA * multiplier;
+        state.targetB = state.ratioB * multiplier;
+
+        // 5. Mostrar la orden
+        const text = `Por cada <strong>${state.ratioA}</strong> de ${state.cropA.name}, planta <strong>${state.ratioB}</strong> de ${state.cropB.name}`;
+        document.getElementById('ratio-text').innerHTML = text;
+
+        // Resetear stats
+        updateStats();
+        selectTool('A');
+    }
+
+    function createGrid() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+        for (let i = 0; i < TOTAL_PLOTS; i++) {
+            const div = document.createElement('div');
+            div.className = 'plot';
+            div.dataset.index = i;
+            div.onclick = () => plotClick(i);
+            grid.appendChild(div);
+        }
+    }
+
+    function selectTool(tool) {
+        state.selectedTool = tool;
+        // UI
+        document.getElementById('tool-A').classList.remove('selected');
+        document.getElementById('tool-B').classList.remove('selected');
+        
+        if(tool === 'A') document.getElementById('tool-A').classList.add('selected');
+        if(tool === 'B') document.getElementById('tool-B').classList.add('selected');
+    }
+
+    function plotClick(index) {
+        const div = document.querySelector(`.plot[data-index="${index}"]`);
+        
+        if (state.selectedTool === 'eraser') {
+            state.gridState[index] = null;
+            div.innerText = '';
+        } else if (state.selectedTool === 'A') {
+            state.gridState[index] = 'A';
+            div.innerText = state.cropA.icon;
+        } else if (state.selectedTool === 'B') {
+            state.gridState[index] = 'B';
+            div.innerText = state.cropB.icon;
+        }
+        updateStats();
+    }
+
+    function updateStats() {
+        // Contar
+        let countA = state.gridState.filter(x => x === 'A').length;
+        let countB = state.gridState.filter(x => x === 'B').length;
+
+        // Textos
+        document.getElementById('label-stat-A').innerText = `${state.cropA.name}s: ${countA}`;
+        document.getElementById('label-stat-B').innerText = `${state.cropB.name}s: ${countB}`;
+
+        // Barras (Porcentaje respecto al TOTAL DEL INVERNADERO, no al objetivo, para que vean llenado)
+        // Truco visual: La barra se llena hasta el objetivo.
+        let pctA = (countA / state.targetA) * 100;
+        let pctB = (countB / state.targetB) * 100;
+
+        // Capar al 100% visualmente aunque se pasen
+        if(pctA > 100) pctA = 100;
+        if(pctB > 100) pctB = 100;
+
+        document.getElementById('bar-A').style.width = `${pctA}%`;
+        document.getElementById('bar-B').style.width = `${pctB}%`;
+
+        // Pista visual de meta (Opcional, se puede ocultar para hacerlo más difícil)
+        // Dejaremos la incógnita ? para que calculen ellos, pero las barras ayudan.
+    }
+
+    function checkSolution() {
+        let countA = state.gridState.filter(x => x === 'A').length;
+        let countB = state.gridState.filter(x => x === 'B').length;
+        let empty = state.gridState.filter(x => x === null).length;
+
+        const msg = document.getElementById('message');
+        msg.style.display = 'block';
+        msg.className = '';
+
+        if (empty > 0) {
+            msg.innerText = "⚠️ ¡El invernadero no está completo! Debes llenar las 20 parcelas.";
+            msg.classList.add('msg-error');
+            return;
+        }
+
+        if (countA === state.targetA && countB === state.targetB) {
+            msg.innerHTML = `🎉 ¡EXCELENTE! <br> Has mantenido la proporción perfecta: ${countA} ${state.cropA.name}s y ${countB} ${state.cropB.name}s.`;
+            msg.classList.add('msg-success');
+        } else {
+            // Feedback formativo
+            let feedback = "❌ Algo no cuadra.<br>";
+            
+            if (countA > state.targetA) feedback += `Te sobran ${state.cropA.name}s. `;
+            else if (countA < state.targetA) feedback += `Te faltan ${state.cropA.name}s. `;
+
+            if (countB > state.targetB) feedback += `Te sobran ${state.cropB.name}s.`;
+            else if (countB < state.targetB) feedback += `Te faltan ${state.cropB.name}s.`;
+
+            msg.innerHTML = feedback;
+            msg.classList.add('msg-error');
+        }
+    }
+
+    // Arrancar
+    window.onload = initGame;
+
+</script>
+
+
+
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <div class="tutorial-card__screen">
+        <div class="tutorial-card__glow" aria-hidden="true"></div>
+        <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="tutorial-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+    </div>
+    <figcaption class="tutorial-card__body">
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Este vídeo lo prepararon estudiantes de 1.º de ESO para ayudar a quienes usen esta web en el futuro. No se muestra en la versión de concurso porque incluye imágenes y datos personales de menores.</p>
+    </figcaption>
+</figure>
+
+
+
+<style>
+    
+</style>
+
+<script>
+</script>
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>La Tierra del Indalo</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>

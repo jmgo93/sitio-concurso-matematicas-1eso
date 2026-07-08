@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instrumentos de Evaluación</title>
+
+
+
+<style>
+
+/* SISTEMA DE DISEÑO */
+
+:root{
+--primary:#2A5C82;
+--primary-light:#4A8CB5;
+--secondary:#5BA3B2;
+--accent:#F4A261;
+--bg-body:#ffffff;
+--bg-panel:#F8FAFC;
+--text-dark:#1E293B;
+--text-muted:#64748B;
+--border:#E2E8F0;
+--radius:12px;
+--shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+body{
+font-family:'Open Sans',sans-serif;
+color:var(--text-dark);
+background:transparent;
+margin:0;
+padding:15px;
+box-sizing:border-box;
+}
+
+.container{
+max-width:1000px;
+margin:0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.header{
+border-bottom:2px solid var(--border);
+padding-bottom:15px;
+margin-bottom:30px;
+}
+
+.header h2{
+font-family:'Montserrat',sans-serif;
+color:var(--primary);
+font-size:1.8rem;
+margin:0;
+}
+
+.header p{
+margin:5px 0 0;
+color:var(--text-muted);
+font-size:0.9rem;
+}
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:280px 1fr;
+gap:30px;
+min-height:500px;
+}
+
+.sidebar{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-bottom:40px;
+}
+
+.nav-btn{
+background:white;
+border:1px solid var(--border);
+padding:15px 20px;
+border-radius:var(--radius);
+text-align:left;
+cursor:pointer;
+font-family:'Montserrat',sans-serif;
+font-weight:600;
+color:var(--text-muted);
+transition:all .2s ease;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.nav-btn:hover{
+background:#f1f5f9;
+color:var(--primary);
+transform:translateX(5px);
+}
+
+.nav-btn.active{
+background:var(--primary);
+color:white;
+border-color:var(--primary);
+box-shadow:0 4px 10px rgba(42,92,130,.2);
+}
+
+.btn-icon{
+font-size:1.2rem;
+}
+
+.content-panel{
+background:white;
+border:1px solid var(--border);
+border-radius:var(--radius);
+padding:40px;
+box-shadow:var(--shadow);
+position:relative;
+animation:fadeIn .3s ease-out;
+}
+
+.panel-header{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-bottom:30px;
+border-bottom:1px solid var(--border);
+padding-bottom:20px;
+}
+
+.panel-title h3{
+font-family:'Montserrat',sans-serif;
+font-size:1.5rem;
+color:var(--primary);
+margin:0 0 5px 0;
+}
+
+.panel-subtitle{
+font-family:'Fira Code',monospace;
+font-size:.85rem;
+color:var(--secondary);
+background:#E0F2FE;
+padding:4px 8px;
+border-radius:4px;
+}
+
+.criteria-list{
+list-style:none;
+padding:0;
+margin-bottom:30px;
+}
+
+.criteria-item{
+display:flex;
+gap:15px;
+margin-bottom:15px;
+align-items:baseline;
+}
+
+.code-badge{
+font-family:'Fira Code',monospace;
+background:var(--bg-panel);
+color:var(--primary);
+font-weight:700;
+padding:4px 8px;
+border-radius:4px;
+border:1px solid #cbd5e1;
+font-size:.85rem;
+min-width:90px;
+text-align:center;
+}
+
+.criteria-text{
+font-size:.95rem;
+color:var(--text-dark);
+}
+
+.justification-box{
+background:#FFF7ED;
+border-left:5px solid var(--accent);
+padding:20px;
+border-radius:4px;
+}
+
+.just-title{
+font-weight:700;
+color:#9A3412;
+display:block;
+margin-bottom:5px;
+font-family:'Montserrat',sans-serif;
+font-size:.9rem;
+text-transform:uppercase;
+}
+
+.just-text{
+font-style:italic;
+color:var(--text-dark);
+margin:0;
+}
+
+@media(max-width:800px){
+
+.dashboard-grid{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+flex-direction:row;
+overflow-x:auto;
+padding-bottom:10px;
+}
+
+.nav-btn{
+min-width:200px;
+}
+
+}
+
+</style>
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../assets/site.css">
+<script src="../../navigation.js" defer></script>
+<script src="../../../assets/site.js" defer></script>
+<script src="../../../assets/translate.js?v=20260707" defer></script>
+</head>
+
+<body class="indalo-page">
+<div class="indalo-top-spacer" aria-hidden="true"></div>
+<header class="site-nav" data-indalo-root="../../">
+    <div class="site-nav__bar">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="../../index.html">
+                <span class="site-nav__mark" aria-hidden="true"></span>
+                <span class="site-nav__brandtext">
+                    <strong>Tiendas de Barrio</strong>
+                    <span>Matemáticas · 1.º ESO</span>
+                </span>
+            </a>
+            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <div class="site-lang" data-site-lang>
+                <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__current">ES</span>
+                    <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="site-lang__menu" role="menu"></div>
+            </div>
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="site-subbar">
+        <div class="site-subbar__inner">
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <div class="site-pager"></div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+
+<div class="header">
+<h2>Instrumentos</h2>
+<p>Panel técnico donde se detalla la relación entre instrumentos de evaluación, criterios competenciales y su justificación metodológica.</p>
+</div>
+
+<div class="dashboard-grid">
+
+<div class="sidebar">
+
+<button class="nav-btn active" onclick="showPanel(0,this)">
+<span class="btn-icon">📄</span> Examen Decimales
+</button>
+
+<button class="nav-btn" onclick="showPanel(1,this)">
+<span class="btn-icon">📊</span> Examen Estadística
+</button>
+
+<button class="nav-btn" onclick="showPanel(2,this)">
+<span class="btn-icon">📝</span> Simulacros / Test
+</button>
+
+<button class="nav-btn" onclick="showPanel(3,this)">
+<span class="btn-icon">👥</span> Grupo Interactivo
+</button>
+
+<button class="nav-btn" onclick="showPanel(4,this)">
+<span class="btn-icon">🏪</span> Observación Mercado
+</button>
+
+<button class="nav-btn" onclick="showPanel(5,this)">
+<span class="btn-icon">👀</span> Observación Aula
+</button>
+
+<button class="nav-btn" onclick="showPanel(6,this)">
+<span class="btn-icon">📂</span> Portfolio
+</button>
+
+<button class="nav-btn" onclick="showPanel(7,this)">
+<span class="btn-icon">🎤</span> Presentación Final
+</button>
+
+<button class="nav-btn" onclick="showPanel(8,this)">
+<span class="btn-icon">❓</span> Preguntas Orales
+</button>
+
+<button class="nav-btn" onclick="showPanel(9,this)">
+<span class="btn-icon">🔄</span> Auto/Coevaluación
+</button>
+
+</div>
+
+<div id="content-area"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const instruments=[
+
+{
+title:"Exámenes de Decimales",
+subtitle:"Prueba escrita individual",
+desc:"Evaluación contextualizada de operaciones con números decimales, cálculo de porcentajes y aplicación del IVA en situaciones de compra-venta.",
+criteria:[
+{code:"MAT.1.1.1",text:"Interpretar problemas matemáticos en contextos cotidianos."},
+{code:"MAT.1.1.2",text:"Aplicar estrategias de cálculo con números decimales y porcentajes."},
+{code:"MAT.1.2.1",text:"Comprobar la coherencia de los resultados obtenidos."},
+{code:"MAT.1.8.1",text:"Expresar procesos y resultados utilizando lenguaje matemático adecuado."}
+],
+justification:"Permite comprobar de forma individual el dominio de procedimientos matemáticos básicos necesarios para el desarrollo del proyecto."
+},
+
+{
+title:"Examen de Estadística",
+subtitle:"Prueba escrita",
+desc:"Análisis e interpretación de datos obtenidos durante la simulación de mercado.",
+criteria:[
+{code:"MAT.1.1.1",text:"Interpretar datos en contextos reales."},
+{code:"MAT.1.7.1",text:"Representar información mediante tablas y gráficos."},
+{code:"MAT.1.8.1",text:"Comunicar conclusiones estadísticas."},
+{code:"MAT.1.2.2",text:"Evaluar la coherencia de las conclusiones obtenidas."}
+],
+justification:"Evalúa el paso del dato a la interpretación, fomentando el pensamiento analítico."
+},
+
+{
+title:"Simulacros y Test",
+subtitle:"Entrenamiento evaluativo",
+desc:"Actividades breves para consolidar conceptos y detectar errores frecuentes.",
+criteria:[
+{code:"MAT.1.1.1",text:"Reconocer conceptos matemáticos básicos."},
+{code:"MAT.1.2.1",text:"Identificar errores y verificar resultados."}
+],
+justification:"Instrumento formativo destinado a consolidar conocimientos y detectar dificultades."
+},
+
+{
+title:"Grupo Interactivo",
+subtitle:"Trabajo cooperativo",
+desc:"Resolución de tareas matemáticas mediante interacción entre iguales.",
+criteria:[
+{code:"MAT.1.7.2",text:"Representar información matemática."},
+{code:"MAT.1.8.1",text:"Explicar razonamientos matemáticos oralmente."}
+],
+justification:"Favorece el aprendizaje cooperativo y la verbalización del razonamiento matemático."
+},
+
+{
+title:"Observación Mercado",
+subtitle:"Simulación auténtica",
+desc:"Observación del desempeño durante las jornadas de mercado.",
+criteria:[
+{code:"MAT.1.1.2",text:"Aplicar estrategias matemáticas en contextos reales."},
+{code:"MAT.1.7.1",text:"Utilizar procedimientos matemáticos funcionales."},
+{code:"MAT.1.9.2",text:"Mostrar autonomía y perseverancia."}
+],
+justification:"Instrumento auténtico que integra cálculo, toma de decisiones y habilidades sociales."
+},
+
+{
+title:"Observación Aula",
+subtitle:"Seguimiento del proceso",
+desc:"Observación continua del trabajo del alumnado durante el desarrollo del proyecto.",
+criteria:[
+{code:"MAT.1.9.1",text:"Gestionar emociones y autoconcepto matemático."},
+{code:"MAT.1.9.2",text:"Participar activamente en el aprendizaje."}
+],
+justification:"Evalúa actitudes y participación dentro del proceso de aprendizaje."
+},
+
+{
+title:"Portfolio del Proyecto",
+subtitle:"Evidencias de aprendizaje",
+desc:"Recopilación estructurada de trabajos realizados durante el proyecto.",
+criteria:[
+{code:"MAT.1.7.2",text:"Organizar información matemática."},
+{code:"MAT.1.8.1",text:"Comunicar procesos y conclusiones."}
+],
+justification:"Permite evidenciar el proceso de aprendizaje y la evolución del alumnado."
+},
+
+{
+title:"Presentación Final",
+subtitle:"Producto integrador",
+desc:"Defensa oral del proyecto y explicación de resultados obtenidos.",
+criteria:[
+{code:"MAT.1.8.1",text:"Comunicar ideas matemáticas con claridad."},
+{code:"MAT.1.7.1",text:"Utilizar representaciones matemáticas adecuadas."},
+{code:"MAT.1.2.2",text:"Justificar decisiones basadas en datos."}
+],
+justification:"Desarrolla la competencia comunicativa y la capacidad de argumentar decisiones basadas en evidencias."
+},
+
+{
+title:"Preguntas Orales",
+subtitle:"Evaluación directa",
+desc:"Preguntas realizadas durante la defensa del proyecto.",
+criteria:[
+{code:"MAT.1.3.1",text:"Formular razonamientos matemáticos."},
+{code:"MAT.1.8.2",text:"Utilizar lenguaje matemático en contextos cotidianos."}
+],
+justification:"Permite evaluar comprensión profunda y razonamiento inmediato."
+},
+
+{
+title:"Autoevaluación",
+subtitle:"Metacognición",
+desc:"Reflexión individual y coevaluación entre compañeros.",
+criteria:[
+{code:"MAT.1.9.1",text:"Reflexionar sobre el propio aprendizaje."}
+],
+justification:"Fomenta la conciencia del proceso de aprendizaje y la responsabilidad individual."
+}
+
+];
+
+function showPanel(index,btn){
+
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+
+const data=instruments[index];
+
+const criteriaHtml=data.criteria.map(c=>`
+<li class="criteria-item">
+<span class="code-badge">${c.code}</span>
+<span class="criteria-text">${c.text}</span>
+</li>
+`).join('');
+
+const content=document.getElementById('content-area');
+
+content.innerHTML=`
+
+<div class="content-panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+<h3>${data.title}</h3>
+<p>${data.desc}</p>
+</div>
+
+<span class="panel-subtitle">${data.subtitle}</span>
+
+</div>
+
+<h4 style="font-family:'Montserrat';color:var(--text-muted);margin-bottom:15px;">Criterios asociados</h4>
+
+<ul class="criteria-list">
+${criteriaHtml}
+</ul>
+
+<div class="justification-box">
+<span class="just-title">Justificación pedagógica</span>
+<p class="just-text">${data.justification}</p>
+</div>
+
+</div>
+`;
+
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+showPanel(0,document.querySelector(".nav-btn"));
+});
+
+</script>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__mark" aria-hidden="true"></span>
+            <div class="site-footer__id">
+                <strong>Tiendas de Barrio</strong>
+                <span>Matemáticas · 1.º ESO</span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+    </div>
+</footer>
+<div id="google_translate_element" aria-hidden="true"></div>
+</body>
+</html>
