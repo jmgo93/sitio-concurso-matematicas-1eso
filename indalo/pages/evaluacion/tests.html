@@ -247,14 +247,13 @@
 
 
 
-<script src="../../../assets/data/ltdi-tests.js"></script>
 <script>
-    // --- Respaldo para apertura desde carpeta local ---
+    // --- URL DEL JSON EXTERNO ---
     const JSON_URL = '../../../assets/data/ltdi-tests.json';
     // --- MODO LOCAL: sin envío externo de resultados ---
 
 // Variable global para almacenar los tests descargados
-    let ALL_QUIZZES = window.LTDI_TESTS || {}; 
+    let ALL_QUIZZES = {}; 
 
     // --- LÓGICA DE LA APLICACIÓN ---
     const app = {
@@ -267,11 +266,6 @@
         },
 
         init: function() {
-            if (ALL_QUIZZES && Object.keys(ALL_QUIZZES).length) {
-                this.populateSelector();
-                return;
-            }
-
             // Cargar datos externos
             fetch(JSON_URL)
                 .then(response => {
@@ -285,7 +279,7 @@
                 .catch(err => {
                     console.error(err);
                     const sel = document.getElementById('quizSelector');
-                    sel.innerHTML = '<option disabled>No se pudieron cargar los cuestionarios.</option>';
+                    sel.innerHTML = '<option disabled>Error cargando datos. Revisa la consola.</option>';
                 });
         },
 

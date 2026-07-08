@@ -199,17 +199,6 @@ window.SITE_NAV = {
       "order": 14
     },
     {
-      "id": "laboratorio-fracciones-el-igualador-de-fracciones-2-0",
-      "label": "El Igualador de Fracciones 2.0",
-      "title": "Laboratorio de Equivalencias",
-      "summary": "Actividad interactiva del laboratorio de fracciones.",
-      "group": "Laboratorio",
-      "subgroup": "Fracciones",
-      "tone": "nazar",
-      "path": "pages/laboratorio/fracciones/el-igualador-de-fracciones-2-0.html",
-      "order": 15
-    },
-    {
       "id": "laboratorio-fracciones-el-igualador-de-fracciones-1-0",
       "label": "El Igualador de Fracciones 1.0",
       "title": "Laboratorio de Fracciones 2.0 - Vasos de Agua",
@@ -218,6 +207,17 @@ window.SITE_NAV = {
       "subgroup": "Fracciones",
       "tone": "nazar",
       "path": "pages/laboratorio/fracciones/el-igualador-de-fracciones-1-0.html",
+      "order": 15
+    },
+    {
+      "id": "laboratorio-fracciones-el-igualador-de-fracciones-2-0",
+      "label": "El Igualador de Fracciones 2.0",
+      "title": "Laboratorio de Equivalencias",
+      "summary": "Actividad interactiva del laboratorio de fracciones.",
+      "group": "Laboratorio",
+      "subgroup": "Fracciones",
+      "tone": "nazar",
+      "path": "pages/laboratorio/fracciones/el-igualador-de-fracciones-2-0.html",
       "order": 16
     },
     {
