@@ -118,6 +118,8 @@
         .option-card { padding: 20px 25px; border: 2px solid #f1f5f9; border-radius: 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; background: #fff; min-height: 60px; }
         .option-card:hover { border-color: var(--primary); background: #f8fafc; }
         .option-card.selected { border-color: var(--primary); background: #eef2ff; color: var(--primary); font-weight: 700; }
+        .option-content { width: 100%; }
+        .option-content mjx-container { margin: 0.1rem 0; }
         
         .opt-letter { width: 32px; height: 32px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: 700; color: #64748b; font-size: 0.9rem; flex-shrink: 0; }
         .selected .opt-letter { background: var(--primary); color: white; }
@@ -129,6 +131,15 @@
         .result-item { padding: 15px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #e2e8f0; background: white; }
         .result-item.correct { border-left: 5px solid var(--accent); background: #f0fdf4; }
         .result-item.wrong { border-left: 5px solid #ef4444; background: #fef2f2; }
+        .result-item__status { font-weight: 700; margin-bottom: 8px; color: #334155; }
+        .result-item__question { margin-bottom: 10px; font-size: 1.1rem; }
+        .result-answer-grid { display: grid; gap: 10px; margin-bottom: 10px; }
+        .result-answer { padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; }
+        .result-answer--selected { border-color: #c7d2fe; background: #eef2ff; }
+        .result-answer--correct { border-color: #bbf7d0; background: #f0fdf4; }
+        .result-answer strong { display: block; margin-bottom: 6px; font-size: 0.82rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; }
+        .result-answer__math { color: #1e293b; }
+        .result-answer__math mjx-container { margin: 0.1rem 0; }
         .explanation { margin-top: 10px; padding: 12px; background: #fffbeb; border-radius: 8px; font-size: 0.95rem; color: #92400e; border: 1px solid #fcd34d; }
 
         /* LOADER */
@@ -247,6 +258,7 @@
 
 
 
+<script src="../../../assets/data/ltdi-tests.js"></script>
 <script>
     // --- URL DEL JSON EXTERNO ---
     const JSON_URL = '../../../assets/data/ltdi-tests.json';
@@ -255,7 +267,54 @@
 // Variable global para almacenar los tests descargados
     let ALL_QUIZZES = {}; 
 
+    function getEmbeddedQuizzes() {
+        if (window.LTDI_TESTS && typeof window.LTDI_TESTS === 'object') {
+            return window.LTDI_TESTS;
+        }
+        return null;
+    }
+
     // --- LÓGICA DE LA APLICACIÓN ---
+    function renderOptionContent(content) {
+        return `<div class="option-content">${content}</div>`;
+    }
+
+    function renderResultAnswer(label, content, variant) {
+        const toneClass = variant ? ` result-answer--${variant}` : '';
+        return `
+            <div class="result-answer${toneClass}">
+                <strong>${label}</strong>
+                <div class="result-answer__math">${content}</div>
+            </div>
+        `;
+    }
+
+    function typesetMath(targets) {
+        if (!window.MathJax || typeof window.MathJax.typesetPromise !== 'function') {
+            return Promise.resolve();
+        }
+
+        const nodes = (Array.isArray(targets) ? targets : [targets]).filter(Boolean);
+        if (!nodes.length) {
+            return Promise.resolve();
+        }
+
+        const startup = window.MathJax.startup && window.MathJax.startup.promise
+            ? window.MathJax.startup.promise
+            : Promise.resolve();
+
+        return startup
+            .then(() => {
+                if (typeof window.MathJax.typesetClear === 'function') {
+                    window.MathJax.typesetClear(nodes);
+                }
+                return window.MathJax.typesetPromise(nodes);
+            })
+            .catch(error => {
+                console.error('No se pudieron renderizar las expresiones matemáticas.', error);
+            });
+    }
+
     const app = {
         state: { 
             quizId: null, 
@@ -266,7 +325,6 @@
         },
 
         init: function() {
-            // Cargar datos externos
             fetch(JSON_URL)
                 .then(response => {
                     if (!response.ok) throw new Error("No se pudo cargar el archivo de cuestionarios");
@@ -278,6 +336,12 @@
                 })
                 .catch(err => {
                     console.error(err);
+                    const fallback = getEmbeddedQuizzes();
+                    if (fallback && Object.keys(fallback).length) {
+                        ALL_QUIZZES = fallback;
+                        this.populateSelector();
+                        return;
+                    }
                     const sel = document.getElementById('quizSelector');
                     sel.innerHTML = '<option disabled>Error cargando datos. Revisa la consola.</option>';
                 });
@@ -354,7 +418,7 @@
                 let letterHtml = `<div class="opt-letter">${labelsVisual[i]}</div>`;
                 if (layoutType === 'bool') letterHtml = ''; 
 
-                div.innerHTML = `${letterHtml}<div style="width:100%">${opt}</div>`;
+                div.innerHTML = `${letterHtml}${renderOptionContent(opt)}`;
                 container.appendChild(div);
             });
 
@@ -362,7 +426,7 @@
             btn.disabled = (this.state.answers[idx] === null);
             btn.innerText = (idx === quiz.questions.length - 1) ? "Finalizar Examen" : "Siguiente";
 
-            if(window.MathJax) MathJax.typesetPromise([document.getElementById('screen-quiz')]);
+            typesetMath(document.getElementById('screen-quiz'));
         },
 
         selectAnswer: function(optIdx, el) {
@@ -431,21 +495,26 @@
             quiz.questions.forEach((q, i) => {
                 const myAns = this.state.answers[i];
                 const isCorrect = (myAns === q.correct);
+                const selectedContent = myAns === null
+                    ? '<em>Sin respuesta</em>'
+                    : `<span><b>${labels[myAns]}</b></span> ${q.options[myAns]}`;
+                const correctContent = `<span><b>${labels[q.correct]}</b></span> ${q.options[q.correct]}`;
                 const item = document.createElement('div');
                 item.className = `result-item ${isCorrect ? 'correct' : 'wrong'}`;
                 item.innerHTML = `
-                    <div style="font-weight:bold; margin-bottom:8px; color:#334155;">${i+1}. ${isCorrect ? 'Correcto ✅' : 'Incorrecto ❌'}</div>
-                    <div style="margin-bottom:10px; font-size:1.1rem;">${q.q}</div>
-                    <div style="font-size:0.9rem; margin-bottom:10px; color:#475569;">
-                        Tu respuesta: <b>${labels[myAns]}</b> ${!isCorrect ? `| Correcta: <b>${labels[q.correct]}</b>` : ''}
+                    <div class=\"result-item__status\">${i+1}. ${isCorrect ? 'Correcta' : 'Incorrecta'}</div>
+                    <div class=\"result-item__question\">${q.q}</div>
+                    <div class=\"result-answer-grid\">
+                        ${renderResultAnswer('Tu respuesta', selectedContent, 'selected')}
+                        ${renderResultAnswer('Respuesta correcta', correctContent, 'correct')}
                     </div>
-                    <div class="explanation">💡 ${q.explanation || ''}</div>
+                    <div class=\"explanation\">Explicacion: ${q.explanation || ''}</div>
                 `;
                 container.appendChild(item);
             });
 
             this.switchScreen('screen-results');
-            if(window.MathJax) MathJax.typesetPromise([document.getElementById('screen-results')]);
+            typesetMath(document.getElementById('screen-results'));
             document.getElementById('progress-bar').style.width = '100%';
         },
 

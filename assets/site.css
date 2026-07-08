@@ -55,6 +55,22 @@
   vertical-align: baseline;
 }
 
+/* Aislamiento del contenedor principal frente a CSS genérico de cada página. */
+.site-nav,
+.site-subbar,
+.site-footer {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  align-self: stretch !important;
+}
+
 /* Acentos por campo trabajado */
 .tone-tierra { --indalo-tone: rgba(196, 104, 44, 0.12); --indalo-tone-strong: #c4682c; }
 .tone-mediterraneo { --indalo-tone: rgba(15, 111, 120, 0.12); --indalo-tone-strong: #0f6f78; }
