@@ -2,6 +2,10 @@
 
 Este repositorio contiene solo la versión estática lista para publicar del sitio del concurso.
 
+Web publicada:
+
+- https://jmgo93.github.io/sitio-concurso-matematicas-1eso/
+
 Incluye:
 
 - `index.html`: portada general del portal.
