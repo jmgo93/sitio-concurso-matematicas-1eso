@@ -163,6 +163,141 @@
             margin-bottom: 15px;
         }
 
+        .teaser-lead {
+            max-width: 820px;
+            margin: 0 auto 24px;
+            font-size: 1.05rem;
+        }
+
+        .teaser-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin: 28px 0;
+            text-align: left;
+        }
+
+        .teaser-card {
+            --teaser-accent: var(--color-accent-2);
+            --teaser-soft: rgba(46, 125, 50, 0.12);
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,247,247,0.98));
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--teaser-accent);
+        }
+
+        .teaser-kicker {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background-color: var(--teaser-soft);
+            color: var(--teaser-accent);
+            font-size: 0.78rem;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .teaser-card h4 {
+            font-size: 1.08rem;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .teaser-card p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+        }
+
+        .teaser-card--fracciones {
+            --teaser-accent: #b0543f;
+            --teaser-soft: rgba(176, 84, 63, 0.14);
+        }
+
+        .teaser-card--proporciones {
+            --teaser-accent: #2f8f5d;
+            --teaser-soft: rgba(47, 143, 93, 0.14);
+        }
+
+        .teaser-card--algebra {
+            --teaser-accent: #356a93;
+            --teaser-soft: rgba(53, 106, 147, 0.14);
+        }
+
+        .teaser-card--ecuaciones {
+            --teaser-accent: #7e5837;
+            --teaser-soft: rgba(126, 88, 55, 0.16);
+        }
+
+        .teaser-formula {
+            margin-top: 18px;
+            padding: 22px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(0, 105, 148, 0.08), rgba(46, 125, 50, 0.12));
+        }
+
+        .teaser-formula strong {
+            color: var(--color-primary);
+        }
+
+        .teaser-note {
+            font-size: 0.92rem;
+            color: #5f5f5f;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .diversity-block {
+            margin-top: 28px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(44, 62, 80, 0.12);
+        }
+
+        .diversity-title {
+            font-size: 1.08rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .diversity-lead {
+            max-width: 760px;
+            margin: 0 auto 18px;
+            text-align: center;
+            font-size: 0.98rem;
+            color: #58656f;
+        }
+
+        .diversity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            text-align: left;
+        }
+
+        .diversity-card {
+            background: linear-gradient(180deg, rgba(68, 82, 90, 0.07), rgba(255,255,255,0.98));
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            border-top: 4px solid #44525a;
+        }
+
+        .diversity-card h4 {
+            font-size: 1.02rem;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .diversity-card p {
+            margin-bottom: 0;
+            font-size: 0.94rem;
+            color: #4f5a63;
+        }
+
         /* Botón de Acción */
         .cta-container {
             text-align: center;
@@ -201,6 +336,7 @@
             h1 { font-size: 2rem; }
             .hero-section { flex-direction: column; }
             .hero-card { height: 200px; }
+            .teaser-grid { grid-template-columns: 1fr; }
         }
     </style>
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
@@ -279,13 +415,64 @@
 
         <section class="math-teaser">
             <h3>¿Qué vamos a descubrir?</h3>
-            <p>Veremos cómo las fracciones forman estrellas de 8 puntas y cómo el álgebra calcula perímetros de invernaderos:</p>
-            
-            $$ P = 80 + 2L $$
-            
-            <p style="font-size: 0.9em; color: #666;">
-                Donde $P$ es el perímetro total y $L$ es la longitud variable de tu invernadero.
+            <p class="teaser-lead">
+                En el Laboratorio y a lo largo de toda la situación de aprendizaje trabajaremos cuatro ámbitos conectados entre sí. Aparecen en la teoría, en los interactivos, en los ejercicios y en la evaluación, siempre ligados a contextos reales de nuestro entorno.
             </p>
+
+            <div class="teaser-grid">
+                <article class="teaser-card teaser-card--fracciones">
+                    <span class="teaser-kicker">Fracciones</span>
+                    <h4>Arte, reparto y equivalencias</h4>
+                    <p>Verás cómo las partes de un todo sirven para interpretar mosaicos nazaríes, comparar diseños, completar muros y entender por qué una equivalencia puede cambiar por completo un patrón visual.</p>
+                </article>
+
+                <article class="teaser-card teaser-card--proporciones">
+                    <span class="teaser-kicker">Proporciones</span>
+                    <h4>Agua, mezcla y precisión</h4>
+                    <p>Trabajarás con riego, fertilización, caudales, balsas e invernaderos para comprobar cómo una razón bien ajustada ayuda a repartir agua, ocupar parcelas y mantener el cultivo en equilibrio.</p>
+                </article>
+
+                <article class="teaser-card teaser-card--algebra">
+                    <span class="teaser-kicker">Álgebra</span>
+                    <h4>Modelos para describir lo variable</h4>
+                    <p>Usarás letras para representar medidas, producciones o cantidades que cambian, y descubrirás que el lenguaje algebraico permite describir situaciones reales sin recalcular todo desde cero.</p>
+                </article>
+
+                <article class="teaser-card teaser-card--ecuaciones">
+                    <span class="teaser-kicker">Ecuaciones</span>
+                    <h4>Decidir con incógnitas y costes</h4>
+                    <p>Resolverás desafíos donde hay que hallar datos desconocidos para abrir puertas, equilibrar balanzas, ajustar pedidos, analizar costes y tomar decisiones como si gestionaras una cooperativa real.</p>
+                </article>
+            </div>
+
+            <div class="teaser-formula">
+                <p><strong>Los cuatro ámbitos se conectan:</strong> una equivalencia, una proporción, una expresión algebraica o una ecuación no aparecen aisladas, sino para medir, prever, comparar y decidir en contextos cercanos.</p>
+
+                $$ P = 80 + 2L $$
+
+                <p class="teaser-note">
+                    Una fórmula como esta resume una situación real: si cambia la longitud de un invernadero, cambian el perímetro, los materiales necesarios y las decisiones de diseño.
+                </p>
+            </div>
+
+            <div class="diversity-block">
+                <h4 class="diversity-title">¿En qué se apoya la propuesta?</h4>
+                <p class="diversity-lead">
+                    La atención a la diversidad no se plantea como un añadido posterior, sino como parte del propio diseño de la situación de aprendizaje y de las metodologías que la sostienen.
+                </p>
+
+                <div class="diversity-grid">
+                    <article class="diversity-card">
+                        <h4>Inclusión desde el diseño: DUA 3.0</h4>
+                        <p>Nos basamos en el marco del <strong>Diseño Universal para el Aprendizaje (DUA 3.0)</strong>, anticipando barreras y ofreciendo múltiples formas de representación, de acción y expresión, y de implicación para que todo el alumnado pueda acceder, participar y progresar.</p>
+                    </article>
+
+                    <article class="diversity-card">
+                        <h4>Metodologías activas y contexto real</h4>
+                        <p>La propuesta combina <strong>ABP y aprendizaje basado en retos</strong>, trabajo cooperativo, herramientas digitales, gamificación y evaluación formativa para que las matemáticas se aprendan resolviendo problemas auténticos, con sentido y conectados con la vida.</p>
+                    </article>
+                </div>
+            </div>
         </section>
 
     
