@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio: El Cortador de TuberÃ­as</title>
+    <title>Laboratorio: El Cortador de Tuberías</title>
 
     <script>
     window.MathJax = {
@@ -15,7 +15,7 @@
     };
     </script>
 <script>
-    // FunciÃ³n que se ejecuta si falla el primer servidor
+    // Función que se ejecuta si falla el primer servidor
     function cargarMathJaxAlternativo() {
         console.warn("Cargando el motor matematico local...");
         var script = document.createElement('script');
@@ -27,7 +27,7 @@
 <script defer src="../../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="cargarMathJaxAlternativo()"></script>
     <style>
         :root {
-            --pipe-color: #3498db; /* Azul TuberÃ­a */
+            --pipe-color: #3498db; /* Azul Tubería */
             --cut-color: #e67e22;  /* Naranja Corte */
             --bg: #fdfefe;
             --panel: #ecf0f1;
@@ -129,7 +129,7 @@
             cursor: pointer;
         }
 
-        /* BOTÃ“N ACCIÃ“N */
+        /* BOTÓN ACCIÓN */
         .action-area {
             text-align: center;
             margin: 20px 0;
@@ -151,7 +151,7 @@
         .btn-cut:hover { transform: translateY(-2px); background-color: #5dade2; }
         .btn-cut:active { transform: translateY(2px); box-shadow: none; }
 
-        /* VISUALIZACIÃ“N (WORKBENCH) */
+        /* VISUALIZACIÓN (WORKBENCH) */
         .workbench {
             position: relative;
             background: #fafafa;
@@ -179,7 +179,7 @@
         .tick { height: 10px; border-left: 1px solid #999; }
         .tick-label { position: absolute; bottom: -20px; transform: translateX(-50%); }
 
-        /* TuberÃ­as */
+        /* Tuberías */
         .pipe-container {
             position: absolute;
             top: 50px;
@@ -226,7 +226,7 @@
             justify-content: center;
             color: white;
             font-size: 0.8rem;
-            opacity: 0; /* Para animaciÃ³n */
+            opacity: 0; /* Para animación */
             transform: translateY(20px);
             transition: all 0.4s ease;
             border-radius: 4px;
@@ -261,11 +261,11 @@
         }
 
     </style>
-<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg?v=20260709d">
-<link rel="stylesheet" href="../../../../assets/site.css?v=20260709d">
-<script src="../../../navigation.js?v=20260709d" defer></script>
-<script src="../../../../assets/site.js?v=20260709d" defer></script>
-<script src="../../../../assets/translate.js?v=20260709d" defer></script>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
 </head>
 <body class="indalo-page">
 <div class="indalo-top-spacer" aria-hidden="true"></div>
@@ -276,28 +276,28 @@
                 <span class="site-nav__mark" aria-hidden="true"></span>
                 <span class="site-nav__brandtext">
                     <strong>La Tierra del Indalo</strong>
-                    <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
+                    <span>Matemáticas · 1.º ESO</span>
                 </span>
             </a>
-            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">â‡†</span> Proyectos</a>
-            <nav id="site-menu" class="site-nav__menu" aria-label="NavegaciÃ³n principal"></nav>
-            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena PrÃ¡ctica Educativa reconocida"><span aria-hidden="true">â˜…</span> Buena PrÃ¡ctica</a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
             <div class="site-lang" data-site-lang>
                 <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
-                    <span class="site-lang__globe" aria-hidden="true">ðŸŒ</span>
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
                     <span class="site-lang__current">ES</span>
                     <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
                 </button>
                 <div class="site-lang__menu" role="menu"></div>
             </div>
-            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menÃº de navegaciÃ³n">
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </div>
     <div class="site-subbar">
         <div class="site-subbar__inner">
-            <nav class="site-breadcrumb" aria-label="Ruta de navegaciÃ³n"></nav>
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
             <div class="site-pager"></div>
         </div>
     </div>
@@ -307,15 +307,15 @@
     <div class="app-container">
         
         <header>
-            <h1>âœ‚ï¸ El Cortador de TuberÃ­as</h1>
-            <p class="subtitle">InstalaciÃ³n de Riego: Calcula cuÃ¡ntos goteros caben en la tuberÃ­a principal.</p>
+            <h1>✂️ El Cortador de Tuberías</h1>
+            <p class="subtitle">Instalación de Riego: Calcula cuántos goteros caben en la tubería principal.</p>
         </header>
 
         <div class="controls-grid">
             
             <div class="control-box">
                 <div class="control-title">
-                    <span>TuberÃ­a Principal (Total)</span>
+                    <span>Tubería Principal (Total)</span>
                     <span id="label-total">3/4 m</span>
                 </div>
                 <div class="fraction-input-group">
@@ -333,7 +333,7 @@
 
             <div class="control-box">
                 <div class="control-title">
-                    <span>TamaÃ±o del Corte</span>
+                    <span>Tamaño del Corte</span>
                     <span id="label-cut">1/8 m</span>
                 </div>
                 <div class="fraction-input-group">
@@ -344,7 +344,7 @@
                     </div>
                 </div>
                 <div class="slider-container">
-                    <small>Ajustar tamaÃ±o pieza:</small><br>
+                    <small>Ajustar tamaño pieza:</small><br>
                     <input type="range" id="slider-cut" min="5" max="50" value="12" oninput="syncInputsFromSlider('cut')">
                 </div>
             </div>
@@ -352,7 +352,7 @@
         </div>
 
         <div class="action-area">
-            <button class="btn-cut" onclick="performCut()">ðŸ”ª Cortar TuberÃ­a</button>
+            <button class="btn-cut" onclick="performCut()">🔪 Cortar Tubería</button>
         </div>
 
         <div class="workbench">
@@ -422,13 +422,13 @@
         }
 
         // Sincronizar Sliders (Experiencia de usuario fluida)
-        // SimplificaciÃ³n: Los sliders ajustan porcentajes aproximados y buscan la fracciÃ³n cercana mÃ¡s simple
-        // Para este prototipo, los sliders solo mueven el numerador manteniendo el denominador fijo para simplificar lÃ³gica visual
+        // Simplificación: Los sliders ajustan porcentajes aproximados y buscan la fracción cercana más simple
+        // Para este prototipo, los sliders solo mueven el numerador manteniendo el denominador fijo para simplificar lógica visual
         function syncInputsFromSlider(type) {
             if (type === 'total') {
                 const val = document.getElementById('slider-total').value;
                 // Mapear 0-100 a denominador 12 por ejemplo para suavidad? 
-                // Mejor: Ajustar numerador de la fracciÃ³n actual
+                // Mejor: Ajustar numerador de la fracción actual
                 const d1 = parseInt(document.getElementById('d1').value);
                 const newVal = (val / 100); 
                 const newN = Math.round(newVal * d1);
@@ -443,7 +443,7 @@
             updatePreview();
         }
 
-        // Ejecutar Corte (AnimaciÃ³n)
+        // Ejecutar Corte (Animación)
         function performCut() {
             const track = document.getElementById('cuts-track');
             track.innerHTML = '';
@@ -457,7 +457,7 @@
             const cutVal = n2/d2;
 
             if (cutVal > totalVal) {
-                document.getElementById('feedback-text').innerHTML = "<span style='color:red'>âš ï¸ Â¡El corte es mÃ¡s grande que la tuberÃ­a!</span>";
+                document.getElementById('feedback-text').innerHTML = "<span style='color:red'>⚠️ ¡El corte es más grande que la tubería!</span>";
                 return;
             }
 
@@ -482,7 +482,7 @@
                 piece.innerText = `#${i+1}`;
                 track.appendChild(piece);
 
-                // AnimaciÃ³n escalonada
+                // Animación escalonada
                 setTimeout(() => {
                     piece.classList.add('visible');
                 }, delay);
@@ -503,17 +503,17 @@
                 }, delay);
             }
 
-            // Feedback MatemÃ¡tico
+            // Feedback Matemático
             setTimeout(() => {
                 let msg = `Caben <strong>${integerPieces}</strong> piezas completas.`;
                 if (remainder > 0.001) msg += " (Y sobra un trozo).";
-                else msg += " (Â¡DivisiÃ³n exacta!)";
+                else msg += " (¡División exacta!)";
 
                 document.getElementById('feedback-text').innerHTML = msg;
 
-                // FÃ³rmula con MathJax
+                // Fórmula con MathJax
                 // (n1/d1) : (n2/d2) = res
-                // Mostramos fracciÃ³n simplificada si es posible, o decimal
+                // Mostramos fracción simplificada si es posible, o decimal
                 let fractionResult = "";
                 
                 // Algoritmo cruzado: (n1*d2) / (d1*n2)
@@ -537,19 +537,19 @@
     </script>
 
 
-    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versiÃ³n">
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
     <div class="tutorial-card__screen">
         <div class="tutorial-card__glow" aria-hidden="true"></div>
         <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         <span class="tutorial-card__play" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
-        <span class="tutorial-card__chip">ðŸ”’ Privacidad protegida</span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
     </div>
     <figcaption class="tutorial-card__body">
-        <span class="tutorial-card__badge">Videotutorial Â· Alumnado de 1.Âº ESO</span>
-        <strong>ExplicaciÃ³n en vÃ­deo grabada por el alumnado</strong>
-        <p>Por motivos relacionados con el concurso y con la preservaciÃ³n del anonimato, este videotutorial no puede mostrarse en esta versiÃ³n. Se trata de un vÃ­deo realizado por el alumnado de 1.Âº de ESO para explicar cÃ³mo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Por motivos relacionados con el concurso y con la preservación del anonimato, este videotutorial no puede mostrarse en esta versión. Se trata de un vídeo realizado por el alumnado de 1.º de ESO para explicar cómo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
     </figcaption>
 </figure>
 
@@ -567,10 +567,10 @@
             <span class="site-footer__mark" aria-hidden="true"></span>
             <div class="site-footer__id">
                 <strong>La Tierra del Indalo</strong>
-                <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
+                <span>Matemáticas · 1.º ESO</span>
             </div>
         </div>
-        <p class="site-footer__copy">Â© 2026 Â· Proyecto educativo abierto con fines exclusivamente didÃ¡cticos. Todos los contenidos se han anonimizado para su presentaciÃ³n a concurso.</p>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
     </div>
 </footer>
 <div id="google_translate_element" aria-hidden="true"></div>

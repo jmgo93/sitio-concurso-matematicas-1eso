@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio: El Huerto GeomÃ©trico</title>
+    <title>Laboratorio: El Huerto Geométrico</title>
     
     <script>
     window.MathJax = {
@@ -11,7 +11,7 @@
     };
     </script>
 <script>
-    // FunciÃ³n que se ejecuta si falla el primer servidor
+    // Función que se ejecuta si falla el primer servidor
     function cargarMathJaxAlternativo() {
         console.warn("Cargando el motor matematico local...");
         var script = document.createElement('script');
@@ -118,7 +118,7 @@
             margin: 5px auto;
         }
 
-        /* Ãrea Visual (El Huerto) */
+        /* Área Visual (El Huerto) */
         .visualization-area {
             display: flex;
             flex-direction: column;
@@ -131,7 +131,7 @@
             height: 300px;
             border: 4px solid #333;
             display: grid;
-            /* Grid dinÃ¡mico definido en JS */
+            /* Grid dinámico definido en JS */
             background-color: white;
             position: relative;
         }
@@ -141,7 +141,7 @@
             transition: background-color 0.3s;
         }
 
-        /* LÃ³gica de colores */
+        /* Lógica de colores */
         .cell.land { background-color: var(--color-land); opacity: 0.5; }
         .cell.water { background-color: var(--color-water); opacity: 0.5; }
         /* Cuando se solapan, quitamos opacidad y ponemos verde */
@@ -156,7 +156,7 @@
             background-position: center;
         }
 
-        /* ExplicaciÃ³n MatemÃ¡tica */
+        /* Explicación Matemática */
         .math-result {
             margin-top: 20px;
             text-align: center;
@@ -177,11 +177,11 @@
         .highlight { font-weight: bold; color: var(--color-crop); }
 
     </style>
-<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg?v=20260709d">
-<link rel="stylesheet" href="../../../../assets/site.css?v=20260709d">
-<script src="../../../navigation.js?v=20260709d" defer></script>
-<script src="../../../../assets/site.js?v=20260709d" defer></script>
-<script src="../../../../assets/translate.js?v=20260709d" defer></script>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
+<link rel="stylesheet" href="../../../../assets/site.css">
+<script src="../../../navigation.js" defer></script>
+<script src="../../../../assets/site.js" defer></script>
+<script src="../../../../assets/translate.js?v=20260707" defer></script>
 </head>
 <body class="indalo-page">
 <div class="indalo-top-spacer" aria-hidden="true"></div>
@@ -192,28 +192,28 @@
                 <span class="site-nav__mark" aria-hidden="true"></span>
                 <span class="site-nav__brandtext">
                     <strong>La Tierra del Indalo</strong>
-                    <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
+                    <span>Matemáticas · 1.º ESO</span>
                 </span>
             </a>
-            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">â‡†</span> Proyectos</a>
-            <nav id="site-menu" class="site-nav__menu" aria-label="NavegaciÃ³n principal"></nav>
-            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena PrÃ¡ctica Educativa reconocida"><span aria-hidden="true">â˜…</span> Buena PrÃ¡ctica</a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
             <div class="site-lang" data-site-lang>
                 <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
-                    <span class="site-lang__globe" aria-hidden="true">ðŸŒ</span>
+                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
                     <span class="site-lang__current">ES</span>
                     <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
                 </button>
                 <div class="site-lang__menu" role="menu"></div>
             </div>
-            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menÃº de navegaciÃ³n">
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </div>
     <div class="site-subbar">
         <div class="site-subbar__inner">
-            <nav class="site-breadcrumb" aria-label="Ruta de navegaciÃ³n"></nav>
+            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
             <div class="site-pager"></div>
         </div>
     </div>
@@ -223,13 +223,13 @@
     <div class="container">
         <header>
             <h1>El Huerto del Indalo</h1>
-            <p class="subtitle">Visualizando la multiplicaciÃ³n de fracciones como Ã¡reas de cultivo</p>
+            <p class="subtitle">Visualizando la multiplicación de fracciones como áreas de cultivo</p>
         </header>
 
         <div class="controls-wrapper">
             
             <div class="fraction-control">
-                <span class="fraction-title title-1">ðŸŒ± FracciÃ³n 1 (Surcos)</span>
+                <span class="fraction-title title-1">🌱 Fracción 1 (Surcos)</span>
                 <div class="input-group">
                     <button onclick="changeVal('n1', -1)">-</button>
                     <span id="disp-n1" class="number-display">2</span>
@@ -243,10 +243,10 @@
                 </div>
             </div>
 
-            <div style="font-size: 3rem; align-self: center;">Ã—</div>
+            <div style="font-size: 3rem; align-self: center;">×</div>
 
             <div class="fraction-control">
-                <span class="fraction-title title-2">ðŸ’§ FracciÃ³n 2 (Riego)</span>
+                <span class="fraction-title title-2">💧 Fracción 2 (Riego)</span>
                 <div class="input-group">
                     <button onclick="changeVal('n2', -1)">-</button>
                     <span id="disp-n2" class="number-display">3</span>
@@ -273,14 +273,14 @@
             </div>
             
             <div class="explanation">
-                <p><strong>Â¿QuÃ© estÃ¡ pasando?</strong></p>
+                <p><strong>¿Qué está pasando?</strong></p>
                 <ul>
                     <li>El terreno se divide en <span id="txt-cols">3</span> columnas (Tierra) y <span id="txt-rows">4</span> filas (Riego).</li>
-                    <li>En total hay <strong><span id="txt-total">12</span> parcelas pequeÃ±as</strong> (Denominador Ã— Denominador).</li>
-                    <li>Solo crecen plantas donde se juntan Tierra y Agua: <strong><span id="txt-crop">6</span> parcelas verdes</strong> (Numerador Ã— Numerador).</li>
+                    <li>En total hay <strong><span id="txt-total">12</span> parcelas pequeñas</strong> (Denominador × Denominador).</li>
+                    <li>Solo crecen plantas donde se juntan Tierra y Agua: <strong><span id="txt-crop">6</span> parcelas verdes</strong> (Numerador × Numerador).</li>
                 </ul>
                 <p style="text-align:center; font-weight:bold; color:#2c3e50;">
-                    El resultado es el ÃREA VERDE sobre el ÃREA TOTAL.
+                    El resultado es el ÁREA VERDE sobre el ÁREA TOTAL.
                 </p>
             </div>
         </div>
@@ -290,16 +290,16 @@
     <script>
         // Estado inicial
         let state = {
-            n1: 2, d1: 3, // FracciÃ³n Vertical (Columnas)
-            n2: 3, d2: 4  // FracciÃ³n Horizontal (Filas)
+            n1: 2, d1: 3, // Fracción Vertical (Columnas)
+            n2: 3, d2: 4  // Fracción Horizontal (Filas)
         };
 
         function changeVal(key, delta) {
             state[key] += delta;
             
-            // Restricciones LÃ³gicas
+            // Restricciones Lógicas
             if (state[key] < 1) state[key] = 1;
-            if (state[key] > 10) state[key] = 10; // LÃ­mite para que no se rompa la vista
+            if (state[key] > 10) state[key] = 10; // Límite para que no se rompa la vista
             
             // Numerador no puede ser mayor que denominador (Fracciones propias para esta demo visual)
             if (key === 'n1' && state.n1 > state.d1) state.n1 = state.d1;
@@ -311,7 +311,7 @@
         }
 
         function updateUI() {
-            // Actualizar nÃºmeros
+            // Actualizar números
             document.getElementById('disp-n1').innerText = state.n1;
             document.getElementById('disp-d1').innerText = state.d1;
             document.getElementById('disp-n2').innerText = state.n2;
@@ -332,8 +332,8 @@
             garden.innerHTML = ''; // Limpiar
 
             // Configurar CSS Grid
-            // FracciÃ³n 1 (d1) define las COLUMNAS
-            // FracciÃ³n 2 (d2) define las FILAS
+            // Fracción 1 (d1) define las COLUMNAS
+            // Fracción 2 (d2) define las FILAS
             garden.style.gridTemplateColumns = `repeat(${state.d1}, 1fr)`;
             garden.style.gridTemplateRows = `repeat(${state.d2}, 1fr)`;
 
@@ -343,15 +343,15 @@
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
 
-                    // LÃ³gica de Pintado
-                    // FracciÃ³n 1 (Tierra): Pinta las primeras n1 COLUMNAS
+                    // Lógica de Pintado
+                    // Fracción 1 (Tierra): Pinta las primeras n1 COLUMNAS
                     const isLand = col < state.n1;
                     
-                    // FracciÃ³n 2 (Agua): Pinta las primeras n2 FILAS
+                    // Fracción 2 (Agua): Pinta las primeras n2 FILAS
                     const isWater = row < state.n2;
 
                     if (isLand && isWater) {
-                        cell.classList.add('crop'); // IntersecciÃ³n
+                        cell.classList.add('crop'); // Intersección
                         cell.title = "Cultivo (Numerador Final)";
                     } else if (isLand) {
                         cell.classList.add('land');
@@ -391,19 +391,19 @@
         window.onload = updateUI;
     </script>
 
-    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versiÃ³n">
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
     <div class="tutorial-card__screen">
         <div class="tutorial-card__glow" aria-hidden="true"></div>
         <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         <span class="tutorial-card__play" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
-        <span class="tutorial-card__chip">ðŸ”’ Privacidad protegida</span>
+        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
     </div>
     <figcaption class="tutorial-card__body">
-        <span class="tutorial-card__badge">Videotutorial Â· Alumnado de 1.Âº ESO</span>
-        <strong>ExplicaciÃ³n en vÃ­deo grabada por el alumnado</strong>
-        <p>Por motivos relacionados con el concurso y con la preservaciÃ³n del anonimato, este videotutorial no puede mostrarse en esta versiÃ³n. Se trata de un vÃ­deo realizado por el alumnado de 1.Âº de ESO para explicar cÃ³mo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
+        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
+        <strong>Explicación en vídeo grabada por el alumnado</strong>
+        <p>Por motivos relacionados con el concurso y con la preservación del anonimato, este videotutorial no puede mostrarse en esta versión. Se trata de un vídeo realizado por el alumnado de 1.º de ESO para explicar cómo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
     </figcaption>
 </figure>
 
@@ -421,10 +421,10 @@
             <span class="site-footer__mark" aria-hidden="true"></span>
             <div class="site-footer__id">
                 <strong>La Tierra del Indalo</strong>
-                <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
+                <span>Matemáticas · 1.º ESO</span>
             </div>
         </div>
-        <p class="site-footer__copy">Â© 2026 Â· Proyecto educativo abierto con fines exclusivamente didÃ¡cticos. Todos los contenidos se han anonimizado para su presentaciÃ³n a concurso.</p>
+        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
     </div>
 </footer>
 <div id="google_translate_element" aria-hidden="true"></div>
