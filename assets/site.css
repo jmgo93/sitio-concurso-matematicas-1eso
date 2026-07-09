@@ -138,7 +138,7 @@
   flex: 0 0 auto;
   border-radius: 14px;
   border: 1px solid rgba(35, 52, 59, 0.12);
-  background: #fff url("favicon.svg") center / 88% no-repeat;
+  background: #fff url("favicon.svg?v=20260709d") center / 88% no-repeat;
   box-shadow: 0 8px 16px rgba(35, 52, 59, 0.18);
 }
 
@@ -479,7 +479,7 @@ body.has-open-menu { overflow: hidden; }
   flex: 0 0 auto;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: #fff url("favicon.svg") center / 88% no-repeat;
+  background: #fff url("favicon.svg?v=20260709d") center / 88% no-repeat;
 }
 
 .site-footer__id strong { display: block; font-size: 1rem; font-weight: 700; }

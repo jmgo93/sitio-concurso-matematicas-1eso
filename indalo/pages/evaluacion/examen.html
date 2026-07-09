@@ -8,7 +8,7 @@
 <script defer src="../../../assets/vendor/mathjax/es5/tex-mml-chtml.js" onerror="(function(){var s=document.createElement('script');s.src='../../../assets/vendor/mathjax/es5/tex-mml-chtml.js';s.async=true;document.head.appendChild(s)})()"></script>
 <style>
 /* ============================================================
-   MOTOR CENTRAL — Estilos del sistema (no tocar)
+   MOTOR CENTRAL â€” Estilos del sistema (no tocar)
    ============================================================ */
 :root{
   --bg:#f0f4ff;
@@ -65,7 +65,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .feedback-panel p{font-size:.92rem;color:var(--text);line-height:1.5}
 .feedback-panel .correct-ans{font-weight:700;color:var(--success)}
 
-/* Área de controles post-respuesta */
+/* Ãrea de controles post-respuesta */
 .post-answer-controls{display:none;margin-top:18px;display:none;gap:12px;flex-direction:column}
 @media(min-width:480px){.post-answer-controls{flex-direction:row}}
 
@@ -86,7 +86,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 .err-msg{color:var(--danger);text-align:center;font-weight:600;margin-top:14px;display:none}
 
-/* Sección tag en pregunta */
+/* SecciÃ³n tag en pregunta */
 .sec-badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.78rem;font-weight:700;margin-bottom:12px}
 .sec-new{background:#e7f5ff;color:#1971c2}
 .sec-retry{background:#fff3bf;color:#e67700}
@@ -107,7 +107,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sec-bar{flex:1;min-width:80px;height:8px;background:#e9ecef;border-radius:99px;overflow:hidden}
 .sec-bar-fill{height:100%;border-radius:99px;transition:width .6s ease}
 
-/* Sección tag en cabecera pregunta */
+/* SecciÃ³n tag en cabecera pregunta */
 #q-section-tag{text-align:center;margin-bottom:10px;min-height:24px}
 
 /* Dificultad badge */
@@ -131,11 +131,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .rev-panel{display:none;margin-top:10px;padding:14px;background:var(--bg);border-radius:10px;border:1px solid var(--border);pointer-events:none}
 .rev-panel *{pointer-events:none}
 </style>
-<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
-<link rel="stylesheet" href="../../../assets/site.css">
-<script src="../../navigation.js" defer></script>
-<script src="../../../assets/site.js" defer></script>
-<script src="../../../assets/translate.js?v=20260707" defer></script>
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg?v=20260709d">
+<link rel="stylesheet" href="../../../assets/site.css?v=20260709d">
+<script src="../../navigation.js?v=20260709d" defer></script>
+<script src="../../../assets/site.js?v=20260709d" defer></script>
+<script src="../../../assets/translate.js?v=20260709d" defer></script>
 </head>
 <body class="indalo-page">
 <div class="indalo-top-spacer" aria-hidden="true"></div>
@@ -146,81 +146,81 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
                 <span class="site-nav__mark" aria-hidden="true"></span>
                 <span class="site-nav__brandtext">
                     <strong>La Tierra del Indalo</strong>
-                    <span>Matemáticas · 1.º ESO</span>
+                    <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
                 </span>
             </a>
-            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
-            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
-            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <a class="site-nav__switch" href="../../../index.html" title="Elegir proyecto"><span aria-hidden="true">â‡†</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="NavegaciÃ³n principal"></nav>
+            <a class="site-nav__award" href="../../../buenas-practicas.html" title="Buena PrÃ¡ctica Educativa reconocida"><span aria-hidden="true">â˜…</span> Buena PrÃ¡ctica</a>
             <div class="site-lang" data-site-lang>
                 <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
-                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__globe" aria-hidden="true">ðŸŒ</span>
                     <span class="site-lang__current">ES</span>
                     <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
                 </button>
                 <div class="site-lang__menu" role="menu"></div>
             </div>
-            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menÃº de navegaciÃ³n">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </div>
     <div class="site-subbar">
         <div class="site-subbar__inner">
-            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <nav class="site-breadcrumb" aria-label="Ruta de navegaciÃ³n"></nav>
             <div class="site-pager"></div>
         </div>
     </div>
 </header>
 
-<div class="overlay" id="overlay"><div class="spinner"></div>Procesando respuesta…</div>
+<div class="overlay" id="overlay"><div class="spinner"></div>Procesando respuestaâ€¦</div>
 
 <div class="motivador-ov" id="motivador-overlay">
   <div class="motivador-card">
-    <div class="motivador-emoji" id="motivador-emoji">🎉</div>
-    <div class="motivador-msg"  id="motivador-msg">¡Excelente!</div>
+    <div class="motivador-emoji" id="motivador-emoji">ðŸŽ‰</div>
+    <div class="motivador-msg"  id="motivador-msg">Â¡Excelente!</div>
   </div>
 </div>
 
 <div class="app">
 
-  <!-- ═══════════════ VISTA: LOGIN ═══════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• VISTA: LOGIN â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <div class="view active" id="view-login">
     <div class="ex-header">
-      <h1>🏛️ Examen Interactivo</h1>
-      <p>Versión local de demostración.</p>
-      <div class="contest-local-note">Esta versión no envía información a formularios externos. Los resultados se muestran y, si el navegador lo permite, se guardan únicamente en este dispositivo.</div>
+      <h1>ðŸ›ï¸ Examen Interactivo</h1>
+      <p>VersiÃ³n local de demostraciÃ³n.</p>
+      <div class="contest-local-note">Esta versiÃ³n no envÃ­a informaciÃ³n a formularios externos. Los resultados se muestran y, si el navegador lo permite, se guardan Ãºnicamente en este dispositivo.</div>
     </div>
     <div class="form-group">
       <label>Curso</label>
       <select id="login-curso">
-        <option value="">— Selecciona —</option>
-        <option value="1ºA">1ºA</option>
-        <option value="1ºB">1ºB</option>
-        <option value="1ºC">1ºC</option>
+        <option value="">â€” Selecciona â€”</option>
+        <option value="1ÂºA">1ÂºA</option>
+        <option value="1ÂºB">1ÂºB</option>
+        <option value="1ÂºC">1ÂºC</option>
       </select>
     </div>
     <div class="form-group">
       <label>Usuario</label>
-      <select id="login-usuario"><option value="">— Selecciona tu ID —</option></select>
+      <select id="login-usuario"><option value="">â€” Selecciona tu ID â€”</option></select>
     </div>
     <div class="form-group">
-      <label>Código local <span style="font-weight:400;color:var(--muted)">(puedes escribir cualquier identificador breve)</span></label>
-      <input type="text" id="login-pin" placeholder="Escribe un código breve para esta sesión" autocomplete="off">
+      <label>CÃ³digo local <span style="font-weight:400;color:var(--muted)">(puedes escribir cualquier identificador breve)</span></label>
+      <input type="text" id="login-pin" placeholder="Escribe un cÃ³digo breve para esta sesiÃ³n" autocomplete="off">
     </div>
     <div class="form-group">
       <label>Nivel de dificultad</label>
       <select id="login-dificultad">
-        <option value="facil">🟢 Fácil — números pequeños</option>
-        <option value="normal" selected>🔵 Normal</option>
-        <option value="dificil">🔴 Difícil — negativos y fracciones</option>
+        <option value="facil">ðŸŸ¢ FÃ¡cil â€” nÃºmeros pequeÃ±os</option>
+        <option value="normal" selected>ðŸ”µ Normal</option>
+        <option value="dificil">ðŸ”´ DifÃ­cil â€” negativos y fracciones</option>
       </select>
     </div>
-    <button class="btn" onclick="ENGINE.startExam()">Comenzar Examen →</button>
-    <p class="err-msg" id="login-error">Faltan datos. Completa curso, usuario y código local.</p>
+    <button class="btn" onclick="ENGINE.startExam()">Comenzar Examen â†’</button>
+    <p class="err-msg" id="login-error">Faltan datos. Completa curso, usuario y cÃ³digo local.</p>
   </div>
 
-  <!-- ═══════════════ VISTA: PREGUNTA ═══════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• VISTA: PREGUNTA â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <div class="view" id="view-question">
     <div class="ex-header">
       <h1 id="q-title">Pregunta</h1>
@@ -229,11 +229,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <p class="progress-label" style="margin:0" id="progress-label">Pregunta 1 de N</p>
-      <p style="font-size:.78rem;color:var(--muted);margin:0">⏱ <span id="timer-display">0s</span></p>
+      <p style="font-size:.78rem;color:var(--muted);margin:0">â± <span id="timer-display">0s</span></p>
     </div>
     <div id="q-section-tag"></div>
 
-    <!-- Aquí se inyecta el bloque activo -->
+    <!-- AquÃ­ se inyecta el bloque activo -->
     <div id="block-host"></div>
 
     <!-- Feedback inmediato -->
@@ -244,23 +244,23 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
     <!-- Controles post-respuesta -->
     <div class="post-answer-controls" id="post-controls">
-      <button class="btn btn-outline" style="flex:1" onclick="ENGINE.retry()">🔁 Intentar de nuevo</button>
-      <button class="btn btn-success" style="flex:1" onclick="ENGINE.nextQuestion()">Siguiente pregunta →</button>
+      <button class="btn btn-outline" style="flex:1" onclick="ENGINE.retry()">ðŸ” Intentar de nuevo</button>
+      <button class="btn btn-success" style="flex:1" onclick="ENGINE.nextQuestion()">Siguiente pregunta â†’</button>
     </div>
 
-    <!-- Botón de responder (antes de responder) -->
-    <button class="btn" id="btn-submit-q" onclick="ENGINE.submitQuestion()">Comprobar respuesta ✓</button>
+    <!-- BotÃ³n de responder (antes de responder) -->
+    <button class="btn" id="btn-submit-q" onclick="ENGINE.submitQuestion()">Comprobar respuesta âœ“</button>
   </div>
 
-  <!-- ═══════════════ VISTA: RESUMEN FINAL ═══════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• VISTA: RESUMEN FINAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <div class="view" id="view-summary">
     <div class="ex-header">
       <h1>Resultados del Examen</h1>
       <p>Los resultados se muestran solo en este navegador.</p>
     </div>
-    <div class="score-big" id="sum-score">—</div>
+    <div class="score-big" id="sum-score">â€”</div>
     <p class="score-label" style="font-size:.9rem;color:var(--muted)">puntos totales</p>
-    <p class="score-label">Nota sobre 10: <strong id="sum-grade" style="font-size:1.4rem">—</strong></p>
+    <p class="score-label">Nota sobre 10: <strong id="sum-grade" style="font-size:1.4rem">â€”</strong></p>
     <div id="sum-list"></div>
   </div>
 
@@ -270,7 +270,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <script>
 /* ============================================================
-   CONFIGURACIÓN — Edita sólo esta sección
+   CONFIGURACIÃ“N â€” Edita sÃ³lo esta secciÃ³n
    ============================================================ */
 const CONFIG = {
   formURL: null,
@@ -287,39 +287,39 @@ const CONFIG = {
   examName: "Examen Modular v2",
   maxUsers: 30,
 
-  /* SECCIONES — cada bloque pertenece a una sección por índice (0-based).
-     Varios bloques pueden compartir sección: la sección puntúa con el
+  /* SECCIONES â€” cada bloque pertenece a una secciÃ³n por Ã­ndice (0-based).
+     Varios bloques pueden compartir secciÃ³n: la secciÃ³n puntÃºa con el
      MEJOR intento registrado (1er acierto = puntos completos,
-     acierto en reintento = puntos con penalización).
+     acierto en reintento = puntos con penalizaciÃ³n).
      Los puntos de todas las secciones suman 10.
-     ─────────────────────────────────────────────────────────────────
-     blockSections[i] = nombre de la sección del bloque i
-     sectionPoints[nombre] = puntos máximos de esa sección           */
+     â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     blockSections[i] = nombre de la secciÃ³n del bloque i
+     sectionPoints[nombre] = puntos mÃ¡ximos de esa secciÃ³n           */
   blockSections: [
-    'Fracciones visuales',   // Bloque 0: Muro Nazarí
-    'Fracciones numéricas',  // Bloque 1: Suma fracciones
-    'Álgebra básica',        // Bloque 2: Laboratorio algebraico
+    'Fracciones visuales',   // Bloque 0: Muro NazarÃ­
+    'Fracciones numÃ©ricas',  // Bloque 1: Suma fracciones
+    'Ãlgebra bÃ¡sica',        // Bloque 2: Laboratorio algebraico
     'Lenguaje algebraico',   // Bloque 3: Traductor
-    'Resolución ec.',        // Bloque 4: Caja Fuerte simple
-    'Resolución ec.',        // Bloque 5: Laberinto (misma sección)
-    'Detección errores',     // Bloque 6: Detective
+    'ResoluciÃ³n ec.',        // Bloque 4: Caja Fuerte simple
+    'ResoluciÃ³n ec.',        // Bloque 5: Laberinto (misma secciÃ³n)
+    'DetecciÃ³n errores',     // Bloque 6: Detective
     'Balanza',               // Bloque 7: Balanza
     'Problemas contexto',    // Bloque 8: Contexto
-    'Resolución avanzada',   // Bloque 9: Caja Fuerte v2
-    'Río algebraico',        // Bloque 10: Río
+    'ResoluciÃ³n avanzada',   // Bloque 9: Caja Fuerte v2
+    'RÃ­o algebraico',        // Bloque 10: RÃ­o
   ],
-  // Puntos por sección (deben sumar 10)
+  // Puntos por secciÃ³n (deben sumar 10)
   sectionPoints: {
     'Fracciones visuales':  1,
-    'Fracciones numéricas': 1,
-    'Álgebra básica':       1,
+    'Fracciones numÃ©ricas': 1,
+    'Ãlgebra bÃ¡sica':       1,
     'Lenguaje algebraico':  1,
-    'Resolución ec.':       1.5,
-    'Detección errores':    1,
+    'ResoluciÃ³n ec.':       1.5,
+    'DetecciÃ³n errores':    1,
     'Balanza':              1,
     'Problemas contexto':   1,
-    'Resolución avanzada':  0.75,
-    'Río algebraico':       0.75,
+    'ResoluciÃ³n avanzada':  0.75,
+    'RÃ­o algebraico':       0.75,
   },
   retryPenalty: 0.5   // Factor multiplicador para acierto en reintento (0.5 = mitad de puntos)
 };
@@ -328,14 +328,14 @@ const CONFIG = {
    MENSAJES MOTIVADORES
    ============================================================ */
 const MOTIVADORES = [
-  {e:'🎉', m:'¡Excelente! Sigue así.'},
-  {e:'⭐', m:'¡Muy bien! Eres un crack.'},
-  {e:'🚀', m:'¡Correcto! A por la siguiente.'},
-  {e:'💡', m:'¡Bien pensado!'},
-  {e:'🏆', m:'¡Perfecto! Tú puedes.'},
-  {e:'🎯', m:'¡Diana! Respuesta exacta.'},
-  {e:'💪', m:'¡Así se hace!'},
-  {e:'✨', m:'¡Genial! Avanzando.'}
+  {e:'ðŸŽ‰', m:'Â¡Excelente! Sigue asÃ­.'},
+  {e:'â­', m:'Â¡Muy bien! Eres un crack.'},
+  {e:'ðŸš€', m:'Â¡Correcto! A por la siguiente.'},
+  {e:'ðŸ’¡', m:'Â¡Bien pensado!'},
+  {e:'ðŸ†', m:'Â¡Perfecto! TÃº puedes.'},
+  {e:'ðŸŽ¯', m:'Â¡Diana! Respuesta exacta.'},
+  {e:'ðŸ’ª', m:'Â¡AsÃ­ se hace!'},
+  {e:'âœ¨', m:'Â¡Genial! Avanzando.'}
 ];
 
 /* ============================================================
@@ -352,12 +352,12 @@ const ENGINE = (function(){
   let qStartTime= 0;
   let timerInterval = null;
 
-  /* ── sectionBest: mejor resultado por sección (primera vez que se responde) ── */
+  /* â”€â”€ sectionBest: mejor resultado por secciÃ³n (primera vez que se responde) â”€â”€ */
   let sectionBest = {};    // { [sectionName]: { answered: bool, isOk: bool, attempts: int } }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      HELPERS
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function showView(id){
     document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -365,7 +365,7 @@ const ENGINE = (function(){
   }
   function overlay(show){ document.getElementById('overlay').style.display = show?'flex':'none'; }
 
-  /* ── Timer ── */
+  /* â”€â”€ Timer â”€â”€ */
   function startTimer(){
     qStartTime = Date.now();
     clearInterval(timerInterval);
@@ -377,7 +377,7 @@ const ENGINE = (function(){
   }
   function stopTimer(){ clearInterval(timerInterval); return Math.floor((Date.now()-qStartTime)/1000); }
 
-  /* ── Motivador ── */
+  /* â”€â”€ Motivador â”€â”€ */
   function showMotivador(onDone){
     const m = MOTIVADORES[Math.floor(Math.random()*MOTIVADORES.length)];
     const ov = document.getElementById('motivador-overlay');
@@ -387,16 +387,16 @@ const ENGINE = (function(){
     setTimeout(()=>{ ov.classList.remove('show'); onDone(); }, 1600);
   }
 
-  /* ── Botón submit: restaurar handler limpio ── */
+  /* â”€â”€ BotÃ³n submit: restaurar handler limpio â”€â”€ */
   function resetSubmitBtn(){
     const btn = document.getElementById('btn-submit-q');
     btn.onclick = submitQuestion;
     btn.style.display = 'block';
   }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      LOGIN
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function startExam(){
     const c   = document.getElementById('login-curso').value;
     const u   = document.getElementById('login-usuario').value;
@@ -406,7 +406,7 @@ const ENGINE = (function(){
     if(!c||!u||!p){ err.style.display='block'; return; }
     err.style.display='none';
 
-    const diffLabels  = {facil:'🟢 Fácil', normal:'🔵 Normal', dificil:'🔴 Difícil'};
+    const diffLabels  = {facil:'ðŸŸ¢ FÃ¡cil', normal:'ðŸ”µ Normal', dificil:'ðŸ”´ DifÃ­cil'};
     const diffClasses = {facil:'diff-facil', normal:'diff-normal', dificil:'diff-dificil'};
     session = {curso:c, usuario:u, pin:p, dificultad:dif};
 
@@ -421,9 +421,9 @@ const ENGINE = (function(){
     showView('view-question');
   }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      CARGA DE PREGUNTA
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function loadQuestion(idx){
     answered  = false;
     startTimer();
@@ -440,15 +440,15 @@ const ENGINE = (function(){
     document.getElementById('progress-label').innerText  = `Pregunta ${idx+1} de ${total}`;
     document.getElementById('q-title').innerText         = `Pregunta ${idx+1}`;
 
-    // Mostrar badge de sección y puntos
-    const sec  = CONFIG.blockSections[idx] || '—';
+    // Mostrar badge de secciÃ³n y puntos
+    const sec  = CONFIG.blockSections[idx] || 'â€”';
     const pts  = CONFIG.sectionPoints[sec]  || 0;
     const secBest = sectionBest[sec];
     const secTag  = secBest
       ? (secBest.isOk
-          ? `<span class="sec-badge sec-done">✅ ${sec} — ya resuelta</span>`
-          : `<span class="sec-badge sec-retry">🔁 ${sec} — reintentando (−${Math.round((1-CONFIG.retryPenalty)*100)}%)</span>`)
-      : `<span class="sec-badge sec-new">📌 ${sec} · ${pts} pt${pts!==1?'s':''}</span>`;
+          ? `<span class="sec-badge sec-done">âœ… ${sec} â€” ya resuelta</span>`
+          : `<span class="sec-badge sec-retry">ðŸ” ${sec} â€” reintentando (âˆ’${Math.round((1-CONFIG.retryPenalty)*100)}%)</span>`)
+      : `<span class="sec-badge sec-new">ðŸ“Œ ${sec} Â· ${pts} pt${pts!==1?'s':''}</span>`;
     document.getElementById('q-section-tag').innerHTML = secTag;
 
     const b    = blocks[idx];
@@ -460,9 +460,9 @@ const ENGINE = (function(){
     }
   }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      COMPROBAR RESPUESTA
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function submitQuestion(){
     if(answered) return;
     const secs = stopTimer();
@@ -476,15 +476,15 @@ const ENGINE = (function(){
 
     answered = true;
 
-    // ── Calcular puntos según historial de sección ──────────────────
-    const sec     = CONFIG.blockSections[current] || '—';
+    // â”€â”€ Calcular puntos segÃºn historial de secciÃ³n â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    const sec     = CONFIG.blockSections[current] || 'â€”';
     const maxPts  = CONFIG.sectionPoints[sec] || 0;
     let   earnPts = 0;
     const secBest = sectionBest[sec];
 
     if(isOk){
       if(!secBest){
-        // Primera vez que se responde esta sección: puntos completos
+        // Primera vez que se responde esta secciÃ³n: puntos completos
         earnPts = maxPts;
         sectionBest[sec] = { isOk:true, attempts: qAttempts+1 };
       } else if(!secBest.isOk){
@@ -493,18 +493,18 @@ const ENGINE = (function(){
         sectionBest[sec].isOk     = true;
         sectionBest[sec].attempts = qAttempts+1;
       } else {
-        // Sección ya resuelta correctamente: 0 pts adicionales
+        // SecciÃ³n ya resuelta correctamente: 0 pts adicionales
         earnPts = 0;
       }
     } else {
       if(!secBest) sectionBest[sec] = { isOk:false, attempts: qAttempts+1 };
     }
 
-    // ── Snapshot para revisión ──────────────────────────────────────
+    // â”€â”€ Snapshot para revisiÃ³n â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const hostClone = document.getElementById('block-host').cloneNode(true);
     snapshots.push(hostClone);
 
-    // ── Feedback visual ─────────────────────────────────────────────
+    // â”€â”€ Feedback visual â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const panel = document.getElementById('feedback-panel');
     panel.style.display = 'block';
     panel.className     = 'feedback-panel ' + (isOk?'ok':'ko');
@@ -512,42 +512,42 @@ const ENGINE = (function(){
     let ptsMsg = '';
     if(isOk && earnPts===maxPts)       ptsMsg = `<span class="pts-badge pts-full">+${earnPts} pts</span>`;
     else if(isOk && earnPts>0)         ptsMsg = `<span class="pts-badge pts-half">+${earnPts} pts (reintento)</span>`;
-    else if(isOk && earnPts===0)       ptsMsg = `<span class="pts-badge pts-zero">Sección ya puntuada</span>`;
-    else if(!isOk && secBest?.isOk)    ptsMsg = `<span class="pts-badge pts-zero">Sección ya resuelta</span>`;
+    else if(isOk && earnPts===0)       ptsMsg = `<span class="pts-badge pts-zero">SecciÃ³n ya puntuada</span>`;
+    else if(!isOk && secBest?.isOk)    ptsMsg = `<span class="pts-badge pts-zero">SecciÃ³n ya resuelta</span>`;
 
     document.getElementById('fb-title').innerHTML =
-      (isOk ? '✅ ¡Correcto! ' : '❌ Incorrecto ') + ptsMsg;
+      (isOk ? 'âœ… Â¡Correcto! ' : 'âŒ Incorrecto ') + ptsMsg;
     document.getElementById('fb-body').innerHTML = isOk
       ? `Tu respuesta <strong>${userAns}</strong> es correcta.`
       : `Tu respuesta: <strong>${userAns}</strong> &nbsp;|&nbsp; Respuesta correcta: <span class="correct-ans">${correctAns}</span>`;
 
     document.getElementById('btn-submit-q').style.display = 'none';
 
-    // ── Mostrar botones post-respuesta ──────────────────────────────
-    // "Intentar de nuevo" solo si la sección aún no está resuelta
+    // â”€â”€ Mostrar botones post-respuesta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // "Intentar de nuevo" solo si la secciÃ³n aÃºn no estÃ¡ resuelta
     const canRetry = !(secBest?.isOk);
     const retryBtn = document.querySelector('#post-controls .btn-outline');
     if(retryBtn) retryBtn.style.display = canRetry ? '' : 'none';
     document.getElementById('post-controls').style.display = 'flex';
 
-    // ── Guardar resultado ───────────────────────────────────────────
+    // â”€â”€ Guardar resultado â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     results.push({ desc, userAns, correctAns, isOk, secs,
                    attempts: qAttempts+1, section: sec, pts: earnPts });
 
     sendToGoogle(current+1, userAns, correctAns, desc, isOk, secs, qAttempts+1, earnPts);
   }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      REINTENTAR
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function retry(){
     qAttempts++;
     loadQuestion(current);
   }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      SIGUIENTE PREGUNTA
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function nextQuestion(){
     const lastOk = results.length>0 && results[results.length-1].isOk;
     current++;
@@ -561,14 +561,14 @@ const ENGINE = (function(){
     }
   }
 
-  /* ────────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      RESUMEN FINAL
-  ──────────────────────────────────────────────────────────────────── */
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function showSummary(){
-    // Calcular nota total como suma de puntos por sección
+    // Calcular nota total como suma de puntos por secciÃ³n
     const totalPts = Object.values(CONFIG.sectionPoints).reduce((a,b)=>a+b, 0);
     let earnedPts  = 0;
-    // Agrupar resultados por sección (tomar el mejor por sección)
+    // Agrupar resultados por secciÃ³n (tomar el mejor por secciÃ³n)
     const secResults = {};
     results.forEach(r=>{
       if(!secResults[r.section] || r.pts > secResults[r.section].pts){
@@ -583,7 +583,7 @@ const ENGINE = (function(){
     document.getElementById('sum-grade').innerText = notaFmt;
 
     // Tabla de secciones
-    let secHtml = '<div class="sec-summary"><h3>Puntuación por secciones</h3>';
+    let secHtml = '<div class="sec-summary"><h3>PuntuaciÃ³n por secciones</h3>';
     Object.entries(CONFIG.sectionPoints).forEach(([sec, maxP])=>{
       const best = secResults[sec];
       const ep   = best ? (best.pts||0) : 0;
@@ -601,14 +601,14 @@ const ENGINE = (function(){
     let html = secHtml + '<h3 style="margin:18px 0 10px;color:var(--text)">Detalle de respuestas</h3>';
     results.forEach((r,i)=>{
       const cls  = r.isOk?'sum-ok':'sum-ko';
-      const tag  = r.isOk?'✅ Correcto':'❌ Incorrecto';
-      const meta = `⏱ ${r.secs}s &nbsp;|&nbsp; 🔁 ${r.attempts} intento${r.attempts>1?'s':''} &nbsp;|&nbsp; +${r.pts} pts`;
+      const tag  = r.isOk?'âœ… Correcto':'âŒ Incorrecto';
+      const meta = `â± ${r.secs}s &nbsp;|&nbsp; ðŸ” ${r.attempts} intento${r.attempts>1?'s':''} &nbsp;|&nbsp; +${r.pts} pts`;
       html += `<div class="summary-item ${cls}">
         <strong>P${i+1}: ${r.desc}</strong>
         <span class="tag" style="float:right">${tag}</span><br>
         <small>Tu respuesta: ${r.userAns}</small><br>
         <small class="summary-meta">${meta}</small>
-        <br><button class="rev-btn" onclick="ENGINE.toggleReview(${i})">👁 Ver ejercicio</button>
+        <br><button class="rev-btn" onclick="ENGINE.toggleReview(${i})">ðŸ‘ Ver ejercicio</button>
         <div class="rev-panel" id="rev-panel-${i}"></div>
       </div>`;
     });
@@ -617,9 +617,9 @@ const ENGINE = (function(){
     sendSummaryToGoogle(earnedPts, totalPts, notaFmt, nota10);
   }
 
-  /* ────────────────────────────────────────────────────────────────────
-     REVISIÓN DE EJERCICIO
-  ──────────────────────────────────────────────────────────────────── */
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     REVISIÃ“N DE EJERCICIO
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function toggleReview(idx){
     const panel = document.getElementById(`rev-panel-${idx}`);
     if(panel.style.display==='block'){ panel.style.display='none'; return; }
@@ -631,7 +631,7 @@ const ENGINE = (function(){
       fb.style.display  = 'block';
       fb.style.marginTop= '8px';
       fb.style.pointerEvents = 'none';
-      fb.innerHTML = `<strong>${r.isOk?'✅ Correcto':'❌ Incorrecto'}</strong> &nbsp; +${r.pts} pts<br>
+      fb.innerHTML = `<strong>${r.isOk?'âœ… Correcto':'âŒ Incorrecto'}</strong> &nbsp; +${r.pts} pts<br>
         Tu respuesta: ${r.userAns}${!r.isOk?' &nbsp;|&nbsp; Correcta: <strong>'+r.correctAns+'</strong>':''}`;
       panel.appendChild(fb);
       if(window.MathJax) MathJax.typesetPromise([panel]).catch(()=>{});
@@ -639,9 +639,9 @@ const ENGINE = (function(){
     panel.style.display = 'block';
   }
 
-  /* ────────────────────────────────────────────────────────────────────
-     ENVÍO A GOOGLE FORMS — por pregunta
-  ──────────────────────────────────────────────────────────────────── */
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     ENVÃO A GOOGLE FORMS â€” por pregunta
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function sendToGoogle(qNum, userAns, correctAns, desc, isOk, secs, attempts, pts){
   overlay(false);
   try {
@@ -668,9 +668,9 @@ const ENGINE = (function(){
   }
 }
 
-  /* ────────────────────────────────────────────────────────────────────
-     ENVÍO RESUMEN FINAL
-  ──────────────────────────────────────────────────────────────────── */
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     ENVÃO RESUMEN FINAL
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function sendSummaryToGoogle(earnedPts, totalPts, notaFmt, nota10){
   try {
     const key = 'ltdi-contest-exam-summaries';
@@ -691,9 +691,9 @@ const ENGINE = (function(){
   }
 }
 
-  /* ────────────────────────────────────────────────────────────────────
-     API PÚBLICA
-  ──────────────────────────────────────────────────────────────────── */
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     API PÃšBLICA
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function registerBlock(b){ blocks.push(b); }
   function getDificultad(){ return session.dificultad; }
   function getDifficulty(){ return session.dificultad; }
@@ -715,8 +715,8 @@ window.addEventListener('DOMContentLoaded', ENGINE.init);
 
 
 <!-- ============================================================
-     BLOQUE 1: MURO NAZARÍ (Suma de Fracciones)
-     Módulo autocontenido. Pega más bloques después de este cierre.
+     BLOQUE 1: MURO NAZARÃ (Suma de Fracciones)
+     MÃ³dulo autocontenido. Pega mÃ¡s bloques despuÃ©s de este cierre.
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -755,20 +755,20 @@ ENGINE.registerBlock({
         .muro-tile.green{background:#27ae60}
       </style>
       <div class="muro-wrap">
-        <div class="muro-title">🕌 Muro Nazarí — Suma de Fracciones</div>
+        <div class="muro-title">ðŸ•Œ Muro NazarÃ­ â€” Suma de Fracciones</div>
         <div class="muro-hint">Pinta las teselas para representar la suma indicada.</div>
         <div class="muro-formula" id="muro-formula-${denom}"></div>
         <div class="muro-palette">
           <div class="muro-btn b-white sel" data-c="white" title="Blanco"></div>
           <div class="muro-btn b-green" data-c="green" title="Verde"></div>
-          <div class="muro-btn b-erase" data-c="erase" title="Borrar">✕</div>
+          <div class="muro-btn b-erase" data-c="erase" title="Borrar">âœ•</div>
         </div>
         <div class="muro-grid-wrap">
           <div class="muro-grid" id="muro-grid-${denom}" style="grid-template-columns:repeat(${Math.ceil(Math.sqrt(denom))},44px)"></div>
         </div>
       </div>`;
 
-    // Fórmula
+    // FÃ³rmula
     const fEl = wrap.querySelector(`#muro-formula-${denom}`);
     fEl.innerHTML = `$$\\frac{${num1}}{${denom}}\\text{ Blanco }+\\frac{${num2}}{${denom}}\\text{ Verde}$$`;
 
@@ -822,13 +822,13 @@ ENGINE.registerBlock({
 
 
 <!-- ============================================================
-     BLOQUE 2: EJEMPLO — FRACCIONES NUMÉRICAS (input texto)
-     Puedes añadir más bloques con ENGINE.registerBlock({...})
+     BLOQUE 2: EJEMPLO â€” FRACCIONES NUMÃ‰RICAS (input texto)
+     Puedes aÃ±adir mÃ¡s bloques con ENGINE.registerBlock({...})
      siguiendo exactamente el mismo contrato de interfaz:
-       render()         → devuelve HTMLElement
-       getUserAnswer()  → string con la respuesta del alumno
-       getCorrectAnswer()→ string con la respuesta correcta
-       getDescription() → string descriptivo (aparece en resumen)
+       render()         â†’ devuelve HTMLElement
+       getUserAnswer()  â†’ string con la respuesta del alumno
+       getCorrectAnswer()â†’ string con la respuesta correcta
+       getDescription() â†’ string descriptivo (aparece en resumen)
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -865,8 +865,8 @@ ENGINE.registerBlock({
         .frac-input-row label{font-weight:600;color:#3b5bdb}
       </style>
       <div class="frac-wrap">
-        <div class="frac-title">➕ Suma de Fracciones</div>
-        <div class="frac-hint">Escribe el resultado simplificado. Si es entero, escribe sólo el número. Si es fracción, usa la barra: <strong>3/4</strong></div>
+        <div class="frac-title">âž• Suma de Fracciones</div>
+        <div class="frac-hint">Escribe el resultado simplificado. Si es entero, escribe sÃ³lo el nÃºmero. Si es fracciÃ³n, usa la barra: <strong>3/4</strong></div>
         <div class="frac-formula" id="ff-${uid}">$$\\frac{${a}}{${b}} + \\frac{${c}}{${d}} = \\;?$$</div>
         <div class="frac-input-row">
           <label>Resultado =</label>
@@ -902,7 +902,7 @@ ENGINE.registerBlock({
     const uid = 'alg' + Date.now();
     this._uid = uid;
 
-    // ── Helpers ──────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const dif3 = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
     const algRange = dif3==='facil'?3 : dif3==='dificil'?8 : 5;
     function rand(){ let n=Math.floor(Math.random()*(algRange*2+1))-algRange; return n===0?1:n; }
@@ -923,7 +923,7 @@ ENGINE.registerBlock({
       return tx||tc||'0';
     }
 
-    // ── Generar problema ──────────────────────────────────
+    // â”€â”€ Generar problema â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const type = Math.floor(Math.random()*3);
     let latex='', corrX=0, corrC=0, desc='';
 
@@ -946,7 +946,7 @@ ENGINE.registerBlock({
 
     this._state = { corrX, corrC, desc, uid };
 
-    // ── DOM ───────────────────────────────────────────────
+    // â”€â”€ DOM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const wrap = document.createElement('div');
     wrap.innerHTML = `
       <style>
@@ -964,8 +964,8 @@ ENGINE.registerBlock({
         .alg-plus{font-size:1.4rem;font-weight:700;color:#a78bfa;align-self:center}
       </style>
       <div class="alg-wrap">
-        <div class="alg-title">🧬 Laboratorio Algebraico — Simplifica la expresión</div>
-        <div class="alg-hint">Agrupa los términos semejantes y escribe el resultado como <strong>ax + b</strong></div>
+        <div class="alg-title">ðŸ§¬ Laboratorio Algebraico â€” Simplifica la expresiÃ³n</div>
+        <div class="alg-hint">Agrupa los tÃ©rminos semejantes y escribe el resultado como <strong>ax + b</strong></div>
         <div class="alg-formula" id="${uid}-formula">$$${latex}$$</div>
         <div class="alg-inputs">
           <div class="alg-group">
@@ -977,7 +977,7 @@ ENGINE.registerBlock({
           </div>
           <span class="alg-plus">+</span>
           <div class="alg-group">
-            <label>Término ind.</label>
+            <label>TÃ©rmino ind.</label>
             <div class="alg-group-inner">
               <input type="number" id="${uid}-c" placeholder="0">
             </div>
@@ -1009,15 +1009,15 @@ ENGINE.registerBlock({
   },
 
   getDescription: function(){
-    return this._state.desc || 'Álgebra: simplifica la expresión';
+    return this._state.desc || 'Ãlgebra: simplifica la expresiÃ³n';
   }
 });
 </script>
 
 
 <!-- ============================================================
-     BLOQUE 4: TRADUCTOR ALGEBRAICO (frase → expresión con teclado virtual)
-     Evaluación algebraica numérica via isCorrect()
+     BLOQUE 4: TRADUCTOR ALGEBRAICO (frase â†’ expresiÃ³n con teclado virtual)
+     EvaluaciÃ³n algebraica numÃ©rica via isCorrect()
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -1029,17 +1029,17 @@ ENGINE.registerBlock({
     this._uid = uid;
 
     const TEMPLATES = [
-      {text:"Un número cualquiera",          target:"x"},
-      {text:"El doble de un número",         target:"2*x"},
-      {text:"El triple de un número",        target:"3*x"},
-      {text:"La mitad de un número",         target:"x/2"},
-      {text:"El cuadrado de un número",      target:"x**2"},
-      {text:"Un número aumentado en {N}",    target:"x+{N}"},
-      {text:"Un número disminuido en {N}",   target:"x-{N}"},
-      {text:"El doble de un número, más {N}",target:"2*x+{N}"},
-      {text:"El doble de la suma de un número y {N}", target:"2*(x+{N})"},
-      {text:"El cuadrado de un número menos {N}", target:"x**2-{N}"},
-      {text:"La suma de un número y su doble", target:"x+2*x"}
+      {text:"Un nÃºmero cualquiera",          target:"x"},
+      {text:"El doble de un nÃºmero",         target:"2*x"},
+      {text:"El triple de un nÃºmero",        target:"3*x"},
+      {text:"La mitad de un nÃºmero",         target:"x/2"},
+      {text:"El cuadrado de un nÃºmero",      target:"x**2"},
+      {text:"Un nÃºmero aumentado en {N}",    target:"x+{N}"},
+      {text:"Un nÃºmero disminuido en {N}",   target:"x-{N}"},
+      {text:"El doble de un nÃºmero, mÃ¡s {N}",target:"2*x+{N}"},
+      {text:"El doble de la suma de un nÃºmero y {N}", target:"2*(x+{N})"},
+      {text:"El cuadrado de un nÃºmero menos {N}", target:"x**2-{N}"},
+      {text:"La suma de un nÃºmero y su doble", target:"x+2*x"}
     ];
     const WORDS = ['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'];
     const tpl = TEMPLATES[Math.floor(Math.random()*TEMPLATES.length)];
@@ -1068,18 +1068,18 @@ ENGINE.registerBlock({
       </style>
       <div class="trad-wrap">
         <div class="trad-hdr">
-          <div class="trad-hdr-sub">🔤 Traductor Algebraico — Traduce la frase:</div>
+          <div class="trad-hdr-sub">ðŸ”¤ Traductor Algebraico â€” Traduce la frase:</div>
           <div class="trad-phrase">${phrase}</div>
         </div>
         <div class="trad-screen"><div class="trad-disp" id="${uid}-d"></div></div>
         <div class="trad-kbd">
           <div class="trad-k" data-v="7">7</div><div class="trad-k" data-v="8">8</div><div class="trad-k" data-v="9">9</div><div class="trad-k op" data-v="+">+</div>
           <div class="trad-k" data-v="4">4</div><div class="trad-k" data-v="5">5</div><div class="trad-k" data-v="6">6</div><div class="trad-k op" data-v="-">-</div>
-          <div class="trad-k" data-v="1">1</div><div class="trad-k" data-v="2">2</div><div class="trad-k" data-v="3">3</div><div class="trad-k op" data-v="·">·</div>
+          <div class="trad-k" data-v="1">1</div><div class="trad-k" data-v="2">2</div><div class="trad-k" data-v="3">3</div><div class="trad-k op" data-v="Â·">Â·</div>
           <div class="trad-k op" data-v="(">(</div><div class="trad-k" data-v="0">0</div><div class="trad-k op" data-v=")">)</div><div class="trad-k op" data-v="/">/</div>
           <div class="trad-k vr" data-v="x" style="grid-column:span 2">x</div>
-          <div class="trad-k op" data-v="²">x²</div>
-          <div class="trad-k dl" data-v="__del">⌫</div>
+          <div class="trad-k op" data-v="Â²">xÂ²</div>
+          <div class="trad-k dl" data-v="__del">âŒ«</div>
         </div>
       </div>`;
 
@@ -1098,9 +1098,9 @@ ENGINE.registerBlock({
     return wrap;
   },
 
-  // Evaluador algebraico numérico
+  // Evaluador algebraico numÃ©rico
   _evalExpr: function(exprStr, xVal){
-    let p = exprStr.replace(/·/g,'*').replace(/²/g,'**2')
+    let p = exprStr.replace(/Â·/g,'*').replace(/Â²/g,'**2')
                    .replace(/(\d)x/g,'$1*x').replace(/(\d)\(/g,'$1*(')
                    .replace(/x\(/g,'x*(').replace(/\)x/g,')*x')
                    .replace(/x/g,`(${xVal})`);
@@ -1116,14 +1116,14 @@ ENGINE.registerBlock({
            Math.abs(u1-c1)<0.0001 && Math.abs(u2-c2)<0.0001;
   },
 
-  getUserAnswer:   function(){ return this._state.expr||'(vacío)'; },
+  getUserAnswer:   function(){ return this._state.expr||'(vacÃ­o)'; },
   getCorrectAnswer:function(){ return this._state.target; },
   getDescription:  function(){ return 'Traductor: '+this._state.phrase; }
 });
 </script>
 
 <!-- ============================================================
-     BLOQUE 5: CAJA FUERTE MATEMÁTICA (elegir el valor de x correcto)
+     BLOQUE 5: CAJA FUERTE MATEMÃTICA (elegir el valor de x correcto)
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -1165,7 +1165,7 @@ ENGINE.registerBlock({
       </style>
       <div class="caja-wrap">
         <div class="caja-screen">
-          <div class="caja-lock">🔒</div>
+          <div class="caja-lock">ðŸ”’</div>
           <div class="caja-eq" id="${uid}-eq">$$${a}x ${sign(b)} = ${c}$$</div>
         </div>
         <div class="caja-keys" id="${uid}-keys"></div>
@@ -1196,7 +1196,7 @@ ENGINE.registerBlock({
     return wrap;
   },
 
-  getUserAnswer:   function(){ const s=this._state; return s.selected!==null?`x = ${s.selected}`:'(sin selección)'; },
+  getUserAnswer:   function(){ const s=this._state; return s.selected!==null?`x = ${s.selected}`:'(sin selecciÃ³n)'; },
   getCorrectAnswer:function(){ return `x = ${this._state.corrX}`; },
   getDescription:  function(){ return `Caja Fuerte: ${this._state.desc}`; },
   isCorrect: function(u,c){ const p=s=>{const m=s.match(/x\s*=\s*(-?[\d.]+)/);return m?parseFloat(m[1]):NaN;}; return Math.abs(p(u)-p(c))<0.01; }
@@ -1204,7 +1204,7 @@ ENGINE.registerBlock({
 </script>
 
 <!-- ============================================================
-     BLOQUE 6: LABERINTO DE PUERTAS (resolver ecuación ax+b=cx+d paso a paso)
+     BLOQUE 6: LABERINTO DE PUERTAS (resolver ecuaciÃ³n ax+b=cx+d paso a paso)
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -1257,7 +1257,7 @@ ENGINE.registerBlock({
           <div class="labm-eq" id="${uid}-eq"></div>
         </div>
         <div class="labm-doors" id="${uid}-doors"></div>
-        <div class="labm-fb" id="${uid}-fb">Elige la operación que simplifica la ecuación</div>
+        <div class="labm-fb" id="${uid}-fb">Elige la operaciÃ³n que simplifica la ecuaciÃ³n</div>
       </div>`;
 
     const render=()=>{
@@ -1275,17 +1275,17 @@ ENGINE.registerBlock({
       if(st.c!==0){
         const txt=st.c>0?`Restar ${st.c}x`:`Sumar ${Math.abs(st.c)}x`;
         correct={text:txt,action:'x',val:-st.c};
-        w1={text:st.c>0?`Sumar ${st.c}x`:`Restar ${Math.abs(st.c)}x`,hint:'Esa operación duplica el problema.'};
-        w2={text:`Dividir entre ${st.a}`,hint:'Primero agrupa las incógnitas.'};
+        w1={text:st.c>0?`Sumar ${st.c}x`:`Restar ${Math.abs(st.c)}x`,hint:'Esa operaciÃ³n duplica el problema.'};
+        w2={text:`Dividir entre ${st.a}`,hint:'Primero agrupa las incÃ³gnitas.'};
       } else if(st.b!==0){
         const txt=st.b>0?`Restar ${st.b}`:`Sumar ${Math.abs(st.b)}`;
         correct={text:txt,action:'num',val:-st.b};
         w1={text:st.b>0?`Sumar ${st.b}`:`Restar ${Math.abs(st.b)}`,hint:'Cuidado con el signo.'};
-        w2={text:`Dividir entre ${st.a}`,hint:'Aún hay constantes que mover.'};
+        w2={text:`Dividir entre ${st.a}`,hint:'AÃºn hay constantes que mover.'};
       } else {
         correct={text:`Dividir entre ${st.a}`,action:'div',val:st.a};
         w1={text:st.a>0?`Restar ${st.a}`:`Sumar ${Math.abs(st.a)}`,hint:'El coeficiente multiplica, no suma.'};
-        w2={text:`Multiplicar por ${Math.abs(st.a)}`,hint:'Eso haría el coeficiente mayor.'};
+        w2={text:`Multiplicar por ${Math.abs(st.a)}`,hint:'Eso harÃ­a el coeficiente mayor.'};
       }
       const doors=[{...correct,isCorrect:true},{...w1,isCorrect:false},{...w2,isCorrect:false}].sort(()=>Math.random()-.5);
       doorsEl.innerHTML='';
@@ -1300,11 +1300,11 @@ ENGINE.registerBlock({
             else if(dd.action==='div'){st.a/=dd.val;st.b/=dd.val;st.c/=dd.val;st.d/=dd.val;}
             st.room++;
             if(roomEl) roomEl.innerText=`Sala ${st.room}`;
-            if(st.a===1&&st.b===0&&st.c===0){st.solved=true;if(fbEl){fbEl.className='labm-fb ok';fbEl.innerText=`🎉 ¡Resuelto! x = ${st.d}`;}}
-            else{if(fbEl){fbEl.className='labm-fb ok';fbEl.innerText='¡Correcto! Siguiente sala...';}}
+            if(st.a===1&&st.b===0&&st.c===0){st.solved=true;if(fbEl){fbEl.className='labm-fb ok';fbEl.innerText=`ðŸŽ‰ Â¡Resuelto! x = ${st.d}`;}}
+            else{if(fbEl){fbEl.className='labm-fb ok';fbEl.innerText='Â¡Correcto! Siguiente sala...';}}
             render();
           } else {
-            if(fbEl){fbEl.className='labm-fb err';fbEl.innerText=`🔒 ${dd.hint}`;}
+            if(fbEl){fbEl.className='labm-fb err';fbEl.innerText=`ðŸ”’ ${dd.hint}`;}
           }
         });
         doorsEl.appendChild(btn);
@@ -1322,7 +1322,7 @@ ENGINE.registerBlock({
 
 <!-- ============================================================
      BLOQUE 7: DETECTIVE DE ERRORES
-     Click en el paso dispara evaluación inmediata sin botón externo
+     Click en el paso dispara evaluaciÃ³n inmediata sin botÃ³n externo
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -1356,19 +1356,19 @@ ENGINE.registerBlock({
     steps.push({num:'Planteamiento',math:`${fmt(A,true,true)}${fmt(B,false,false)} = ${fmt(C,true,true)}${fmt(D,false,false)}`});
 
     let cA=A,cB=B,cC=C,cD=D;
-    if(errStep===1){cA=A+C;errExp=`Al pasar ${fmt(C,true,true)} al otro lado, no cambió el signo.`;}
+    if(errStep===1){cA=A+C;errExp=`Al pasar ${fmt(C,true,true)} al otro lado, no cambiÃ³ el signo.`;}
     else cA=A-C;
     cC=0;
     steps.push({num:'Paso 1',math:`${fmt(cA,true,true)}${fmt(cB,false,false)} = ${fmt(cD,true,false)}`});
 
-    if(errStep===2){cD=cD+cB;errExp=`Al pasar la constante al otro lado, no cambió el signo de ${cB}.`;}
+    if(errStep===2){cD=cD+cB;errExp=`Al pasar la constante al otro lado, no cambiÃ³ el signo de ${cB}.`;}
     else cD=cD-cB;
     cB=0;
     steps.push({num:'Paso 2',math:`${fmt(cA,true,true)} = ${fmt(cD,true,false)}`});
 
     let finalX;
     if(errStep===3){
-      if(Math.random()>.5){finalX=cD/-cA;errExp=`Dividió con signo incorrecto en el coeficiente ${cA}.`;}
+      if(Math.random()>.5){finalX=cD/-cA;errExp=`DividiÃ³ con signo incorrecto en el coeficiente ${cA}.`;}
       else{finalX=cD-cA;errExp=`El ${cA} multiplica, debe pasar dividiendo, no restando.`;}
       if(!Number.isInteger(finalX))finalX=parseFloat(finalX.toFixed(1));
     } else {
@@ -1407,10 +1407,10 @@ ENGINE.registerBlock({
         .det-locked .det-ok-btn{pointer-events:none;opacity:.7}
       </style>
       <div class="det-wrap" id="${uid}-wrap">
-        <div class="det-title">📁 Expediente Algebraico</div>
-        <div class="det-hint">Haz clic en el PRIMER paso erróneo. Si todo es correcto, pulsa el botón verde.</div>
+        <div class="det-title">ðŸ“ Expediente Algebraico</div>
+        <div class="det-hint">Haz clic en el PRIMER paso errÃ³neo. Si todo es correcto, pulsa el botÃ³n verde.</div>
         <div id="${uid}-steps"></div>
-        <button class="det-ok-btn" id="${uid}-ok">✅ Todo correcto. Cerrar caso.</button>
+        <button class="det-ok-btn" id="${uid}-ok">âœ… Todo correcto. Cerrar caso.</button>
       </div>`;
 
     // Sustituir los escapes unicode directamente
@@ -1419,7 +1419,7 @@ ENGINE.registerBlock({
     const okBtn=wrap.querySelector(`#${uid}-ok`);
     const wrapEl=wrap.querySelector(`#${uid}-wrap`);
 
-    // Función que evalúa inmediatamente al hacer click
+    // FunciÃ³n que evalÃºa inmediatamente al hacer click
     const evaluate=(selected)=>{
       if(st.locked) return;
       st.locked=true;
@@ -1437,8 +1437,8 @@ ENGINE.registerBlock({
       });
       if(selected===0) okBtn.style.background=isOk?'#27ae60':'#c0392b';
 
-      // Disparar ENGINE.submitQuestion() directamente — el btn puede estar oculto
-      // Añadir explicación del error en el bloque antes de que el motor muestre feedback
+      // Disparar ENGINE.submitQuestion() directamente â€” el btn puede estar oculto
+      // AÃ±adir explicaciÃ³n del error en el bloque antes de que el motor muestre feedback
       if(!isOk && st.errExp){
         const expEl = document.createElement('div');
         expEl.style.cssText='margin-top:10px;padding:10px 14px;background:rgba(192,57,43,.1);border-left:4px solid #c0392b;border-radius:6px;font-size:.85rem;color:#922b21';
@@ -1484,7 +1484,7 @@ ENGINE.registerBlock({
     const uid = 'bal'+Date.now();
     this._uid = uid;
 
-    // Generar ecuación: ax + b = c  con solución entera o en cuartos
+    // Generar ecuaciÃ³n: ax + b = c  con soluciÃ³n entera o en cuartos
     const difB = typeof ENGINE!=='undefined' ? ENGINE.getDificultad() : 'normal';
     const xVal = difB==='facil'
       ? Math.floor(Math.random()*5)+1
@@ -1541,11 +1541,11 @@ ENGINE.registerBlock({
 </style>
 <div class="bal-wrap">
   <div class="bal-header">
-    <div class="bal-title">⚖️ Balanza Algebraica — Aísla la x</div>
-    <div class="bal-sub">Aplica la misma operación a ambos platillos hasta despejar x</div>
+    <div class="bal-title">âš–ï¸ Balanza Algebraica â€” AÃ­sla la x</div>
+    <div class="bal-sub">Aplica la misma operaciÃ³n a ambos platillos hasta despejar x</div>
   </div>
   <div class="bal-legend">
-    <div class="bal-li"><div class="bal-boxx" style="width:20px;height:20px;font-size:.7rem">x</div> Incógnita</div>
+    <div class="bal-li"><div class="bal-boxx" style="width:20px;height:20px;font-size:.7rem">x</div> IncÃ³gnita</div>
     <div class="bal-li"><div class="bal-wp bal-pos">1</div> +1</div>
     <div class="bal-li"><div class="bal-wp bal-neg">-1</div> -1</div>
     <div class="bal-li"><div class="bal-wh bal-pos">.5</div> +0.5</div>
@@ -1560,19 +1560,19 @@ ENGINE.registerBlock({
   </div>
   <div class="bal-eq" id="${uid}-eq"></div>
   <div class="bal-ctrl">
-    <p>Aplica la misma operación a AMBOS platillos:</p>
+    <p>Aplica la misma operaciÃ³n a AMBOS platillos:</p>
     <div class="bal-row">
       <div class="bal-ag">
-        <select id="${uid}-op"><option value="sub">➖ Restar</option><option value="add">➕ Sumar</option><option value="div">➗ Dividir</option><option value="mul">✖️ Multiplicar</option></select>
+        <select id="${uid}-op"><option value="sub">âž– Restar</option><option value="add">âž• Sumar</option><option value="div">âž— Dividir</option><option value="mul">âœ–ï¸ Multiplicar</option></select>
         <input type="number" id="${uid}-val" placeholder="Valor" step="0.25">
       </div>
       <button class="bal-btn" id="${uid}-apply">Aplicar</button>
     </div>
-    <div class="bal-fb info" id="${uid}-fb">Introduce una operación para simplificar la ecuación.</div>
+    <div class="bal-fb info" id="${uid}-fb">Introduce una operaciÃ³n para simplificar la ecuaciÃ³n.</div>
   </div>
 </div>`;
 
-    // ── render helpers ────────────────────────────────────────────
+    // â”€â”€ render helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const eqEl   = wrap.querySelector(`#${uid}-eq`);
     const fbEl   = wrap.querySelector(`#${uid}-fb`);
     const beamEl = wrap.querySelector(`#${uid}-beam`);
@@ -1613,12 +1613,12 @@ ENGINE.registerBlock({
       setTimeout(()=>beamEl.style.transform='rotate(0deg)',400);
     };
 
-    // ── apply operation ───────────────────────────────────────────
+    // â”€â”€ apply operation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     wrap.querySelector(`#${uid}-apply`).addEventListener('click',()=>{
       if(st.solved) return;
       const op=wrap.querySelector(`#${uid}-op`).value;
       const val=parseFloat(wrap.querySelector(`#${uid}-val`).value);
-      if(isNaN(val)||val===0){fbEl.className='bal-fb err';fbEl.textContent='Introduce un número válido distinto de 0.';return;}
+      if(isNaN(val)||val===0){fbEl.className='bal-fb err';fbEl.textContent='Introduce un nÃºmero vÃ¡lido distinto de 0.';return;}
 
       if(op==='sub'){st.b-=val;st.c-=val;}
       else if(op==='add'){st.b+=val;st.c+=val;}
@@ -1631,14 +1631,14 @@ ENGINE.registerBlock({
       st.c=Math.round(st.c*1000)/1000;
 
       wrap.querySelector(`#${uid}-val`).value='';
-      fbEl.className='bal-fb info';fbEl.textContent='Operación aplicada.';
+      fbEl.className='bal-fb info';fbEl.textContent='OperaciÃ³n aplicada.';
       renderEq();
 
       // Check solved: a=1, b=0
       if(st.a===1&&st.b===0){
         st.solved=true;
         fbEl.className='bal-fb ok';
-        fbEl.textContent=`🎉 ¡Ecuación resuelta! x = ${st.c}. Ahora pulsa "Comprobar respuesta".`;
+        fbEl.textContent=`ðŸŽ‰ Â¡EcuaciÃ³n resuelta! x = ${st.c}. Ahora pulsa "Comprobar respuesta".`;
         winAnim();
       }
     });
@@ -1654,7 +1654,7 @@ ENGINE.registerBlock({
     const sign=s.origB>=0?`+ ${s.origB}`:`- ${Math.abs(s.origB)}`;
     return `Balanza: ${s.origA}x ${sign} = ${s.origC}`;
   },
-  // Tolerancia numérica para decimales (0.25 etc.)
+  // Tolerancia numÃ©rica para decimales (0.25 etc.)
   isCorrect: function(userAns, correctAns){
     const parse=s=>{const m=s.match(/x\s*=\s*(-?[\d.]+)/);return m?parseFloat(m[1]):NaN;};
     const u=parse(userAns), c=parse(correctAns);
@@ -1664,235 +1664,235 @@ ENGINE.registerBlock({
 </script>
 
 
-<script>/* ── Helper global para números aleatorios enteros ── */
+<script>/* â”€â”€ Helper global para nÃºmeros aleatorios enteros â”€â”€ */
 function _ri(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 </script>
 <!-- ============================================================
-     BLOQUE 9: PLANTEAR ECUACIONES (problema real → ecuación)
-     El alumno LEE un problema y ESCRIBE la ecuación que lo modela.
+     BLOQUE 9: PLANTEAR ECUACIONES (problema real â†’ ecuaciÃ³n)
+     El alumno LEE un problema y ESCRIBE la ecuaciÃ³n que lo modela.
      NO hay que resolver: solo plantear correctamente.
-     Niveles graduados según dificultad del motor.
+     Niveles graduados segÃºn dificultad del motor.
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
   _state: {},
   _uid:   null,
 
-  /* ══════════════════════════════════════════════════════════════
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      BANCO DE PROBLEMAS POR NIVEL
-     Cada problema nombra explícitamente "siendo x …" para que
-     el alumno sepa exactamente qué representa la incógnita y
-     solo tenga que traducir el enunciado a símbolos.
+     Cada problema nombra explÃ­citamente "siendo x â€¦" para que
+     el alumno sepa exactamente quÃ© representa la incÃ³gnita y
+     solo tenga que traducir el enunciado a sÃ­mbolos.
 
      Cada entrada:
-       cat    → emoji + categoría
-       vars() → genera números aleatorios
-       text() → HTML del enunciado (usa <strong> y menciona x)
-       target → expresión del lado izquierdo  (= rhs)
-       rhs    → lado derecho fijo
-       hint   → pista si la pide
-  ══════════════════════════════════════════════════════════════ */
+       cat    â†’ emoji + categorÃ­a
+       vars() â†’ genera nÃºmeros aleatorios
+       text() â†’ HTML del enunciado (usa <strong> y menciona x)
+       target â†’ expresiÃ³n del lado izquierdo  (= rhs)
+       rhs    â†’ lado derecho fijo
+       hint   â†’ pista si la pide
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
   _banks: {
 
-    /* ── FÁCIL: una sola operación, x en papel protagonista ─── */
+    /* â”€â”€ FÃCIL: una sola operaciÃ³n, x en papel protagonista â”€â”€â”€ */
     facil: [
       {
-        cat: '🚌 Transporte',
+        cat: 'ðŸšŒ Transporte',
         vars(){ const p=_ri(3,8), t=_ri(2,6), d=p*t; return {p,t,d}; },
-        text({p,t,d}){ return `Un autobús lleva <strong>${p} pasajeros</strong> por viaje.<br>
-          Siendo <strong>x el número de viajes</strong>, ha transportado <strong>${d} pasajeros</strong> en total.<br>
-          Escribe la ecuación.`; },
+        text({p,t,d}){ return `Un autobÃºs lleva <strong>${p} pasajeros</strong> por viaje.<br>
+          Siendo <strong>x el nÃºmero de viajes</strong>, ha transportado <strong>${d} pasajeros</strong> en total.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({p}){ return `${p}*x`; },
         rhs({d}){ return d; },
-        hint: 'Pasajeros por viaje × número de viajes = total.'
+        hint: 'Pasajeros por viaje Ã— nÃºmero de viajes = total.'
       },
       {
-        cat: '🍎 Mercado',
+        cat: 'ðŸŽ Mercado',
         vars(){ const u=_ri(4,12), pu=_ri(2,9), tot=u*pu; return {u,pu,tot}; },
         text({u,pu,tot}){ return `Una cesta tiene <strong>${u} manzanas</strong>.<br>
-          Siendo <strong>x el precio de cada manzana</strong>, la cesta cuesta <strong>${tot}€</strong> en total.<br>
-          Escribe la ecuación.`; },
+          Siendo <strong>x el precio de cada manzana</strong>, la cesta cuesta <strong>${tot}â‚¬</strong> en total.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({u}){ return `${u}*x`; },
         rhs({tot}){ return tot; },
-        hint: 'Precio unitario × cantidad = total.'
+        hint: 'Precio unitario Ã— cantidad = total.'
       },
       {
-        cat: '📏 Geometría',
+        cat: 'ðŸ“ GeometrÃ­a',
         vars(){ const l=_ri(3,15), p=4*l; return {l,p}; },
-        text({p}){ return `El perímetro de un cuadrado mide <strong>${p} cm</strong>.<br>
-          Siendo <strong>x la longitud de un lado</strong>, escribe la ecuación que relaciona el lado con el perímetro.`; },
+        text({p}){ return `El perÃ­metro de un cuadrado mide <strong>${p} cm</strong>.<br>
+          Siendo <strong>x la longitud de un lado</strong>, escribe la ecuaciÃ³n que relaciona el lado con el perÃ­metro.`; },
         target(){ return `4*x`; },
         rhs({p}){ return p; },
-        hint: 'Un cuadrado tiene 4 lados iguales: P = 4·lado.'
+        hint: 'Un cuadrado tiene 4 lados iguales: P = 4Â·lado.'
       },
       {
-        cat: '🏃 Atletismo',
+        cat: 'ðŸƒ Atletismo',
         vars(){ const v=_ri(4,12), t=_ri(2,6), d=v*t; return {v,t,d}; },
         text({t,d}){ return `Una corredora mantiene velocidad constante durante <strong>${t} horas</strong>
           y recorre <strong>${d} km</strong>.<br>
-          Siendo <strong>x su velocidad en km/h</strong>, escribe la ecuación.`; },
+          Siendo <strong>x su velocidad en km/h</strong>, escribe la ecuaciÃ³n.`; },
         target({t}){ return `${t}*x`; },
         rhs({d}){ return d; },
-        hint: 'Distancia = velocidad × tiempo.'
+        hint: 'Distancia = velocidad Ã— tiempo.'
       },
       {
-        cat: '🎟️ Entradas',
+        cat: 'ðŸŽŸï¸ Entradas',
         vars(){ const n=_ri(3,8), pe=_ri(5,15), tot=n*pe; return {n,pe,tot}; },
-        text({n,tot}){ return `${n} amigos van al cine y pagan <strong>${tot}€</strong> en total.<br>
-          Siendo <strong>x el precio de una entrada</strong>, escribe la ecuación.`; },
+        text({n,tot}){ return `${n} amigos van al cine y pagan <strong>${tot}â‚¬</strong> en total.<br>
+          Siendo <strong>x el precio de una entrada</strong>, escribe la ecuaciÃ³n.`; },
         target({n}){ return `${n}*x`; },
         rhs({tot}){ return tot; },
-        hint: 'Precio × número de entradas = total.'
+        hint: 'Precio Ã— nÃºmero de entradas = total.'
       },
       {
-        cat: '🚲 Ciclismo',
+        cat: 'ðŸš² Ciclismo',
         vars(){ const km=_ri(30,120), h=_ri(2,5), v=km/h; return {km,h,v}; },
         text({km,h}){ return `Un ciclista recorre <strong>${km} km</strong> en <strong>${h} horas</strong>.<br>
-          Siendo <strong>x su velocidad media en km/h</strong>, escribe la ecuación.`; },
+          Siendo <strong>x su velocidad media en km/h</strong>, escribe la ecuaciÃ³n.`; },
         target({h}){ return `${h}*x`; },
         rhs({km}){ return km; },
-        hint: 'Velocidad × tiempo = distancia.'
+        hint: 'Velocidad Ã— tiempo = distancia.'
       },
     ],
 
-    /* ── NORMAL: término independiente + término con x ───────── */
+    /* â”€â”€ NORMAL: tÃ©rmino independiente + tÃ©rmino con x â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     normal: [
       {
-        cat: '🪙 Ahorro',
+        cat: 'ðŸª™ Ahorro',
         vars(){ const ya=_ri(20,80), sem=_ri(5,20), s=_ri(4,10), meta=ya+sem*s; return {ya,sem,meta}; },
-        text({ya,sem,meta}){ return `María tiene <strong>${ya}€ ahorrados</strong> y cada semana ahorra <strong>${sem}€</strong> más.<br>
-          Siendo <strong>x el número de semanas</strong>, quiere llegar a <strong>${meta}€</strong>.<br>
-          Escribe la ecuación.`; },
+        text({ya,sem,meta}){ return `MarÃ­a tiene <strong>${ya}â‚¬ ahorrados</strong> y cada semana ahorra <strong>${sem}â‚¬</strong> mÃ¡s.<br>
+          Siendo <strong>x el nÃºmero de semanas</strong>, quiere llegar a <strong>${meta}â‚¬</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({ya,sem}){ return `${ya}+${sem}*x`; },
         rhs({meta}){ return meta; },
-        hint: 'Ahorro inicial + ahorro semanal × semanas = meta.'
+        hint: 'Ahorro inicial + ahorro semanal Ã— semanas = meta.'
       },
       {
-        cat: '🚗 Gasolinera',
+        cat: 'ðŸš— Gasolinera',
         vars(){ const base=_ri(10,25), pL=_ri(1,2), L=_ri(10,40), tot=base+pL*L; return {base,pL,L,tot}; },
-        text({base,pL,tot}){ return `Repostar tiene una tarifa fija de <strong>${base}€</strong> más <strong>${pL}€ por litro</strong>.<br>
-          Siendo <strong>x los litros repostados</strong>, la factura total fue <strong>${tot}€</strong>.<br>
-          Escribe la ecuación.`; },
+        text({base,pL,tot}){ return `Repostar tiene una tarifa fija de <strong>${base}â‚¬</strong> mÃ¡s <strong>${pL}â‚¬ por litro</strong>.<br>
+          Siendo <strong>x los litros repostados</strong>, la factura total fue <strong>${tot}â‚¬</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({base,pL}){ return `${base}+${pL}*x`; },
         rhs({tot}){ return tot; },
-        hint: 'Tarifa fija + precio por litro × litros = total.'
+        hint: 'Tarifa fija + precio por litro Ã— litros = total.'
       },
       {
-        cat: '📦 Almacén',
+        cat: 'ðŸ“¦ AlmacÃ©n',
         vars(){ const extra=_ri(2,8), pc=_ri(3,10), n=_ri(2,7), tot=extra+pc*n; return {extra,pc,tot}; },
-        text({extra,pc,tot}){ return `Un almacén tiene <strong>${extra} paquetes sueltos</strong> y varias cajas
+        text({extra,pc,tot}){ return `Un almacÃ©n tiene <strong>${extra} paquetes sueltos</strong> y varias cajas
           con <strong>${pc} paquetes</strong> cada una.<br>
-          Siendo <strong>x el número de cajas</strong>, hay <strong>${tot} paquetes</strong> en total.<br>
-          Escribe la ecuación.`; },
+          Siendo <strong>x el nÃºmero de cajas</strong>, hay <strong>${tot} paquetes</strong> en total.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({extra,pc}){ return `${extra}+${pc}*x`; },
         rhs({tot}){ return tot; },
-        hint: 'Paquetes sueltos + paquetes por caja × número de cajas = total.'
+        hint: 'Paquetes sueltos + paquetes por caja Ã— nÃºmero de cajas = total.'
       },
       {
-        cat: '🏊 Piscina',
+        cat: 'ðŸŠ Piscina',
         vars(){ const llena=_ri(3,8), fuga=_ri(1,3), h=_ri(2,5), rest=(llena-fuga)*h; return {llena,fuga,h,rest}; },
-        text({llena,fuga,rest}){ return `Una piscina se llena a <strong>${llena} m³/h</strong> pero pierde <strong>${fuga} m³/h</strong> por una fuga.<br>
-          Siendo <strong>x el número de horas</strong>, hay <strong>${rest} m³</strong> acumulados.<br>
-          Escribe la ecuación.`; },
+        text({llena,fuga,rest}){ return `Una piscina se llena a <strong>${llena} mÂ³/h</strong> pero pierde <strong>${fuga} mÂ³/h</strong> por una fuga.<br>
+          Siendo <strong>x el nÃºmero de horas</strong>, hay <strong>${rest} mÂ³</strong> acumulados.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({llena,fuga}){ return `(${llena}-${fuga})*x`; },
         rhs({rest}){ return rest; },
-        hint: '(Entrada − fuga) × horas = agua acumulada.'
+        hint: '(Entrada âˆ’ fuga) Ã— horas = agua acumulada.'
       },
       {
-        cat: '🎂 Cumpleaños',
+        cat: 'ðŸŽ‚ CumpleaÃ±os',
         vars(){ const ahora=_ri(8,18), futura=ahora+_ri(3,10); return {ahora,futura}; },
-        text({ahora,futura}){ return `Pedro tiene ahora <strong>${ahora} años</strong>.<br>
-          Siendo <strong>x los años que faltan</strong>, tendrá <strong>${futura} años</strong>.<br>
-          Escribe la ecuación.`; },
+        text({ahora,futura}){ return `Pedro tiene ahora <strong>${ahora} aÃ±os</strong>.<br>
+          Siendo <strong>x los aÃ±os que faltan</strong>, tendrÃ¡ <strong>${futura} aÃ±os</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({ahora}){ return `${ahora}+x`; },
         rhs({futura}){ return futura; },
-        hint: 'Edad actual + años que pasan = edad futura.'
+        hint: 'Edad actual + aÃ±os que pasan = edad futura.'
       },
       {
-        cat: '📱 Plan de datos',
+        cat: 'ðŸ“± Plan de datos',
         vars(){ const base=_ri(5,15), pGB=_ri(2,5), GB=_ri(3,10), tot=base+pGB*GB; return {base,pGB,tot}; },
-        text({base,pGB,tot}){ return `Un plan de móvil cuesta <strong>${base}€/mes</strong> de cuota fija
-          más <strong>${pGB}€ por cada GB extra</strong>.<br>
-          Siendo <strong>x los GB extra consumidos</strong>, la factura fue <strong>${tot}€</strong>.<br>
-          Escribe la ecuación.`; },
+        text({base,pGB,tot}){ return `Un plan de mÃ³vil cuesta <strong>${base}â‚¬/mes</strong> de cuota fija
+          mÃ¡s <strong>${pGB}â‚¬ por cada GB extra</strong>.<br>
+          Siendo <strong>x los GB extra consumidos</strong>, la factura fue <strong>${tot}â‚¬</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({base,pGB}){ return `${base}+${pGB}*x`; },
         rhs({tot}){ return tot; },
-        hint: 'Cuota fija + precio por GB × GB consumidos = factura.'
+        hint: 'Cuota fija + precio por GB Ã— GB consumidos = factura.'
       },
     ],
 
-    /* ── DIFÍCIL: dos términos con x, paréntesis, relaciones ─── */
+    /* â”€â”€ DIFÃCIL: dos tÃ©rminos con x, parÃ©ntesis, relaciones â”€â”€â”€ */
     dificil: [
       {
-        cat: '👥 Edades',
+        cat: 'ðŸ‘¥ Edades',
         vars(){ const dif=_ri(2,10), luis=_ri(8,20), suma=2*luis+dif; return {dif,luis,suma}; },
-        text({dif,suma}){ return `Ana tiene <strong>${dif} años más que Luis</strong>.<br>
+        text({dif,suma}){ return `Ana tiene <strong>${dif} aÃ±os mÃ¡s que Luis</strong>.<br>
           Siendo <strong>x la edad de Luis</strong>, la suma de las edades de ambos es <strong>${suma}</strong>.<br>
-          Escribe la ecuación (la edad de Ana también se expresa con x).`; },
+          Escribe la ecuaciÃ³n (la edad de Ana tambiÃ©n se expresa con x).`; },
         target({dif}){ return `x+(x+${dif})`; },
         rhs({suma}){ return suma; },
         hint: 'Luis = x, Ana = x + diferencia. Suma ambas edades.'
       },
       {
-        cat: '💶 Reparto desigual',
+        cat: 'ðŸ’¶ Reparto desigual',
         vars(){ const k=_ri(2,4), b=_ri(5,20), xv=_ri(10,30), tot=xv+(k*xv+b); return {k,b,tot}; },
-        text({k,b,tot}){ return `Se reparten <strong>${tot}€</strong> entre dos personas.<br>
-          Siendo <strong>x la parte menor</strong>, la parte mayor es <strong>${k} veces x más ${b}€</strong>.<br>
-          Escribe la ecuación con las dos partes.`; },
+        text({k,b,tot}){ return `Se reparten <strong>${tot}â‚¬</strong> entre dos personas.<br>
+          Siendo <strong>x la parte menor</strong>, la parte mayor es <strong>${k} veces x mÃ¡s ${b}â‚¬</strong>.<br>
+          Escribe la ecuaciÃ³n con las dos partes.`; },
         target({k,b}){ return `x+(${k}*x+${b})`; },
         rhs({tot}){ return tot; },
-        hint: 'Parte menor + parte mayor = total. Parte mayor = k·x + extra.'
+        hint: 'Parte menor + parte mayor = total. Parte mayor = kÂ·x + extra.'
       },
       {
-        cat: '🚂 Trenes opuestos',
+        cat: 'ðŸš‚ Trenes opuestos',
         vars(){ const v1=_ri(60,110), v2=_ri(40,90), t=_ri(1,4), d=(v1+v2)*t; return {v1,v2,t,d}; },
-        text({v1,v2,d}){ return `Dos trenes salen en sentidos opuestos desde la misma estación:
+        text({v1,v2,d}){ return `Dos trenes salen en sentidos opuestos desde la misma estaciÃ³n:
           uno a <strong>${v1} km/h</strong> y otro a <strong>${v2} km/h</strong>.<br>
-          Siendo <strong>x el número de horas</strong> transcurridas, están separados <strong>${d} km</strong>.<br>
-          Escribe la ecuación.`; },
+          Siendo <strong>x el nÃºmero de horas</strong> transcurridas, estÃ¡n separados <strong>${d} km</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({v1,v2}){ return `(${v1}+${v2})*x`; },
         rhs({d}){ return d; },
-        hint: 'Distancia total = (v₁ + v₂) × tiempo. Los trenes se alejan sumando velocidades.'
+        hint: 'Distancia total = (vâ‚ + vâ‚‚) Ã— tiempo. Los trenes se alejan sumando velocidades.'
       },
       {
-        cat: '🏗️ Dos cuadrillas',
+        cat: 'ðŸ—ï¸ Dos cuadrillas',
         vars(){ const r1=_ri(2,6), r2=_ri(1,4), d=_ri(3,8), obra=(r1+r2)*d; return {r1,r2,d,obra}; },
-        text({r1,r2,obra}){ return `Dos cuadrillas trabajan juntas: la primera hace <strong>${r1} m²/día</strong>
-          y la segunda <strong>${r2} m²/día</strong>.<br>
-          Siendo <strong>x el número de días</strong> que trabajan juntas, terminan <strong>${obra} m²</strong>.<br>
-          Escribe la ecuación.`; },
+        text({r1,r2,obra}){ return `Dos cuadrillas trabajan juntas: la primera hace <strong>${r1} mÂ²/dÃ­a</strong>
+          y la segunda <strong>${r2} mÂ²/dÃ­a</strong>.<br>
+          Siendo <strong>x el nÃºmero de dÃ­as</strong> que trabajan juntas, terminan <strong>${obra} mÂ²</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({r1,r2}){ return `(${r1}+${r2})*x`; },
         rhs({obra}){ return obra; },
-        hint: '(Ritmo 1 + Ritmo 2) × días = obra total.'
+        hint: '(Ritmo 1 + Ritmo 2) Ã— dÃ­as = obra total.'
       },
       {
-        cat: '🏡 Alquiler',
+        cat: 'ðŸ¡ Alquiler',
         vars(){ const dep=_ri(200,600), men=_ri(300,700), m=_ri(3,12), tot=dep+men*m; return {dep,men,m,tot}; },
-        text({dep,men,tot}){ return `Alquilar un piso requiere pagar una fianza de <strong>${dep}€</strong>
-          más una mensualidad de <strong>${men}€</strong>.<br>
-          Siendo <strong>x el número de mensualidades</strong> pagadas, el total abonado es <strong>${tot}€</strong>.<br>
-          Escribe la ecuación.`; },
+        text({dep,men,tot}){ return `Alquilar un piso requiere pagar una fianza de <strong>${dep}â‚¬</strong>
+          mÃ¡s una mensualidad de <strong>${men}â‚¬</strong>.<br>
+          Siendo <strong>x el nÃºmero de mensualidades</strong> pagadas, el total abonado es <strong>${tot}â‚¬</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({dep,men}){ return `${dep}+${men}*x`; },
         rhs({tot}){ return tot; },
-        hint: 'Fianza + mensualidad × número de meses = total pagado.'
+        hint: 'Fianza + mensualidad Ã— nÃºmero de meses = total pagado.'
       },
       {
-        cat: '⚗️ Mezcla de precios',
+        cat: 'âš—ï¸ Mezcla de precios',
         vars(){ const p1=_ri(3,8), p2=_ri(10,20), n=_ri(2,6), tot=p1*n+p2*n; return {p1,p2,n,tot}; },
-        text({p1,p2,tot}){ return `Se compran dos tipos de producto: uno a <strong>${p1}€/kg</strong>
-          y otro a <strong>${p2}€/kg</strong>.<br>
-          Siendo <strong>x los kg de cada tipo</strong> (misma cantidad de ambos), el gasto total es <strong>${tot}€</strong>.<br>
-          Escribe la ecuación.`; },
+        text({p1,p2,tot}){ return `Se compran dos tipos de producto: uno a <strong>${p1}â‚¬/kg</strong>
+          y otro a <strong>${p2}â‚¬/kg</strong>.<br>
+          Siendo <strong>x los kg de cada tipo</strong> (misma cantidad de ambos), el gasto total es <strong>${tot}â‚¬</strong>.<br>
+          Escribe la ecuaciÃ³n.`; },
         target({p1,p2}){ return `(${p1}+${p2})*x`; },
         rhs({tot}){ return tot; },
-        hint: '(Precio 1 + Precio 2) × cantidad = gasto total.'
+        hint: '(Precio 1 + Precio 2) Ã— cantidad = gasto total.'
       },
     ]
   },
 
-  /* ══════════════════════════════════════════════════════════════
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      RENDER
-  ══════════════════════════════════════════════════════════════ */
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
   render(){
     const uid  = 'ctx'+Date.now();
     this._uid  = uid;
@@ -1941,17 +1941,17 @@ ENGINE.registerBlock({
     <div class="ctx-prob" id="${uid}-prob"></div>
   </div>
   <div class="ctx-mid">
-    <div class="ctx-instr">Escribe el <strong>lado izquierdo</strong> de la ecuación — el lado derecho ya está fijo:</div>
+    <div class="ctx-instr">Escribe el <strong>lado izquierdo</strong> de la ecuaciÃ³n â€” el lado derecho ya estÃ¡ fijo:</div>
     <div class="ctx-rhs-pill">= ${rhs}</div>
     <div class="ctx-screen">
-      <div class="ctx-disp" id="${uid}-disp"><span style="color:#4d5f7a;font-size:1.1rem">escribe aquí…</span></div>
+      <div class="ctx-disp" id="${uid}-disp"><span style="color:#4d5f7a;font-size:1.1rem">escribe aquÃ­â€¦</span></div>
     </div>
     <div class="ctx-kbd" id="${uid}-kbd"></div>
   </div>
   <div class="ctx-hintbox" id="${uid}-hintbox">${tpl.hint}</div>
   <div class="ctx-footer">
-    <button class="ctx-hint-btn" id="${uid}-hintbtn">💡 Pista</button>
-    <span class="ctx-tip">Usa x para la incógnita · ej: <em>3*x+5</em></span>
+    <button class="ctx-hint-btn" id="${uid}-hintbtn">ðŸ’¡ Pista</button>
+    <span class="ctx-tip">Usa x para la incÃ³gnita Â· ej: <em>3*x+5</em></span>
   </div>
 </div>`;
 
@@ -1961,16 +1961,16 @@ ENGINE.registerBlock({
     const updateDisp = () => {
       disp.innerHTML = st.expr
         ? st.expr.replace(/x/g,'<i>x</i>') + `<span class="ctx-rhs-live"> = ${rhs}</span>`
-        : '<span style="color:#4d5f7a;font-size:1.1rem">escribe aquí…</span>';
+        : '<span style="color:#4d5f7a;font-size:1.1rem">escribe aquÃ­â€¦</span>';
     };
 
     const keyDefs = [
       {v:'7'},{v:'8'},{v:'9'},{v:'+',c:'op'},
       {v:'4'},{v:'5'},{v:'6'},{v:'-',c:'op'},
-      {v:'1'},{v:'2'},{v:'3'},{v:'·',c:'op'},
+      {v:'1'},{v:'2'},{v:'3'},{v:'Â·',c:'op'},
       {v:'(',c:'op'},{v:'0'},{v:')',c:'op'},{v:'/',c:'op'},
-      {v:'x',c:'vr',span:2},{v:'²',c:'op'},
-      {v:'__del',label:'⌫',c:'dl'},{v:'__clr',label:'C',c:'cl'}
+      {v:'x',c:'vr',span:2},{v:'Â²',c:'op'},
+      {v:'__del',label:'âŒ«',c:'dl'},{v:'__clr',label:'C',c:'cl'}
     ];
     const kbdEl = wrap.querySelector(`#${uid}-kbd`);
     keyDefs.forEach(k=>{
@@ -1996,7 +1996,7 @@ ENGINE.registerBlock({
   },
 
   _evalExpr(expr, xv){
-    let p=expr.replace(/·/g,'*').replace(/²/g,'**2')
+    let p=expr.replace(/Â·/g,'*').replace(/Â²/g,'**2')
               .replace(/(\d)x/g,'$1*x').replace(/(\d)\(/g,'$1*(')
               .replace(/x\(/g,'x*(').replace(/\)x/g,')*x')
               .replace(/x/g,`(${xv})`);
@@ -2011,16 +2011,16 @@ ENGINE.registerBlock({
     return u1!==null&&u2!==null&&Math.abs(u1-c1)<0.001&&Math.abs(u2-c2)<0.001;
   },
 
-  getUserAnswer(){    return this._state.expr||'(vacío)'; },
+  getUserAnswer(){    return this._state.expr||'(vacÃ­o)'; },
   getCorrectAnswer(){ return this._state.tgt; },
   getDescription(){   return this._state.desc; }
 });
 </script>
 
 <!-- ============================================================
-     BLOQUE 10: CAJA FUERTE — ESCÁNER DE SOLUCIONES
+     BLOQUE 10: CAJA FUERTE â€” ESCÃNER DE SOLUCIONES
      Selecciona la llave (valor de x) que abre la caja.
-     Muestra verificación visual paso a paso.
+     Muestra verificaciÃ³n visual paso a paso.
      ============================================================ -->
 <script>
 ENGINE.registerBlock({
@@ -2063,7 +2063,7 @@ ENGINE.registerBlock({
 </style>
 <div class="cf2-wrap">
   <div class="cf2-screen" id="${uid}-screen">
-    <div class="cf2-lock" id="${uid}-lock">🔒</div>
+    <div class="cf2-lock" id="${uid}-lock">ðŸ”’</div>
     <div class="cf2-eq"   id="${uid}-eq"></div>
   </div>
   <div class="cf2-keys"  id="${uid}-keys"></div>
@@ -2094,17 +2094,17 @@ ENGINE.registerBlock({
         btn.classList.add('sel');
         renderEq(kv);
 
-        // Verificación visual interna (no envía al motor — eso lo hace el botón ENGINE)
+        // VerificaciÃ³n visual interna (no envÃ­a al motor â€” eso lo hace el botÃ³n ENGINE)
         const lv = a*kv+b;
         const ok = lv===c;
         setTimeout(()=>{
           const mid = a*kv;
           let s2 = `${mid} ${sign(b)} = ${c}`;
-          eqEl.innerHTML = `$$${s2}$$<br><small style="color:#a4b0be;font-size:.9rem">↓</small><br>$$${lv} ${ok?'=':'\\neq'} ${c}$$`;
+          eqEl.innerHTML = `$$${s2}$$<br><small style="color:#a4b0be;font-size:.9rem">â†“</small><br>$$${lv} ${ok?'=':'\\neq'} ${c}$$`;
           if(window.MathJax) MathJax.typesetPromise([eqEl]).catch(()=>{});
           if(ok){
             eqEl.style.color='#20bf6b';
-            lockEl.textContent='🔓';
+            lockEl.textContent='ðŸ”“';
             screenEl.classList.add('cf2-unlock');
             st.solved=true;
           } else {
@@ -2128,7 +2128,7 @@ ENGINE.registerBlock({
     return wrap;
   },
 
-  getUserAnswer:   function(){ const s=this._state; return s.selected!==null?`x = ${s.selected}`:'(sin selección)'; },
+  getUserAnswer:   function(){ const s=this._state; return s.selected!==null?`x = ${s.selected}`:'(sin selecciÃ³n)'; },
   getCorrectAnswer:function(){ return `x = ${this._state.corrX}`; },
   getDescription:  function(){ return this._state.desc; }
 });
@@ -2136,9 +2136,9 @@ ENGINE.registerBlock({
 
 
 <!-- ============================================================
-     BLOQUE 11: RÍO DE LAS ECUACIONES
+     BLOQUE 11: RÃO DE LAS ECUACIONES
      Fichas en dos orillas. Clic para cruzar (cambia signo) o fusionar.
-     Cuando queda 1x a un lado y N al otro → "Despejar" → resultado.
+     Cuando queda 1x a un lado y N al otro â†’ "Despejar" â†’ resultado.
      Evaluable: la respuesta es el x final tras despejar.
      ============================================================ -->
 <script>
@@ -2150,7 +2150,7 @@ ENGINE.registerBlock({
     const uid = 'rio'+Date.now();
     this._uid = uid;
 
-    // Generar ecuación ax + b = cx + d con solución entera
+    // Generar ecuaciÃ³n ax + b = cx + d con soluciÃ³n entera
     const xSol = Math.floor(Math.random()*9)-4;
     let a=Math.floor(Math.random()*4)+2; if(Math.random()>.5)a*=-1;
     let c=Math.floor(Math.random()*3)+1; if(Math.random()>.5)c*=-1; if(a===c)c=a>0?a-1:a+1;
@@ -2162,11 +2162,11 @@ ENGINE.registerBlock({
       xSol, a, c, n1, n2, rNum,
       terms:[], tctr:0, selId:null, animating:false,
       finalX:null, solved:false,
-      desc:`Río: ${a}x ${n1>=0?'+':''} ${n1} ${n2>=0?'+':''} ${n2} = ${c>=0?'':''} ${c}x ${rNum>=0?'+':''} ${rNum}`
+      desc:`RÃ­o: ${a}x ${n1>=0?'+':''} ${n1} ${n2>=0?'+':''} ${n2} = ${c>=0?'':''} ${c}x ${rNum>=0?'+':''} ${rNum}`
     };
     const st = this._state;
 
-    // ── DOM ──────────────────────────────────────────────────────────────
+    // â”€â”€ DOM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const wrap = document.createElement('div');
     wrap.innerHTML = `
 <style>
@@ -2201,8 +2201,8 @@ ENGINE.registerBlock({
   .rio-fly{position:fixed!important;z-index:500!important;pointer-events:none;margin:0!important;transition:all .7s cubic-bezier(.25,.46,.45,.94)}
 </style>
 <div class="rio-wrap">
-  <div class="rio-header">🏞️ El Río de las Ecuaciones
-    <div class="rio-sub">Clic en una ficha → clic en la orilla opuesta para cruzarla (cambia signo) · clic en ficha igual para fusionar</div>
+  <div class="rio-header">ðŸžï¸ El RÃ­o de las Ecuaciones
+    <div class="rio-sub">Clic en una ficha â†’ clic en la orilla opuesta para cruzarla (cambia signo) Â· clic en ficha igual para fusionar</div>
   </div>
   <div class="rio-scene">
     <div class="rio-bank" id="${uid}-BL"></div>
@@ -2214,11 +2214,11 @@ ENGINE.registerBlock({
   </div>
   <div class="rio-ctrl">
     <div class="rio-fb" id="${uid}-fb">Selecciona una ficha para empezar.</div>
-    <button class="rio-btn-solve" id="${uid}-btnsolve">🔑 Despejar x</button>
+    <button class="rio-btn-solve" id="${uid}-btnsolve">ðŸ”‘ Despejar x</button>
   </div>
 </div>`;
 
-    // ── State helpers ─────────────────────────────────────────────────────
+    // â”€â”€ State helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const addT=(type,val,side)=>{ if(val!==0) st.terms.push({id:st.tctr++,type,val,side}); };
     const fmtT=(val,type)=>{ const s=val<0?'-':'+'; const a2=Math.abs(val); return `${s} ${type==='x'?(a2===1?'x':`${a2}x`):a2}`; };
     const sgnCls=v=>v>=0?'rio-term-pos':'rio-term-neg';
@@ -2227,7 +2227,7 @@ ENGINE.registerBlock({
     addT('num',n1,'left'); addT('num',n2,'left');
     addT('num',rNum,'right');
 
-    // ── Render ────────────────────────────────────────────────────────────
+    // â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const renderAll=()=>{
       const BL=wrap.querySelector(`#${uid}-BL`);
       const BR=wrap.querySelector(`#${uid}-BR`);
@@ -2273,23 +2273,23 @@ ENGINE.registerBlock({
       const sep=(ln.length===0&&rx.length===0)||(lx.length===0&&rn.length===0);
       if(simp&&sep&&st.terms.length>0){
         btn.style.display='inline-block';
-        setFb('¡Listo! Pulsa Despejar x.','ok');
+        setFb('Â¡Listo! Pulsa Despejar x.','ok');
       } else {
         btn.style.display='none';
       }
     };
 
-    // ── Interactions ─────────────────────────────────────────────────────
+    // â”€â”€ Interactions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const handleClick=(id)=>{
       if(st.animating) return;
       if(st.selId===null){ st.selId=id; setFb('Seleccionado. Clic en orilla opuesta para cruzar, o en ficha igual para fusionar.'); }
-      else if(st.selId===id){ st.selId=null; setFb('Selección cancelada.'); }
+      else if(st.selId===id){ st.selId=null; setFb('SelecciÃ³n cancelada.'); }
       else {
         const sel=st.terms.find(t=>t.id===st.selId);
         const tgt=st.terms.find(t=>t.id===id);
         if(!sel||!tgt) return;
         if(sel.side===tgt.side && sel.type===tgt.type){ mergeFly(sel,tgt); return; }
-        else if(sel.side===tgt.side){ setFb('No puedes fusionar x con números.','err'); }
+        else if(sel.side===tgt.side){ setFb('No puedes fusionar x con nÃºmeros.','err'); }
         else { st.selId=id; }
       }
       renderAll();
@@ -2347,7 +2347,7 @@ ENGINE.registerBlock({
       },600);
     };
 
-    // ── Despejar ──────────────────────────────────────────────────────────
+    // â”€â”€ Despejar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     wrap.querySelector(`#${uid}-btnsolve`).addEventListener('click',()=>{
       const xT=st.terms.find(t=>t.type==='x');
       const nT=st.terms.find(t=>t.type==='num');
@@ -2363,7 +2363,7 @@ ENGINE.registerBlock({
       solve.style.display='flex';
       final.textContent=`x = ${res}`;
       wrap.querySelector(`#${uid}-btnsolve`).style.display='none';
-      setTimeout(()=>{ final.style.opacity='1'; setFb(`¡Resuelto! x = ${res}. Pulsa "Comprobar respuesta".`,'ok'); },200);
+      setTimeout(()=>{ final.style.opacity='1'; setFb(`Â¡Resuelto! x = ${res}. Pulsa "Comprobar respuesta".`,'ok'); },200);
     });
 
     renderAll();
@@ -2388,10 +2388,10 @@ ENGINE.registerBlock({
             <span class="site-footer__mark" aria-hidden="true"></span>
             <div class="site-footer__id">
                 <strong>La Tierra del Indalo</strong>
-                <span>Matemáticas · 1.º ESO</span>
+                <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
             </div>
         </div>
-        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+        <p class="site-footer__copy">Â© 2026 Â· Proyecto educativo abierto con fines exclusivamente didÃ¡cticos. Todos los contenidos se han anonimizado para su presentaciÃ³n a concurso.</p>
     </div>
 </footer>
 <div id="google_translate_element" aria-hidden="true"></div>

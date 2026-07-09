@@ -12,7 +12,7 @@
     };
     </script>
 <script>
-    // Función que se ejecuta si falla el primer servidor
+    // FunciÃ³n que se ejecuta si falla el primer servidor
     function cargarMathJaxAlternativo() {
         console.warn("Cargando el motor matematico local...");
         var script = document.createElement('script');
@@ -56,7 +56,7 @@
             gap: 10px;
         }
 
-        /* CARPETA DE INVESTIGACIÓN */
+        /* CARPETA DE INVESTIGACIÃ“N */
         .case-file {
             max-width: 700px; width: 100%;
             background: var(--paper);
@@ -86,7 +86,7 @@
         header h1 { margin: 0 0 10px 0; font-family: 'Courier New', Courier, monospace; font-size: 2rem;}
         .subtitle { margin-top: 0; font-style: italic; color: #555; font-family: 'Courier New', Courier, monospace; }
 
-        /* LÍNEAS DE DESARROLLO */
+        /* LÃNEAS DE DESARROLLO */
         .equation-steps {
             margin-top: 30px;
             font-size: 1.4rem;
@@ -170,7 +170,7 @@
             color: #333;
         }
 
-        /* Animación Temblores */
+        /* AnimaciÃ³n Temblores */
         .shake { animation: shake 0.5s; }
         @keyframes shake {
             0% { transform: translateX(0); }
@@ -184,11 +184,11 @@
         /* Desactivar clics mientras se muestra feedback */
         .locked { pointer-events: none; opacity: 0.8; }
     </style>
-<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
-<link rel="stylesheet" href="../../../../assets/site.css">
-<script src="../../../navigation.js" defer></script>
-<script src="../../../../assets/site.js" defer></script>
-<script src="../../../../assets/translate.js?v=20260707" defer></script>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg?v=20260709d">
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260709d">
+<script src="../../../navigation.js?v=20260709d" defer></script>
+<script src="../../../../assets/site.js?v=20260709d" defer></script>
+<script src="../../../../assets/translate.js?v=20260709d" defer></script>
 </head>
 <body class="indalo-page">
 <div class="indalo-top-spacer" aria-hidden="true"></div>
@@ -199,28 +199,28 @@
                 <span class="site-nav__mark" aria-hidden="true"></span>
                 <span class="site-nav__brandtext">
                     <strong>La Tierra del Indalo</strong>
-                    <span>Matemáticas · 1.º ESO</span>
+                    <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
                 </span>
             </a>
-            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
-            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
-            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">â‡†</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="NavegaciÃ³n principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena PrÃ¡ctica Educativa reconocida"><span aria-hidden="true">â˜…</span> Buena PrÃ¡ctica</a>
             <div class="site-lang" data-site-lang>
                 <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
-                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__globe" aria-hidden="true">ðŸŒ</span>
                     <span class="site-lang__current">ES</span>
                     <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
                 </button>
                 <div class="site-lang__menu" role="menu"></div>
             </div>
-            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menÃº de navegaciÃ³n">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </div>
     <div class="site-subbar">
         <div class="site-subbar__inner">
-            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <nav class="site-breadcrumb" aria-label="Ruta de navegaciÃ³n"></nav>
             <div class="site-pager"></div>
         </div>
     </div>
@@ -228,23 +228,23 @@
 
 
     <div class="scoreboard">
-        🕵️ Puntuación: <span id="score">0</span>
+        ðŸ•µï¸ PuntuaciÃ³n: <span id="score">0</span>
     </div>
 
     <div class="case-file" id="case-file">
         <header>
             <h1>Expediente #<span id="case-number">001</span></h1>
-            <p class="subtitle">Analiza la resolución de este sospechoso. Haz clic en la línea donde se comete el PRIMER error matemático. Si no hay errores, valídalo abajo.</p>
+            <p class="subtitle">Analiza la resoluciÃ³n de este sospechoso. Haz clic en la lÃ­nea donde se comete el PRIMER error matemÃ¡tico. Si no hay errores, valÃ­dalo abajo.</p>
         </header>
 
         <div class="equation-steps" id="steps-container">
             </div>
 
-        <button class="btn-correct" onclick="checkAnswer(0)">✅ Todo Correcto. Cerrar Caso.</button>
+        <button class="btn-correct" onclick="checkAnswer(0)">âœ… Todo Correcto. Cerrar Caso.</button>
 
         <div class="feedback-stamp" id="feedback-stamp">
-            <div id="stamp-title">¡OBJECIÓN!</div>
-            <div class="explanation" id="stamp-explanation">Error en los signos al transponer términos.</div>
+            <div id="stamp-title">Â¡OBJECIÃ“N!</div>
+            <div class="explanation" id="stamp-explanation">Error en los signos al transponer tÃ©rminos.</div>
         </div>
     </div>
 
@@ -254,7 +254,7 @@
         let currentErrorStep = 0; // 0 significa sin error. 1, 2, 3 indican el paso.
         let errorExplanation = "";
 
-        // Utilidad para formatear partes de la ecuación (ej. no poner + delante si es negativo o al inicio)
+        // Utilidad para formatear partes de la ecuaciÃ³n (ej. no poner + delante si es negativo o al inicio)
         function formatTerm(coeff, isFirst = false, hasX = true) {
             if (coeff === 0) return "";
             let str = "";
@@ -276,8 +276,8 @@
         }
 
         function generateCase() {
-            // Asegurar que la ecuación requiere todos los pasos: ax + b = cx + d
-            let X = Math.floor(Math.random() * 9) - 4; // Solución -4 a 4
+            // Asegurar que la ecuaciÃ³n requiere todos los pasos: ax + b = cx + d
+            let X = Math.floor(Math.random() * 9) - 4; // SoluciÃ³n -4 a 4
             
             let A = Math.floor(Math.random() * 6) + 2; // 2 a 7
             if (Math.random() > 0.5) A *= -1;
@@ -285,7 +285,7 @@
             let C = Math.floor(Math.random() * 4) + 1; // 1 a 4
             if (Math.random() > 0.5) C *= -1;
 
-            // Evitar que A y C sean iguales o que A-C sea 1 o -1 (para forzar paso de división)
+            // Evitar que A y C sean iguales o que A-C sea 1 o -1 (para forzar paso de divisiÃ³n)
             while (A === C || A - C === 1 || A - C === -1) {
                 C = Math.floor(Math.random() * 4) + 1;
                 if (Math.random() > 0.5) C *= -1;
@@ -296,7 +296,7 @@
 
             let D = (A * X) + B - (C * X);
 
-            // Decidir si hay error y dónde (0=Correcto, 1=Paso 1, 2=Paso 2, 3=Paso 3)
+            // Decidir si hay error y dÃ³nde (0=Correcto, 1=Paso 1, 2=Paso 2, 3=Paso 3)
             // 30% correcto, 70% error (repartido)
             let rand = Math.random();
             if (rand < 0.3) currentErrorStep = 0;
@@ -306,7 +306,7 @@
 
             let steps = [];
 
-            // PASO 0 (Ecuación original)
+            // PASO 0 (EcuaciÃ³n original)
             let eq0 = `${formatTerm(A, true, true)}${formatTerm(B, false, false)} = ${formatTerm(C, true, true)}${formatTerm(D, false, false)}`;
             steps.push({ num: "Planteamiento", math: eq0 });
 
@@ -320,7 +320,7 @@
             if (currentErrorStep === 1) {
                 // ERROR: Pasa con el mismo signo
                 currentA = A + C; 
-                errorExplanation = `Al pasar ${formatTerm(C, true, true)} al otro lado, olvidó cambiar el signo (operación inversa).`;
+                errorExplanation = `Al pasar ${formatTerm(C, true, true)} al otro lado, olvidÃ³ cambiar el signo (operaciÃ³n inversa).`;
             } else {
                 currentA = A - C;
             }
@@ -332,7 +332,7 @@
             if (currentErrorStep === 2) {
                 // ERROR: Pasa con el mismo signo o suma mal
                 currentD = currentD + currentB;
-                errorExplanation = `Al pasar los números al lado derecho, no cambió el signo de la constante ${currentB}.`;
+                errorExplanation = `Al pasar los nÃºmeros al lado derecho, no cambiÃ³ el signo de la constante ${currentB}.`;
             } else {
                 currentD = currentD - currentB;
             }
@@ -351,11 +351,11 @@
                     errorExplanation = `El coeficiente (${currentA}) pasa dividiendo con SU MISMO SIGNO. No se le cambia el signo al dividir.`;
                 } else {
                     finalX = currentD - currentA; // Lo pasa restando en vez de dividiendo
-                    errorExplanation = `El ${currentA} está MULTIPLICANDO a la x, por lo que debe pasar al otro lado DIVIDIENDO.`;
+                    errorExplanation = `El ${currentA} estÃ¡ MULTIPLICANDO a la x, por lo que debe pasar al otro lado DIVIDIENDO.`;
                 }
             } else {
                 finalX = currentD / currentA;
-                // Si arrastraba error de antes, la división puede dar decimal
+                // Si arrastraba error de antes, la divisiÃ³n puede dar decimal
                 if(!Number.isInteger(finalX)) finalX = (finalX).toFixed(2);
             }
             
@@ -408,12 +408,12 @@
                 score++;
                 document.getElementById('score').innerText = score;
                 stamp.classList.add('stamp-success');
-                stampTitle.innerText = "¡CASO RESUELTO!";
+                stampTitle.innerText = "Â¡CASO RESUELTO!";
                 
                 if (currentErrorStep === 0) {
-                    stampExp.innerText = "Excelente ojo. El desarrollo matemático era impecable.";
+                    stampExp.innerText = "Excelente ojo. El desarrollo matemÃ¡tico era impecable.";
                 } else {
-                    stampExp.innerText = "¡Cazaste el error en el momento exacto!";
+                    stampExp.innerText = "Â¡Cazaste el error en el momento exacto!";
                 }
                 
                 setTimeout(nextCase, 2000);
@@ -425,10 +425,10 @@
                 file.classList.add('shake');
 
                 stamp.classList.add('stamp-error');
-                stampTitle.innerText = "¡TE EQUIVOCASTE!";
+                stampTitle.innerText = "Â¡TE EQUIVOCASTE!";
                 
                 if (currentErrorStep === 0) {
-                    stampExp.innerText = `Has acusado a un inocente. En el Paso ${selectedStep} todas las reglas matemáticas se aplicaron correctamente.`;
+                    stampExp.innerText = `Has acusado a un inocente. En el Paso ${selectedStep} todas las reglas matemÃ¡ticas se aplicaron correctamente.`;
                 } else {
                     stampExp.innerText = `Pasaste por alto el fallo real en el Paso ${currentErrorStep}: ${errorExplanation}`;
                 }
@@ -447,19 +447,19 @@
 
     </script>
 
-    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versiÃ³n">
     <div class="tutorial-card__screen">
         <div class="tutorial-card__glow" aria-hidden="true"></div>
         <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         <span class="tutorial-card__play" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
-        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+        <span class="tutorial-card__chip">ðŸ”’ Privacidad protegida</span>
     </div>
     <figcaption class="tutorial-card__body">
-        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
-        <strong>Explicación en vídeo grabada por el alumnado</strong>
-        <p>Por motivos relacionados con el concurso y con la preservación del anonimato, este videotutorial no puede mostrarse en esta versión. Se trata de un vídeo realizado por el alumnado de 1.º de ESO para explicar cómo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
+        <span class="tutorial-card__badge">Videotutorial Â· Alumnado de 1.Âº ESO</span>
+        <strong>ExplicaciÃ³n en vÃ­deo grabada por el alumnado</strong>
+        <p>Por motivos relacionados con el concurso y con la preservaciÃ³n del anonimato, este videotutorial no puede mostrarse en esta versiÃ³n. Se trata de un vÃ­deo realizado por el alumnado de 1.Âº de ESO para explicar cÃ³mo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
     </figcaption>
 </figure>
 
@@ -477,10 +477,10 @@
             <span class="site-footer__mark" aria-hidden="true"></span>
             <div class="site-footer__id">
                 <strong>La Tierra del Indalo</strong>
-                <span>Matemáticas · 1.º ESO</span>
+                <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
             </div>
         </div>
-        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+        <p class="site-footer__copy">Â© 2026 Â· Proyecto educativo abierto con fines exclusivamente didÃ¡cticos. Todos los contenidos se han anonimizado para su presentaciÃ³n a concurso.</p>
     </div>
 </footer>
 <div id="google_translate_element" aria-hidden="true"></div>

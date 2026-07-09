@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campaña: El Huerto Matemático</title>
+    <title>CampaÃ±a: El Huerto MatemÃ¡tico</title>
     
     <script>
     window.MathJax = {
@@ -11,7 +11,7 @@
     };
     </script>
 <script>
-    // Función que se ejecuta si falla el primer servidor
+    // FunciÃ³n que se ejecuta si falla el primer servidor
     function cargarMathJaxAlternativo() {
         console.warn("Cargando el motor matematico local...");
         var script = document.createElement('script');
@@ -170,7 +170,7 @@
         .lbl-land { color: #d35400; }
         .lbl-water { color: #2980b9; }
 
-        /* ÁREA VISUAL */
+        /* ÃREA VISUAL */
         .game-layout {
             display: flex;
             flex-wrap: wrap;
@@ -204,14 +204,14 @@
             position: relative;
         }
         .cell.crop::after {
-            content: "🌱";
+            content: "ðŸŒ±";
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             font-size: 12px;
         }
 
-        /* PANEL DE ACCIÓN */
+        /* PANEL DE ACCIÃ“N */
         .action-panel {
             flex: 1;
             min-width: 250px;
@@ -286,11 +286,11 @@
         .msg-error { color: #c0392b; }
 
     </style>
-<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg">
-<link rel="stylesheet" href="../../../../assets/site.css">
-<script src="../../../navigation.js" defer></script>
-<script src="../../../../assets/site.js" defer></script>
-<script src="../../../../assets/translate.js?v=20260707" defer></script>
+<link rel="icon" type="image/svg+xml" href="../../../../assets/favicon.svg?v=20260709d">
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260709d">
+<script src="../../../navigation.js?v=20260709d" defer></script>
+<script src="../../../../assets/site.js?v=20260709d" defer></script>
+<script src="../../../../assets/translate.js?v=20260709d" defer></script>
 </head>
 <body class="indalo-page">
 <div class="indalo-top-spacer" aria-hidden="true"></div>
@@ -301,28 +301,28 @@
                 <span class="site-nav__mark" aria-hidden="true"></span>
                 <span class="site-nav__brandtext">
                     <strong>La Tierra del Indalo</strong>
-                    <span>Matemáticas · 1.º ESO</span>
+                    <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
                 </span>
             </a>
-            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">⇆</span> Proyectos</a>
-            <nav id="site-menu" class="site-nav__menu" aria-label="Navegación principal"></nav>
-            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena Práctica Educativa reconocida"><span aria-hidden="true">★</span> Buena Práctica</a>
+            <a class="site-nav__switch" href="../../../../index.html" title="Elegir proyecto"><span aria-hidden="true">â‡†</span> Proyectos</a>
+            <nav id="site-menu" class="site-nav__menu" aria-label="NavegaciÃ³n principal"></nav>
+            <a class="site-nav__award" href="../../../../buenas-practicas.html" title="Buena PrÃ¡ctica Educativa reconocida"><span aria-hidden="true">â˜…</span> Buena PrÃ¡ctica</a>
             <div class="site-lang" data-site-lang>
                 <button type="button" class="site-lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma">
-                    <span class="site-lang__globe" aria-hidden="true">🌐</span>
+                    <span class="site-lang__globe" aria-hidden="true">ðŸŒ</span>
                     <span class="site-lang__current">ES</span>
                     <svg class="site-menu__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
                 </button>
                 <div class="site-lang__menu" role="menu"></div>
             </div>
-            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+            <button type="button" class="site-nav__burger" aria-controls="site-menu" aria-expanded="false" aria-label="Abrir menÃº de navegaciÃ³n">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </div>
     <div class="site-subbar">
         <div class="site-subbar__inner">
-            <nav class="site-breadcrumb" aria-label="Ruta de navegación"></nav>
+            <nav class="site-breadcrumb" aria-label="Ruta de navegaciÃ³n"></nav>
             <div class="site-pager"></div>
         </div>
     </div>
@@ -363,7 +363,7 @@
                     </div>
                 </div>
 
-                <div style="font-size: 2rem; align-self: center; color:#999;">×</div>
+                <div style="font-size: 2rem; align-self: center; color:#999;">Ã—</div>
 
                 <div style="text-align:center;">
                     <span class="control-label lbl-water">Alto (Agua)</span>
@@ -387,7 +387,7 @@
 
             <div class="action-panel">
                 <div class="current-math" id="current-math">$$ \frac{1}{4} $$</div>
-                <button class="btn-harvest" onclick="checkOrder()">📦 Enviar Pedido</button>
+                <button class="btn-harvest" onclick="checkOrder()">ðŸ“¦ Enviar Pedido</button>
                 <div id="feedback" class="feedback-msg"></div>
             </div>
 
@@ -395,40 +395,40 @@
 
         <div id="level-overlay" class="overlay active">
             <h2 id="modal-title">Temporada 1: Primavera</h2>
-            <p id="modal-desc">Bienvenido al Huerto del Indalo. <br>Comienza con pedidos pequeños para calentar motores.</p>
+            <p id="modal-desc">Bienvenido al Huerto del Indalo. <br>Comienza con pedidos pequeÃ±os para calentar motores.</p>
             <p style="font-size:0.9rem; color:#f39c12;">Objetivo: Completa 3 pedidos.</p>
-            <button class="btn-start-level" onclick="startLevel()">¡A trabajar!</button>
+            <button class="btn-start-level" onclick="startLevel()">Â¡A trabajar!</button>
         </div>
 
     </div>
 
     <script>
-        // CONFIGURACIÓN DE LA CAMPAÑA
+        // CONFIGURACIÃ“N DE LA CAMPAÃ‘A
         const campaign = [
             { 
                 name: "Nivel 1: Primavera", 
-                desc: "Entrenamiento básico. Números pequeños.",
+                desc: "Entrenamiento bÃ¡sico. NÃºmeros pequeÃ±os.",
                 goal: 3, 
-                maxGrid: 3, // Máximo denominador por lado (3x3 = 9 total)
+                maxGrid: 3, // MÃ¡ximo denominador por lado (3x3 = 9 total)
                 timer: false 
             },
             { 
                 name: "Nivel 2: Verano", 
-                desc: "El negocio crece. Huertos más grandes.",
+                desc: "El negocio crece. Huertos mÃ¡s grandes.",
                 goal: 4, 
                 maxGrid: 5, // Hasta 5x5 = 25 total
                 timer: false 
             },
             { 
-                name: "Nivel 3: Otoño (Blitz)", 
-                desc: "¡Alerta de tormenta! Cosecha rápido antes de que se acabe el tiempo.",
+                name: "Nivel 3: OtoÃ±o (Blitz)", 
+                desc: "Â¡Alerta de tormenta! Cosecha rÃ¡pido antes de que se acabe el tiempo.",
                 goal: 5, 
                 maxGrid: 4, 
                 timer: 60 // Segundos totales para los 5 pedidos
             },
             { 
                 name: "Nivel 4: Invierno (Maestro)", 
-                desc: "Pedidos complejos de alta precisión.",
+                desc: "Pedidos complejos de alta precisiÃ³n.",
                 goal: 5, 
                 maxGrid: 6, // Hasta 6x6 = 36 total
                 timer: false 
@@ -441,14 +441,14 @@
         let timerInterval;
         let timeLeft;
 
-        // --- LÓGICA DE NIVELES ---
+        // --- LÃ“GICA DE NIVELES ---
 
         function showLevelModal() {
             if (currentLvlIdx >= campaign.length) {
                 // VICTORIA FINAL
-                document.getElementById('modal-title').innerText = "🏆 ¡GRAN AGRICULTOR!";
+                document.getElementById('modal-title').innerText = "ðŸ† Â¡GRAN AGRICULTOR!";
                 document.getElementById('modal-desc').innerHTML = "Has completado todas las temporadas. <br>Eres un maestro de las fracciones.";
-                document.querySelector('.btn-start-level').innerText = "Reiniciar Campaña";
+                document.querySelector('.btn-start-level').innerText = "Reiniciar CampaÃ±a";
                 document.querySelector('.btn-start-level').onclick = () => location.reload();
                 document.getElementById('level-overlay').classList.add('active');
                 return;
@@ -478,7 +478,7 @@
             }
 
             generateOrder();
-            // Resetear controles a mínimo
+            // Resetear controles a mÃ­nimo
             state.n1=1; state.d1=2; state.n2=1; state.d2=2;
             updateUI();
         }
@@ -494,7 +494,7 @@
 
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    alert("¡Tiempo agotado! Inténtalo de nuevo.");
+                    alert("Â¡Tiempo agotado! IntÃ©ntalo de nuevo.");
                     startLevel(); // Reiniciar nivel
                 }
             }, 100);
@@ -509,7 +509,7 @@
             document.getElementById('progress-bar').style.width = pct + '%';
         }
 
-        // --- LÓGICA DEL JUEGO ---
+        // --- LÃ“GICA DEL JUEGO ---
 
         function generateOrder() {
             const lvl = campaign[currentLvlIdx];
@@ -537,7 +537,7 @@
         function changeVal(key, delta) {
             state[key] += delta;
             
-            // Límites visuales (Hasta 8 para que quepa)
+            // LÃ­mites visuales (Hasta 8 para que quepa)
             if (state[key] < 1) state[key] = 1;
             if (state[key] > 8) state[key] = 8; 
             
@@ -592,7 +592,7 @@
             const msg = document.getElementById('feedback');
 
             if (currN === state.targetN && currD === state.targetD) {
-                // Éxito
+                // Ã‰xito
                 ordersDone++;
                 updateHeader();
 
@@ -601,11 +601,11 @@
                 if (ordersDone >= lvl.goal) {
                     // Nivel completado
                     currentLvlIdx++;
-                    clearInterval(timerInterval); // Parar timer si había
+                    clearInterval(timerInterval); // Parar timer si habÃ­a
                     setTimeout(showLevelModal, 500);
                 } else {
                     // Siguiente pedido
-                    msg.innerText = "¡Correcto!";
+                    msg.innerText = "Â¡Correcto!";
                     msg.className = "feedback-msg msg-success";
                     setTimeout(() => {
                         generateOrder();
@@ -618,27 +618,27 @@
                 // Error
                 msg.className = "feedback-msg msg-error";
                 if (currD !== state.targetD) {
-                    msg.innerText = `Error: El tamaño (${currD}) no coincide con el pedido (${state.targetD}).`;
+                    msg.innerText = `Error: El tamaÃ±o (${currD}) no coincide con el pedido (${state.targetD}).`;
                 } else {
-                    msg.innerText = `Error: Plantas (${currN}) incorrectas. Pedían ${state.targetN}.`;
+                    msg.innerText = `Error: Plantas (${currN}) incorrectas. PedÃ­an ${state.targetN}.`;
                 }
             }
         }
     </script>
 
-    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versión">
+    <figure class="tutorial-card" role="group" aria-label="Videotutorial del alumnado no disponible en esta versiÃ³n">
     <div class="tutorial-card__screen">
         <div class="tutorial-card__glow" aria-hidden="true"></div>
         <div class="tutorial-card__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         <span class="tutorial-card__play" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </span>
-        <span class="tutorial-card__chip">🔒 Privacidad protegida</span>
+        <span class="tutorial-card__chip">ðŸ”’ Privacidad protegida</span>
     </div>
     <figcaption class="tutorial-card__body">
-        <span class="tutorial-card__badge">Videotutorial · Alumnado de 1.º ESO</span>
-        <strong>Explicación en vídeo grabada por el alumnado</strong>
-        <p>Por motivos relacionados con el concurso y con la preservación del anonimato, este videotutorial no puede mostrarse en esta versión. Se trata de un vídeo realizado por el alumnado de 1.º de ESO para explicar cómo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
+        <span class="tutorial-card__badge">Videotutorial Â· Alumnado de 1.Âº ESO</span>
+        <strong>ExplicaciÃ³n en vÃ­deo grabada por el alumnado</strong>
+        <p>Por motivos relacionados con el concurso y con la preservaciÃ³n del anonimato, este videotutorial no puede mostrarse en esta versiÃ³n. Se trata de un vÃ­deo realizado por el alumnado de 1.Âº de ESO para explicar cÃ³mo resolver la actividad interactiva, a partir de una propuesta de mejora planteada por uno de los propios estudiantes para ayudar a quienes utilicen esta web en el futuro.</p>
     </figcaption>
 </figure>
 
@@ -656,10 +656,10 @@
             <span class="site-footer__mark" aria-hidden="true"></span>
             <div class="site-footer__id">
                 <strong>La Tierra del Indalo</strong>
-                <span>Matemáticas · 1.º ESO</span>
+                <span>MatemÃ¡ticas Â· 1.Âº ESO</span>
             </div>
         </div>
-        <p class="site-footer__copy">© 2026 · Proyecto educativo abierto con fines exclusivamente didácticos. Todos los contenidos se han anonimizado para su presentación a concurso.</p>
+        <p class="site-footer__copy">Â© 2026 Â· Proyecto educativo abierto con fines exclusivamente didÃ¡cticos. Todos los contenidos se han anonimizado para su presentaciÃ³n a concurso.</p>
     </div>
 </footer>
 <div id="google_translate_element" aria-hidden="true"></div>
