@@ -183,9 +183,38 @@
       list.appendChild(item);
     });
 
+    appendMobileUtilityLinks(list);
     nav.innerHTML = "";
     nav.appendChild(list);
     wireDropdowns(nav);
+  }
+
+  function appendMobileUtilityLinks(list) {
+    var header = document.querySelector(".site-nav");
+    if (!header) {
+      return;
+    }
+
+    [
+      { selector: ".site-nav__switch", label: "Proyectos" },
+      { selector: ".site-nav__award", label: "Buena Práctica" }
+    ].forEach(function (entry) {
+      var source = header.querySelector(entry.selector);
+      if (!source || !source.href) {
+        return;
+      }
+
+      var item = document.createElement("li");
+      item.className = "site-menu__item site-menu__item--utility";
+
+      var link = document.createElement("a");
+      link.className = "site-menu__utilitylink";
+      link.href = source.href;
+      link.textContent = source.textContent.trim() || entry.label;
+
+      item.appendChild(link);
+      list.appendChild(item);
+    });
   }
 
   function closePanels(nav) {

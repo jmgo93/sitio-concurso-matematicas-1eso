@@ -49,8 +49,11 @@
   text-shadow: none;
   list-style: none;
   float: none;
+  width: auto;
+  height: auto;
   max-width: none;
   min-width: 0;
+  min-height: 0;
   border-radius: 0;
   vertical-align: baseline;
 }
@@ -134,35 +137,14 @@
   height: 2.35rem;
   flex: 0 0 auto;
   border-radius: 14px;
-  background:
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.85), transparent 40%),
-    linear-gradient(135deg, var(--tierra), var(--mediterraneo));
+  border: 1px solid rgba(35, 52, 59, 0.12);
+  background: #fff url("favicon.svg") center / 88% no-repeat;
   box-shadow: 0 8px 16px rgba(35, 52, 59, 0.18);
 }
 
-.site-nav__mark::before {
-  content: "";
-  position: absolute;
-  left: 0.55rem;
-  right: 0.55rem;
-  top: 0.46rem;
-  height: 0.72rem;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  border-bottom: 0;
-  border-radius: 999px 999px 0 0;
-}
-
-.site-nav__mark::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0.5rem;
-  width: 0.9rem;
-  height: 0.16rem;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-}
+.site-nav__mark::before,
+.site-nav__mark::after,
+.site-footer__mark::before { content: none; }
 
 .site-nav__brandtext { display: grid; line-height: 1.15; }
 .site-nav__brandtext strong { font-size: 1.02rem; font-weight: 700; letter-spacing: 0.01em; }
@@ -231,6 +213,18 @@
 }
 
 .site-menu__item.is-active > .site-menu__link { color: var(--indalo-tone-strong, var(--indalo-ink)); }
+.site-menu__item--utility { display: none; }
+.site-menu__utilitylink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.75rem 0.4rem;
+  color: var(--indalo-ink);
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+.site-menu__utilitylink:hover { color: var(--indalo-tone-strong, var(--indalo-ink)); }
 
 .site-menu__item.is-active > .site-menu__link::after {
   content: "";
@@ -392,7 +386,7 @@
 .site-lang__flag { font-size: 1.15rem; }
 
 /* ====================================================================
-   SUB-BARRA: migas de pan + anterior/siguiente
+   SUB-BARRA: ruta contextual + anterior/siguiente
    ==================================================================== */
 .site-subbar {
   position: relative;
@@ -460,8 +454,8 @@ body.has-open-menu { overflow: hidden; }
   width: 100%;
   align-self: stretch;
   margin-top: 2.5rem;
-  background: #1c2a31;
-  color: #e7eef0;
+  background: #1c2a31 !important;
+  color: #e7eef0 !important;
   font-family: "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
 }
 
@@ -484,21 +478,8 @@ body.has-open-menu { overflow: hidden; }
   height: 2.3rem;
   flex: 0 0 auto;
   border-radius: 12px;
-  background:
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.85), transparent 40%),
-    linear-gradient(135deg, var(--tierra), var(--mediterraneo));
-}
-
-.site-footer__mark::before {
-  content: "";
-  position: absolute;
-  left: 0.5rem;
-  right: 0.5rem;
-  top: 0.42rem;
-  height: 0.62rem;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  border-bottom: 0;
-  border-radius: 999px 999px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #fff url("favicon.svg") center / 88% no-repeat;
 }
 
 .site-footer__id strong { display: block; font-size: 1rem; font-weight: 700; }
@@ -928,6 +909,7 @@ html, body {
 
 @media (max-width: 900px) {
   .site-nav__burger { display: inline-flex; }
+  .site-nav__switch, .site-nav__award { display: none; }
   .site-nav__menu {
     position: absolute;
     top: 100%;
@@ -950,7 +932,9 @@ html, body {
 
   .site-menu { flex-direction: column; align-items: stretch; gap: 0; padding: 0.5rem clamp(0.9rem, 3vw, 1.6rem) 1rem; }
   .site-menu__item { border-bottom: 1px solid rgba(35, 52, 59, 0.08); }
+  .site-menu__item--utility { display: block; }
   .site-menu__link { width: 100%; justify-content: space-between; padding: 0.85rem 0.4rem; font-size: 1rem; }
+  .site-menu__utilitylink { padding: 0.85rem 0.4rem; }
   .site-menu__item.is-active > .site-menu__link::after { display: none; }
   .site-menu__item.is-active > .site-menu__link { box-shadow: inset 3px 0 0 var(--indalo-tone-strong, var(--mediterraneo)); padding-left: 0.7rem; }
 
