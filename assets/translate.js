@@ -134,6 +134,79 @@
     node.classList.add("notranslate");
   }
 
+  function isAcademicTokenProtected(node) {
+    var parent = node && node.parentElement;
+    if (!parent) {
+      return true;
+    }
+    return !!parent.closest(".notranslate, [translate='no'], script, style, noscript, textarea");
+  }
+
+  function wrapAcademicToken(textNode) {
+    var value = textNode && textNode.nodeValue;
+    var pattern = /1\.\s*º\s*ESO/g;
+    if (!value || !pattern.test(value)) {
+      return;
+    }
+
+    pattern.lastIndex = 0;
+    var fragment = document.createDocumentFragment();
+    var lastIndex = 0;
+
+    value.replace(pattern, function (match, offset) {
+      if (offset > lastIndex) {
+        fragment.appendChild(document.createTextNode(value.slice(lastIndex, offset)));
+      }
+
+      var token = document.createElement("span");
+      token.textContent = match;
+      markNotranslate(token);
+      fragment.appendChild(token);
+      lastIndex = offset + match.length;
+      return match;
+    });
+
+    if (lastIndex < value.length) {
+      fragment.appendChild(document.createTextNode(value.slice(lastIndex)));
+    }
+
+    if (textNode.parentNode) {
+      textNode.parentNode.replaceChild(fragment, textNode);
+    }
+  }
+
+  function protectAcademicTokens(root) {
+    if (!root || !window.NodeFilter || !document.createTreeWalker) {
+      return;
+    }
+
+    var pattern = /1\.\s*º\s*ESO/;
+    var walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function (node) {
+          if (!node.nodeValue || node.nodeValue.indexOf("ESO") === -1) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          if (isAcademicTokenProtected(node)) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return pattern.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      }
+    );
+
+    var nodes = [];
+    var current = walker.nextNode();
+    while (current) {
+      nodes.push(current);
+      current = walker.nextNode();
+    }
+
+    nodes.forEach(wrapAcademicToken);
+  }
+
   function protectLanguageUi(root) {
     if (!root) {
       return;
@@ -605,6 +678,8 @@
   });
 
   window.addEventListener("DOMContentLoaded", function () {
+    protectAcademicTokens(document.body);
+
     var roots = document.querySelectorAll("[data-site-lang]");
     if (!roots.length) {
       return;
