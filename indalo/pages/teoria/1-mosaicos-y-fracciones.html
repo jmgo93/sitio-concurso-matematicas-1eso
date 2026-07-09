@@ -141,7 +141,7 @@
             width: 200px;
             height: 200px;
             border: 3px solid #333;
-            margin: 20px auto;
+            margin: 20px auto 10px;
         }
 
         .layer-vertical {
@@ -171,6 +171,13 @@
         }
         
         /* La intersección se ve verde/mezcla automáticamente por la transparencia */
+        .area-model-caption {
+            margin: 0 auto 20px;
+            max-width: 260px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
 
         .explanation-box {
             background-color: #eaf2f8;
@@ -329,12 +336,10 @@
             <div class="area-model-wrapper">
                 <div class="layer-vertical"></div>
                 <div class="layer-horizontal"></div>
-                <div style="position: absolute; bottom: -30px; width: 100%; text-align: center; font-size: 0.8rem; color: #666;">
-                    La intersección (Verde) es el resultado
-                </div>
             </div>
+            <p class="area-model-caption">La intersección (verde) es el resultado.</p>
 
-            <p style="margin-top: 40px;">
+            <p style="margin-top: 16px;">
                 La zona donde se cruzan los colores es el resultado de la multiplicación. Contamos los rectángulos dobles.
             </p>
 
